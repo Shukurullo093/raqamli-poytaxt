@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalla 24 | SOS Xabar</title>
+    <link rel="stylesheet" href="./css//style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <nav class="navbar px-3">
+        <div class="logo">
+            <img class="img_logo" src="./images/logo.jpg" alt="Mahalla 24/7">
+            <span>Statistika</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="dropbtn">Asosiy oyna</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Admin ▾</a>
+                <div class="dropdown-content">
+                    <a href="admin-user.html">Foydalanuvchi</a>
+                    <a href="admin-laws.html">Qonunlar</a>
+                    <a href="admin-videos.html">Videolar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Mahalla ▾</a>
+                <div class="dropdown-content">
+                    <a href="neighborhood-region.html">Viloyat</a>
+                    <a href="neighborhood-district.html">Tuman/Shahar</a> 
+                    <a href="neighborhood-neighborhoods.html">Mahallalar</a>
+                    <a href="neighborhood-eight.html">Sakkizlik</a>
+                    <a href="neighborhood-organizations.html">Tashkilot</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Fuqaro va hudud ▾</a>
+                <div class="dropdown-content">
+                    <a href="citizen-category.html">Toifa</a>
+                    <a href="citizen-citizen.html">Fuqaro</a>
+                    <a href="citizen-citizen-report.html">Fuqaro hisobot</a>
+                    <a href="citizen-area.html">Hudud</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Murojaat ▾</a>
+                <div class="dropdown-content">
+                    <a href="applications.html">Murojaatlar</a>
+                    <a href="application-report.html">Hisobot murojaat</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">SOS xabar ▾</a>
+                <div class="dropdown-content">
+                    <a href="sos-message.html">SOS xabar</a>
+                    <a href="sos-reports.html">Hisobot SOS xabar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Kunlik ish ▾</a>
+                <div class="dropdown-content">
+                    <a href="daily.html">Kunlik ish</a>
+                    <a href="sos-reports.html">Hisobot kunlik ish</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Raxbarlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Rahbar 1</a>
+                    <a href="#">Rahbar 2</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Hamkor hodimlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Viloyat</a>
+                    <a href="#">Tuman</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">PQ-1 ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">PQ-1</a>
+                    <a href="#">PQ-1 hisobot</a>
+                </div>
+            </li>
+        </ul>
+        <div class="profile dropdown-center">
+            <i id="theme" class="bi bi-moon"></i>
+            <img  class="img_avatar" src="./images/avatar.jpg" alt="User">
+            <div class="info d-flex flex-column fw-bold" data-bs-toggle="dropdown" aria-expanded="true">
+                <span>Toshtemirov B.</span>
+                <span>Admin</span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-gear"></i> Sozlamalar</a></li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-left"></i> Chiqish</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="d-flex flex-column">
+        <div class="container p-0">
+            <div class="row p-0 justify-content-between">
+                <div class="col-3">
+                    <select class="form-select">
+                        <option selected>Viloyatni tanlang</option>
+                        <option value="tashkent">Toshkent</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="form-select">
+                        <option selected>Tumanni tanlang</option>
+                        <option value="tashkent">Toshkent</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="form-select">
+                        <option selected>Mahallani tanlang</option>
+                        <option value="tashkent">Toshkent</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-4">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Kimga</span>
+                        <input type="search" class="form-control" aria-describedby="basic-addon1">
+                      </div>
+                </div>
+                <div class="col-8">
+                    <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                        <span class="input-group-text" id="basic-addon1">Kun</span>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-success" for="btnradio1">Harakatda</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-danger" for="btnradio2">Arxiv</label>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid w-100">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Sana</th>
+                    <!-- <th scope="col">Topshirildi</th> -->
+                    <th scope="col">Kimga</th>
+                    <th scope="col">Vazifa</th>
+                    <th scope="col">LOC</th>
+                    <th scope="col">Holat</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider align-items-center">
+                  <tr class="align-items-center">
+                    <th scope="row">1</th>
+                    <td><img src="images/avatar.jpg" width="50"></td>
+                    <!-- <td class="align-items-center">25/03/2025</td> -->
+                    <td>27/02/2025 05:41</td>
+                    <td>Qilichov Аnvar Xudarganovich</td>
+                    <td>Profilaktika Inspektori</td>
+                    <td>{ "lat": 41.522652, "lng": 60.584278 }...</td>
+                    <td class="text-center"><p class="bg-success rounded text-light">Faol</p></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $('#theme').click(function() {
+            console.log($('html').attr('data-bs-theme'));
+            if ($('html').attr('data-bs-theme') == 'dark') {
+                $('html').removeAttr('data-bs-theme');
+                $('#theme').removeClass('bi-brightness-high').addClass('bi-moon');
+            } else {
+                $('html').attr('data-bs-theme', 'dark');
+                $('#theme').removeClass('bi-moon').addClass('bi-brightness-high');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uz" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalla 24 | Toifa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script> -->
+</head>
+<body>
+    <nav class="navbar px-3">
+        <div class="logo">
+            <img class="img_logo" src="./images/logo.jpg" alt="Mahalla 24/7">
+            <span>Statistika</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="dropbtn">Asosiy oyna</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Admin ▾</a>
+                <div class="dropdown-content">
+                    <a href="admin-user.html">Foydalanuvchi</a>
+                    <a href="admin-laws.html">Qonunlar</a>
+                    <a href="admin-videos.html">Videolar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Mahalla ▾</a>
+                <div class="dropdown-content">
+                    <a href="neighborhood-region.html">Viloyat</a>
+                    <a href="neighborhood-district.html">Tuman/Shahar</a> 
+                    <a href="neighborhood-neighborhoods.html">Mahallalar</a>
+                    <a href="neighborhood-eight.html">Sakkizlik</a>
+                    <a href="neighborhood-organizations.html">Tashkilot</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Fuqaro va hudud ▾</a>
+                <div class="dropdown-content">
+                    <a href="citizen-category.html">Toifa</a>
+                    <a href="citizen-citizen.html">Fuqaro</a>
+                    <a href="citizen-citizen-report.html">Fuqaro hisobot</a>
+                    <a href="citizen-area.html">Hudud</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Murojaat ▾</a>
+                <div class="dropdown-content">
+                    <a href="applications.html">Murojaatlar</a>
+                    <a href="application-report.html">Hisobot murojaat</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">SOS xabar ▾</a>
+                <div class="dropdown-content">
+                    <a href="sos-message.html">SOS xabar</a>
+                    <a href="sos-reports.html">Hisobot SOS xabar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Kunlik ish ▾</a>
+                <div class="dropdown-content">
+                    <a href="daily.html">Kunlik ish</a>
+                    <a href="sos-reports.html">Hisobot kunlik ish</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Raxbarlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Rahbar 1</a>
+                    <a href="#">Rahbar 2</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Hamkor hodimlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Viloyat</a>
+                    <a href="#">Tuman</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">PQ-1 ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">PQ-1</a>
+                    <a href="#">PQ-1 hisobot</a>
+                </div>
+            </li>
+        </ul>
+        <div class="profile dropdown-center">
+            <i id="theme" class="bi bi-moon"></i>
+            <img  class="img_avatar" src="./images/avatar.jpg" alt="User">
+            <div class="info d-flex flex-column fw-bold" data-bs-toggle="dropdown" aria-expanded="true">
+                <span>Toshtemirov B.</span>
+                <span>Admin</span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-gear"></i> Sozlamalar</a></li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-left"></i> Chiqish</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="admin-laws container-fluid d-flex flex-column align-items-center">
+        <div class="d-flex justify-content-around align-items-center w-100 border-bottom py-1 gap-1">
+            <h5>Mavjud Toifalar</h5>
+            <div class="input-group w-50">
+                <span class="input-group-text" id="basic-addon1">Qidirish</span>
+                <input type="search" class="form-control">
+            </div>
+            <button type="button" class="btn btn-success ml-1" data-bs-toggle="modal" data-bs-target="#addLawModal">
+                Qo'shish
+            </button>
+        </div>
+        <div class="table-responsive w-100">
+            <table class="table table-bordered table-hover mt-1">
+                <thead class="thead-light">
+                    <tr class="text-uppercase">
+                        <th scope="col">№</th>
+                        <th scope="col">Toifa</th>
+                        <th scope="col">Tur</th>
+                        <th scope="col">Holat</th>
+                        <th scope="col">Amallar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td>Kreditga muhtoj</td>
+                        <td>Shaxs</td>
+                        <td>
+                            <span class="badge bg-success m-0">Faol</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm my-0" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                <i class="bi bi-pencil-square"></i> Tahrirlash
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">2</td>
+                        <td>Jinoyat sodir bulish extimoli yukori bulgan xavfli</td>
+                        <td>Hudud</td>
+                        <td>
+                            <span class="badge bg-danger m-0">Faol emas</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm my-0" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                <i class="bi bi-pencil-square"></i> Tahrirlash
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="modal fade" id="addLawModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editUserModalLabel">Toifa qo'shish:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="d-flex flex-column flex-sm-row mt-2">
+                                <label for="lawName" class="col-sm-2 col-form-label">Toifa:</label>
+                                <input type="text" class="form-control" id="lawName">
+                            </div>
+                            <div class="d-flex flex-column flex-sm-row mt-2">
+                                <label for="lawStatus" class="col-sm-2 col-form-label">Tur:</label>
+                                <select class="form-select" id="lawStatus">
+                                    <option value="1">Shaxs</option>
+                                    <option value="2">Hudud</option>
+                                </select>
+                            </div>
+                            <div class="d-flex flex-column flex-sm-row mt-2">
+                                <label for="lawStatus" class="col-sm-2 col-form-label">Holati:</label>
+                                <select class="form-select" id="lawStatus">
+                                    <option selected>Tanlang...</option>
+                                    <option value="1">Faol</option>
+                                    <option value="2">Faol emas</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                        <button type="button" class="btn btn-primary">Saqlash</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- <footer>
+    </footer> -->
+    <!-- <script src="script.js"></script> -->
+    <!-- <script src="scriptFilter.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $('#theme').click(function() {
+            if ($('html').attr('data-bs-theme') == 'dark') {
+                $('html').removeAttr('data-bs-theme');
+                $('#theme').removeClass('bi-brightness-high').addClass('bi-moon');
+            } else {
+                $('html').attr('data-bs-theme', 'dark');
+                $('#theme').removeClass('bi-moon').addClass('bi-brightness-high');
+            }
+        });
+    </script>
+</body>
+</html>

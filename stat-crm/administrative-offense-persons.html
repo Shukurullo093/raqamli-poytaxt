@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stat-crm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light rounded m-1 mt-1">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center text-light" href="javascript:void(0);">
+                Toshkent Shahar Ichki Ishlar Bosh Boshqarmasi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+                    <!-- <li class="nav-item">
+                        <i class="bi bi-moon-fill text-primary"></i>
+                    </li> -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle text-light"></i> Profile
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-gear"></i> Sozlamalar</a></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-in-left"></i> Chiqish</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex">
+        <div class="border-end rounded m-1" id="sidebar-wrapper">
+            <div class="sidebar-heading py-1 text-center">
+                <a class="navbar-brand d-flex align-items-center justify-content-center text-light w-100 py-1" href="javascript:void(0);">
+                    <img src="images/iib_logo.png" alt="Logo" width="100" height="100" class="d-inline-block align-text-top me-2">
+                </a>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action"><i class="bi bi-house-door"></i> Dashboard</a>
+                <a href="statistics.html" class="list-group-item list-group-item-action"><i class="bi bi-graph-up-arrow"></i> Statistika</a>
+                <a href="file-upload.html" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-arrow-up"></i> Asosiy faylni yuklash</a>
+                <a href="administrative-offense-file-upload.html" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-in-down"></i> Ma'muriy huquqbuzarliklarni yuklash</a>
+                <a href="administrative-offense-persons.html" class="list-group-item list-group-item-action active"><i class="bi bi-person-vcard"></i> Ma'muriy huquqbuzarliklarni sodir etganlar</a>
+                <a href="general-list.html" class="list-group-item list-group-item-action"><i class="bi bi-list-check"></i> Umumiy ro'yhat</a>
+            </div>
+        </div>
+        <div id="page-content">
+            <!-- <h1>Welcome to the Dashboard</h1> -->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-5 col-sm-12 p-3">
+                        <input type="date" class="form-control" id="dateInput">
+                    </div>
+                    <div class="col-md-5 col-sm-12 p-3">
+                        <input type="date" class="form-control" id="dateInput">
+                    </div>
+                    <div class="col-md-2 col-sm-12 py-3">
+                        <div class="btn-group w-100" role="group" aria-label="Basic example">
+                            <button class="btn btn-outline-primary w-100" id="searchButton"><i class="bi bi-search text-light"></i></button>
+                            <button class="btn btn-outline-primary w-100" id="searchButton"><i class="bi bi-printer text-light"></i></button>
+                            <button class="btn btn-outline-primary w-100" id="searchButton"><i class="bi bi-filetype-xlsx text-light"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead class="table-light">
+                                <th class="align-middle text-center">#</th>
+                                <th class="align-middle text-center">Seriya</th>
+                                <th class="align-middle text-center">MB tuzuvchi</th>
+                                <th class="align-middle text-center">Organ</th>
+                                <th class="align-middle text-center">Tuman</th>
+                                <th class="align-middle text-center">MJtK</th>
+                                <th class="align-middle text-center">Fuqaro</th>
+                                <th class="align-middle text-center">Tug'ilgan sana</th>
+                                <th class="align-middle text-center">Passport</th>
+                                <th class="align-middle text-center">Mas'ul shaxs</th>
+                            </thead>  
+                            <tbody>
+                                <tr class="table-light">
+                                    <td class="align-middle">1</td>
+                                    <td class="align-middle">123456</td>
+                                    <td class="align-middle">O'zbekiston Respublikasi IIB</td>
+                                    <td class="align-middle">O'zbekiston Respublikasi IIB</td>
+                                    <td class="align-middle">Toshkent</td>
+                                    <td class="align-middle">1234567890</td>
+                                    <td class="align-middle">Jalolov Jalol Jalolovich</td>
+                                    <td class="align-middle">01.01.1990</td>
+                                    <td class="align-middle">AB1234567</td>
+                                    <td class="align-middle">Jalolov Jalol Jalolovich</td>
+                                </tr>
+                            </tbody>                         
+                        </table>
+                    </div>
+                    <div class="btn-group col-md-2" role="group">
+                        <button class="btn btn-outline-primary w-100" id="searchButton"><i class="bi bi-caret-left-fill text-light"></i></button>
+                        <button class="btn btn-outline-primary w-100" id="searchButton">1</button>
+                        <button class="btn btn-outline-primary w-100" id="searchButton">2</button>
+                        <button class="btn btn-outline-primary w-100" id="searchButton">3</button>
+                        <button class="btn btn-outline-primary w-100" id="searchButton"><i class="bi bi-caret-right-fill text-light"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.navbar-toggler').on('click', function () {
+                $('#sidebar-wrapper').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

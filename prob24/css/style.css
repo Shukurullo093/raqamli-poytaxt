@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.dark-theme {
+    background-color: #20263c;
+    color: #f0f0f0;
+}
+
+#themeSwitcher:hover {
+    cursor: pointer;
+}
+header,
+nav{
+    position: relative;
+}
+.bi-chevron-up,
+.bi-chevron-down {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* .nav-item.active a{
+    background-color: white;
+    color: #003366;
+} */
+
+#map {
+    margin-top: 1rem;
+    width: 100%;
+    height: calc(100vh - 112px);
+    border-radius: 5px;
+    border: 2px solid #003366;
+}
+
+table thead tr th{
+    vertical-align: middle;
+}
+
+/* Start Supervisor control */
+
+/* end supervisor control */
+
+/* Start reports */
+.reports .table-responsive{
+    position: relative;
+    overflow: auto;
+    white-space: nowrap;
+}
+.reports table thead tr th:first-child,
+.reports table thead tr th:nth-child(2),
+.reports table thead tr th:nth-child(3),
+.reports table tbody tr td:first-child,
+.reports table tbody tr td:nth-child(2),
+.reports table tbody tr td:nth-child(3) {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+}
+.reports table thead tr th:nth-child(2),
+.reports table tbody tr td:nth-child(2){
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    left: 50px;
+}
+.reports table thead tr th:nth-child(3),
+.reports table tbody tr td:nth-child(3){
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    left: 200px;
+}
+/* end reports */
+
+/* Start inspections */
+.inspections table tbody tr td .position-relative i{
+    display: none;
+}
+.inspections table tbody tr td .position-relative:hover i{
+    display: block;
+}
+.inspections table tbody tr td .position-relative i{
+    top: 0;
+    right: 0;
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+/* end inspections */

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalla 24 | Bosh Sahifa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script>
+</head>
+<body>
+    <nav class="navbar px-3">
+        <div class="logo">
+            <img class="img_logo" src="./images/logo.jpg" alt="Mahalla 24/7">
+            <span>Statistika</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="dropbtn">Asosiy oyna</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Admin ▾</a>
+                <div class="dropdown-content">
+                    <a href="admin-user.html">Foydalanuvchi</a>
+                    <a href="admin-laws.html">Qonunlar</a>
+                    <a href="admin-videos.html">Videolar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Mahalla ▾</a>
+                <div class="dropdown-content">
+                    <a href="neighborhood-region.html">Viloyat</a>
+                    <a href="neighborhood-district.html">Tuman/Shahar</a> 
+                    <a href="neighborhood-neighborhoods.html">Mahallalar</a>
+                    <a href="neighborhood-eight.html">Sakkizlik</a>
+                    <a href="neighborhood-organizations.html">Tashkilot</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Fuqaro va hudud ▾</a>
+                <div class="dropdown-content">
+                    <a href="citizen-category.html">Toifa</a>
+                    <a href="citizen-citizen.html">Fuqaro</a>
+                    <a href="citizen-citizen-report.html">Fuqaro hisobot</a>
+                    <a href="citizen-area.html">Hudud</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Murojaat ▾</a>
+                <div class="dropdown-content">
+                    <a href="applications.html">Murojaatlar</a>
+                    <a href="application-report.html">Hisobot murojaat</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">SOS xabar ▾</a>
+                <div class="dropdown-content">
+                    <a href="sos-message.html">SOS xabar</a>
+                    <a href="sos-reports.html">Hisobot SOS xabar</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Kunlik ish ▾</a>
+                <div class="dropdown-content">
+                    <a href="daily.html">Kunlik ish</a>
+                    <a href="sos-reports.html">Hisobot kunlik ish</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Raxbarlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Rahbar 1</a>
+                    <a href="#">Rahbar 2</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Hamkor hodimlar ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">Viloyat</a>
+                    <a href="#">Tuman</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">PQ-1 ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">PQ-1</a>
+                    <a href="#">PQ-1 hisobot</a>
+                </div>
+            </li>
+        </ul>
+        <div class="profile dropdown-center">
+            <i id="theme" class="bi bi-moon"></i>
+            <img  class="img_avatar" src="./images/avatar.jpg" alt="User">
+            <div class="info d-flex flex-column fw-bold" data-bs-toggle="dropdown" aria-expanded="true">
+                <span>Toshtemirov B.</span>
+                <span>Admin</span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-gear"></i> Sozlamalar</a></li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-left"></i> Chiqish</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="sidebar">
+            <div class="user-card" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <img src="images/person-1.jpg" alt="avatar">
+                <div class="user-card-info">
+                    <strong><i class="bi bi-tag text-primary"></i> MFY Raisi</strong>
+                    <p><i class="bi bi-bookmark text-primary"></i> Atajanova Z. R.</p>
+                    <p><i class="bi bi-telephone text-primary"></i> 93-090-23-73</p>
+                </div>
+            </div>
+            <div class="user-card" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <img src="images/person-1.jpg" alt="avatar">
+                <div class="user-card-info">
+                    <strong>MFY Raisi</strong>
+                    <p>Atajanova Z.R.</p>
+                    <p><i class="bi bi-telephone text-primary"></i> 93-090-23-73</p>
+                </div>
+            </div>
+            <div class="modal modal-xl fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5 fw-bold text-uppercase" id="exampleModalLabel">Statistika</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="fw-bold">Atajanova Zulfiya Reyimberganovna</h5>
+                                    <h6 class="fw-bold">MFY Raisi</h6>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <h6 class="fw-bold">Xorazm viloyati</h6>
+                                    <h6 class="fw-bold">Urganch tumani</h6>
+                                    <h6 class="fw-bold">Qorako‘l MFY</h6>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-uppercase fw-bold">Majburiyatlar</h6>
+                                    <div class="d-flex">
+                                        <div class="col-6">
+                                            <h6>Jami: 100</h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h6>Bajarilgan: 25</h6>
+                                        </div>
+                                    </div>
+                                    <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-success" style="width: 25%">25%</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-uppercase fw-bold">MUROJAaT</h6>
+                                    <div class="d-flex">
+                                        <div class="col-6">
+                                            <h6>Jami: 100</h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h6>Bajarilgan: 25</h6>
+                                        </div>
+                                    </div>
+                                    <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width: 25%">25%</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class="text-uppercase fw-bold">Sos</h6>
+                                    <div class="d-flex">
+                                        <div class="col-6">
+                                            <h6>Jami: 100</h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h6>Bajarilgan: 25</h6>
+                                        </div>
+                                    </div>
+                                    <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-warning" style="width: 25%">25%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th class="w-50">FISH</th>
+                                        <th>Toifa</th>
+                                        <th>Kun</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="p-0">
+                                        <td class="m-0">1</td>
+                                        <td class="m-0">Atajanova Zulfiya Reyimberganovna</td>
+                                        <td class="m-0">MFY Raisi</td>
+                                        <td class="m-0">2023-10-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Atajanova Zulfiya Reyimberganovna</td>
+                                        <td>MFY Raisi</td>
+                                        <td>2023-10-02</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Atajanova Zulfiya Reyimberganovna</td>
+                                        <td>MFY Raisi</td>
+                                        <td>2023-10-03</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Atajanova Zulfiya Reyimberganovna</td>
+                                        <td>MFY Raisi</td>
+                                        <td>2023-10-04</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+          <div class="filters">
+            <input type="date" id="date">
+            <select id="region">
+                <option value="">Viloyatni tanlang</option>
+                <option value="Andijon">Andijon</option>
+                <option value="Buxoro">Buxoro</option>
+                <option value="Farg‘ona">Farg‘ona</option>
+                <option value="Jizzax">Jizzax</option>
+                <option value="Xorazm">Xorazm</option>
+                <option value="Namangan">Namangan</option>
+                <option value="Navoiy">Navoiy</option>
+                <option value="Qashqadaryo">Qashqadaryo</option>
+                <option value="Qoraqalpog‘iston">Qoraqalpog‘iston</option>
+                <option value="Samarqand">Samarqand</option>
+                <option value="Sirdaryo">Sirdaryo</option>
+                <option value="Surxondaryo">Surxondaryo</option>
+                <option value="Toshkent">Toshkent</option>
+            </select>
+            <select id="district">
+                <option value="">Tumanni tanlang</option>
+            </select>
+            <input type="text" id="search" placeholder="Mahalla nomi">
+            <!-- <button id="search-btn">Nayti</button> -->
+            <button>Video kuzatuv</button>
+            <button>Biriktirilgan mas’ullar</button>
+            <button>Demografik ma’lumotlar</button>
+        </div>
+            <!-- Yandex xarita -->
+            <div id="map"></div>
+        </div>
+    </main>
+    
+    <!-- <footer>
+    </footer> -->
+    <script src="js/script.js"></script>
+    <script src="js/scriptFilter.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $("#theme").click(function(){
+            $("body").toggleClass("dark-theme");
+            if($('body').hasClass('dark-theme')){
+                $('#theme').removeClass('bi-moon').addClass('bi-brightness-high');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                $('#theme').removeClass('bi-brightness-high').addClass('bi-moon');
+                localStorage.removeItem('theme');
+            }
+        });
+        
+        $(document).ready(function() {
+            if (localStorage.getItem('theme') == 'dark') {
+                $('body').addClass('dark-theme');
+                $('#theme').removeClass('bi-moon').addClass('bi-brightness-high');
+            } else {
+                $('body').removeClass('dark-theme');
+                $('#theme').removeClass('bi-brightness-high').addClass('bi-moon');
+            }
+        })
+        // warning: modal-content background color is not changing
+    </script>
+</body>
+</html>
