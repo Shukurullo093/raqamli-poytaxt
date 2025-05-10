@@ -27,6 +27,10 @@ body {
     align-items: center;
     column-gap: 10px;
 }
+.logo a{
+    text-decoration: none;
+    color: #003366;
+}
 
 .img_logo{
     width: 75px;
