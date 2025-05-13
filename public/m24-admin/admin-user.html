@@ -14,8 +14,8 @@
     <nav class="navbar px-3">
         <div class="logo">
             <a href="../index.html">
-                <img class="img_logo" src="./images/logo.jpg" alt="Mahalla 24/7">
-                <span>Dashboard</span>
+                <img class="img_logo rounded" src="./images/logo.jpg" alt="Mahalla 24/7">
+                <span class="text-primary">Dashboard</span>
             </a>
         </div>
         <ul class="nav-links">
@@ -94,102 +94,133 @@
             <i id="theme" class="bi bi-moon"></i>
             <img  class="img_avatar" src="./images/avatar.jpg" alt="User">
             <div class="info d-flex flex-column fw-bold" data-bs-toggle="dropdown" aria-expanded="true">
-                <span>Toshtemirov B.</span>
-                <span>Admin</span>
+                <span id="adminName" class="text-capitalize">Toshtemirov B.</span>
+                <span id="userRole">Admin</span>
             </div>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-gear"></i> Sozlamalar</a></li>
-                <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-left"></i> Chiqish</a></li>
+                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="logout()"><i class="bi bi-box-arrow-left"></i> Chiqish</a></li>
             </ul>
         </div>
     </nav>
     <main class="container-fluid d-flex flex-column align-items-center">
         <div class="d-flex justify-content-around align-items-center w-100 border-bottom py-1">
-            <h5>Mavjud Foydalanuvchilar</h5>
-            <div class="input-group w-50">
-                <span class="input-group-text" id="basic-addon1">Izlash</span>
-                <input type="search" class="form-control" aria-describedby="basic-addon1">
-            </div>
+            <!-- <h6>Mavjud Foydalanuvchilar</h6> -->
+            <div class="input-group w-75">
+                <span class="input-group-text">Izlash</span>
+                <input type="search" id="search" class="form-control" placeholder="FISH bo'yicha">
+                <select class="form-control" id="filterRole">
+                    <option value="">Hammasi</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Superadmin">Superadmin</option>
+                </select>
+                <select class="form-control" id="filterStatus">
+                    <option value="">Hammasi</option>
+                    <option value="faol">Faol</option>
+                    <option value="nofaol">Nofaol</option>
+                </select>
+            </div>            
             <button type="button" class="btn btn-success ml-1" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 Foydalanuvchi qo'shish
             </button>
         </div>
         <div class="table-responsive w-100">
-            <table class="table table-bordered table-hover mt-3">
+            <table id="userTable" class="table table-bordered table-hover mt-3">
                 <thead class="thead-light">
                     <tr class="text-uppercase">
                         <th scope="col">№</th>
                         <th scope="col">Login</th>
                         <th scope="col">FISh</th>
                         <th scope="col">Telefon raqami</th>
+                        <th scope="col">Yaratilingan vaqt</th>
                         <th scope="col">Vazifa</th>
                         <th scope="col">Holat</th>
                         <th scope="col">Amallar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td>admin</td>
-                        <td class="text-capitalize">Toshtemirov bobur</td>
-                        <td>+998 90 123 45 67</td>
-                        <td>Admin</td>
-                        <td>
-                            <span class="badge bg-success m-0">Faol</span>
-                            5 * 2 * 1
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm my-0" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                                <i class="bi bi-pencil-square"></i> Tahrirlash
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
         
         <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg">
+                <form class="modal-content" id="userForm">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addUserModalLabel">Foydalanuvchi qo'shish</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Login</label>
+                    <div class="modal-body row">
+                        <!-- <form> -->
+                            <div class="mb-3 col-6">
+                                <label for="username" class="form-label mb-0">Login</label>
                                 <input type="text" class="form-control" id="username" placeholder="Loginni kiriting">
                             </div>
+                            <div class="mb-3 col-6">
+                                <label for="password" class="form-label mb-0">Parol</label>
+                                <input type="password" class="form-control" id="password" placeholder="Parolni kiriting">
+                            </div>
                             <div class="mb-3">
-                                <label for="fullname" class="form-label">F.I.Sh</label>
+                                <label for="fullname" class="form-label mb-0">FISh</label>
                                 <input type="text" class="form-control" id="fullname" placeholder="F.I.Sh kiriting">
                             </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Telefon raqami</label>
+                            <div class="mb-3 col-6">
+                                <label for="photo" class="form-label mb-0">Rasm</label>
+                                <input type="file" accept="image/*" class="form-control" id="photo">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="phone" class="form-label mb-0">Telefon raqami</label>
                                 <input type="tel" class="form-control" id="phone" placeholder="Telefon raqamini kiriting">
                             </div>
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Vazifa</label>
+                            <div class="mb-3 col-6">
+                                <label for="role" class="form-label mb-0">Vazifa</label>
                                 <select class="form-select" id="role">
                                     <option value="Admin">Admin</option>
-                                    <option value="User">Foydalanuvchi</option>
+                                    <option value="Superadmin">Superadmin</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Holat</label>
+                            <div class="mb-3 col-6">
+                                <label for="status" class="form-label mb-0">Holat</label>
                                 <select class="form-select" id="status">
-                                    <option value="active">Faol</option>
-                                    <option value="inactive">Nofaol</option>
+                                    <option value="faol">Faol</option>
+                                    <option value="nofaol">Nofaol</option>
                                 </select>
                             </div>
-                        </form>
+                            <span class="text-danger" id="errorMsg" style="display: none;"></span>
+                            <span class="text-success" id="successMsg" style="display: none;"><i class="bi bi-check-circle text-success"></i> Yangi foydalanuvchi ro'yhatdan o'tkazildi</span>
+                        <!-- </form> -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                        <button type="button" class="btn btn-primary">Saqlash</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form class="modal-content" id="editUserForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editUserModalLabel">Foydalanuvchi ma'lumotlarini yangilash</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="mb-3">
+                            <label for="status" class="form-label mb-0">Holat</label>
+                            <select class="form-select" id="Estatus">
+                                <option value="faol">Faol</option>
+                                <option value="nofaol">Nofaol</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" style="display: block;" id="userDeleteBtn" class="btn btn-danger">O'chirish</button>
+                        <div class="btn-group">
+                            <button type="reset" class="btn btn-secondary mr-auto" data-bs-dismiss="modal">Bekor qilish</button>
+                            <button type="submit" id="editUserBtn" class="btn btn-primary ml-1">Saqlash</button>
+                        </div>                        
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -211,6 +242,220 @@
                 $('#theme').removeClass('bi-moon').addClass('bi-brightness-high');
             }
         });
+    
+        let baseUrl = 'http://localhost:3000'
+
+        window.onload = async function(){
+            const id = localStorage.getItem('adminId');
+            if (id !== null){
+                const res = await fetch(baseUrl + `/admin/${id}`, {
+                    method: 'GET',
+                });
+
+                const data = await res.json();
+                // console.log(data);
+                document.getElementById('adminName').innerText = formattedName(data.FISH);
+                document.getElementById('adminName').setAttribute('data-user-id', data.id);
+                document.getElementById('userRole').innerText = data.vazifa;
+
+                loadUserTable();
+            } else {
+                alert('Tizimga kiring');
+                window.location.href = '../login.html';
+            }
+        }
+
+        // user register
+        document.getElementById('userForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const login = document.getElementById('username').value;
+            const FISH = document.getElementById('fullname').value;
+            const telefon = document.getElementById('phone').value.replace(' ', '');
+            const vazifa = document.getElementById('role').value;
+            const holat = document.getElementById('status').value;
+
+            const res = await fetch(baseUrl + '/admin/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ login, FISH, telefon, vazifa, holat })
+            });
+
+            const data = await res.json();
+            if(res.ok) {
+                // console.log(data.admin);
+                this.reset();
+
+                const admin = data.admin;
+                const table = document.getElementById('userTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                const cell4 = newRow.insertCell(3);
+                const cell5 = newRow.insertCell(4);
+                const cell6 = newRow.insertCell(5);
+                const cell7 = newRow.insertCell(6);
+                const cell8 = newRow.insertCell(7);
+
+
+                cell1.innerText = table.rows.length;
+                cell2.innerText = admin.login;
+                cell3.innerText = admin.FISH;
+                cell4.innerText = formatPhoneNumber(admin.telefon);
+                cell5.innerText = formatDate(admin.createdAt);
+                cell6.innerText = admin.vazifa == 'Admin' ? 'Admin' : 'Superadmin';
+                cell7.innerHTML = `<span class="badge bg-${admin.holat == 'faol' ? 'success' : 'danger'} text-capitalize m-0">${admin.holat}</span>`;
+                cell8.innerHTML = `<button type="button" class="btn btn-primary btn-sm my-0" data-user-id='${admin.id}' data-bs-toggle="modal" data-bs-target="#editUserModal" onclick='setAttributeTo(this)'>
+                            <i class="bi bi-pencil-square"></i> Tahrirlash</button>`
+
+                const success = document.getElementById('successMsg');
+                success.style.display = 'block';
+                setTimeout(()=>{
+                    success.style.display = 'none';
+                }, 5000);
+            } else {
+                // Validation error
+                const error = document.getElementById('errorMsg');
+                error.style.display = 'block';
+                error.innerHTML = `<i class="bi bi-exclamation-circle text-danger"></i> ${data.error}`;
+                setTimeout(()=>{
+                    error.style.display = 'none';
+                }, 5000);
+            }    
+        })
+    
+        // filter by fullname
+        document.getElementById('search').addEventListener('input', function() {
+            const filterValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#userTable tbody tr');
+
+            rows.forEach(row => {
+                const cellText = row.cells[2].textContent.toLowerCase(); 
+                if (cellText.includes(filterValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // filter by role
+        document.getElementById('filterRole').addEventListener('change', function() {
+            const filterValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#userTable tbody tr');
+
+            rows.forEach(row => {
+                const country = row.cells[5].textContent.toLowerCase(); 
+                if (!filterValue || country === filterValue) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // filter by status
+        document.getElementById('filterStatus').addEventListener('change', function() {
+            const filterValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#userTable tbody tr');
+
+            rows.forEach(row => {
+                const country = row.cells[6].textContent.toLowerCase(); 
+                if (!filterValue || country === filterValue) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('userDeleteBtn').addEventListener('click', async function(){
+            const userId = document.getElementById('editUserForm').getAttribute('data-user-id');
+            // console.log(userId);
+            const res = await fetch(baseUrl + `/admin/${userId}`, {
+                method: 'DELETE'
+            });
+
+            const data = await res.json();
+            // console.log(data);
+            if(res.ok){
+                document.querySelector('#userTable tbody').innerHTML = '';
+                loadUserTable();
+                const myModalEl = document.getElementById('editUserModal');
+                const modal = bootstrap.Modal.getInstance(myModalEl) || new bootstrap.Modal(myModalEl);
+                modal.hide();
+            }
+        })
+
+        async function loadUserTable(){
+            const admins = await fetch(baseUrl + `/admin/all`, {
+                method: 'GET',
+            });
+
+            const adminsData = await admins.json();
+            const table = document.getElementById('userTable').getElementsByTagName('tbody')[0];
+            let i = 1;
+            for (admin in adminsData){
+                admin = adminsData[admin];
+                // console.log(admin)
+                const newRow = table.insertRow();
+
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                const cell4 = newRow.insertCell(3);
+                const cell5 = newRow.insertCell(4);
+                const cell6 = newRow.insertCell(5);
+                const cell7 = newRow.insertCell(6);
+                const cell8 = newRow.insertCell(7);
+
+                cell1.innerText = i;
+                cell2.innerText = admin.login;
+                cell3.innerText = admin.FISH;
+                cell4.innerText = formatPhoneNumber(admin.telefon);
+                cell5.innerText = formatDate(admin.createdAt);
+                cell6.innerText = admin.vazifa == 'Admin' ? 'Admin' : 'Superadmin';
+                cell7.innerHTML = `<span class="badge bg-${admin.holat == 'faol' ? 'success' : 'danger'} text-capitalize m-0">${admin.holat}</span>`;
+                const currentUserId = document.getElementById('adminName').getAttribute('data-user-id');
+                if (currentUserId !== admin.id){
+                    cell8.innerHTML = `<button type="button" class="btn btn-primary btn-sm my-0" data-user-id='${admin.id}' data-bs-toggle="modal" data-bs-target="#editUserModal" onclick='setAttributeTo(this)'>
+                            <i class="bi bi-pencil-square"></i> Tahrirlash</button>`
+                }                    
+                i++;
+            }
+        }
+
+        function formattedName(fullname){
+            return fullname.split(' ')[0] + ' ' + fullname.split(' ')[1][0] + '.'
+        }
+
+        function formatPhoneNumber(phone) {
+            const match = phone.match(/^\+998(\d{2})(\d{3})(\d{2})(\d{2})$/);
+            if (!match) return phone; // return original if format doesn't match
+
+            return `+998 (${match[1]})-${match[2]}-${match[3]}-${match[4]}`;
+        }
+
+        function formatDate(dateString) {
+            const day = dateString.split('T')[0].split('-')[2];
+            const month = dateString.split('T')[0].split('-')[1]; 
+            const year = dateString.split('T')[0].split('-')[0];
+            const hours = dateString.split('T')[1].split(':')[0];
+            const minutes = dateString.split('T')[1].split(':')[1];
+
+            return `${day}-${month}-${year} ${parseInt(hours) + 5}:${minutes}`;
+        }
+
+        function setAttributeTo(element){
+            document.getElementById('editUserForm').setAttribute('data-user-id', element.getAttribute('data-user-id'));
+        }
+
+        function logout(){
+            localStorage.removeItem('token');
+            localStorage.removeItem('adminId');
+            window.location.href = '../login.html';
+        }
     </script>
 </body>
 </html>
