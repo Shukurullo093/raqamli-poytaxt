@@ -2,7 +2,7 @@ ymaps.ready(init);
 
 function init() {
     var map = new ymaps.Map("map", {
-        center: [41.5503, 60.6316], // Urganch koordinatalari
+        center: [41.295399, 69.288816], // Urganch koordinatalari
         zoom: 14
     });
 

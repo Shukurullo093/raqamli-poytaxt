@@ -2,7 +2,7 @@ const ctx = document.getElementById('myPieChart').getContext('2d');
 const myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4'],
+        labels: ['Mirobod', 'Shayhontohur', 'Olmazor', 'Mirzo Ulug\'bek'],
         datasets: [{
             label: 'Sample Data',
             data: [10, 20, 30, 40],
@@ -38,9 +38,9 @@ const ctx1 = document.getElementById('myBarChart').getContext('2d');
 const myBarChart1 = new Chart(ctx1, {
     type: 'bar',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: ['Yanvar', 'Fevral', 'Mart', 'April', 'May', 'Iyun'],
         datasets: [{
-            label: 'Monthly Data',
+            label: 'Oylik ma\'lumot',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -74,7 +74,7 @@ const ctx2 = document.getElementById('myPieChart2').getContext('2d');
 const myPieChart2 = new Chart(ctx2, {
     type: 'doughnut',
     data: {
-        labels: ['Category 1', 'Category 2', 'Category 3'],
+        labels: ['Erkak', 'Ayol', 'AA-3190983'],
         datasets: [{
             label: 'Sample Data',
             data: [30, 50, 20],
