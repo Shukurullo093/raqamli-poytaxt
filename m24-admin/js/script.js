@@ -30,10 +30,15 @@ function init() {
 
     // Markerlar
     var markers = [
-        { coords: [41.5503, 60.6316], title: "Mahalla markazi", color: "red" },
-        { coords: [41.5523, 60.6336], title: "Tibbiyot markazi" },
-        { coords: [41.5485, 60.6290], title: "Maktab" },
-        { coords: [41.5515, 60.6282], title: "Bozor" }
+        { coords: [41.295399, 69.288816], title: "Mahalla markazi", color: "red" },
+        { coords: [41.293465, 69.291356], title: "Tibbiyot markazi" },
+        { coords: [41.293753, 69.283493], title: "Maktab" },
+        { coords: [41.289178, 69.279770], title: "Bozor" },
+
+        { coords: [41.296027, 69.283388], title: "39-maktab", color: "red" },
+        { coords: [41.289517, 69.277578], title: "6-oilaviy poliklinika" },
+        { coords: [41.286014, 69.281301], title: "Supermarket" },
+        { coords: [41.290720, 69.294592], title: "Tinchlik restoran" }
     ];
 
     markers.forEach(function (point) {
