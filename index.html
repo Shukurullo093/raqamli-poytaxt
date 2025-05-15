@@ -33,7 +33,6 @@
         }
         a {
             text-decoration: none;
-            /* color: #007bff; */
             color:darkblue;
             font-size: 24px;
             font-weight: bold;
@@ -48,26 +47,72 @@
             padding: 10px;
             background-color: #f8f9fa;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s;
+        }
+        .col-md-3{
+            background-color: rgb(30, 114, 144);
+            border-radius: 10px;
+            padding-top: 1rem;
+            padding-bottom: .5rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        /* .col-md-3::before,
+        .col-md-3::after{
+            content: "";
+            position: absolute;
+            height: 150%;
+            width: 150%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        .col-md-3::before{
+            background: conic-gradient(
+                #44f 20deg,
+                transparent 120deg
+            );
+            animation: rotate 1s linear infinite;
+        }
+        
+        .col-md-3::after{
+            background: #222;
+            height: 95%;
+            width: 95%;
+            box-shadow: 5px 5px 5px #0008 inset;
+            border-radius: 10px;
+        }
+        @keyframes rotate{
+            100%{
+                transform: translate(-50%, -50%)
+                rotate(-360deg);
+            }
+        } */
+
+        .col-md-3:hover{
+            transform: scale(1.2);
+            /* transition: .3s ease; */
         }
     </style>
 </head>
 <body>
     <div class="container text-center mt-3">
         <h2>Toshkent shahar Ichki Ishlar Bosh Boshqarmasi <br><span style="font-weight: bold; font-size: 40px; color: blue;">raqamli poytaxt</span><br> <span class="text-uppercase" style="color: blue;">platformasi</span></h2>
-        <div class="row">
-            <div class="col-md-4 col-sm-12 mb-3">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-3 col-sm-12 mb-3">
                 <img src="images/mahalla.png" alt="Logo" width="300" class="img-fluid"><br>
                 <a href="m24-admin/index.html">Mahalla 24</a>
             </div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-3 col-sm-12 mb-3">
                 <img src="images/prob.png" alt="Logo" width="300" class="img-fluid"><br>
                 <a href="prob24/dashboard.html">Prob 24</a>
             </div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-3 col-sm-12 mb-3">
                 <img src="images/Yoshlar.png" alt="Logo" width="300" class="img-fluid"><br>
-                <a href="stat-crm/login.html">Yoshlar bilan ishlash</a>
+                <a href="stat-crm/login.html" style="font-size: 20px;">Yoshlar bilan ishlash</a>
             </div>
         </div>
     </div>
