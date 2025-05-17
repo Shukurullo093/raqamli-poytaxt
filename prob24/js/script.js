@@ -5,9 +5,8 @@ let map;
 function init() {
     map = new ymaps.Map("map", {
         center: [41.314578053930845, 69.25047831274924],
-        zoom: 15,
-        type: 'yandex#map' // Light mode by default
-        // controls: ['searchControl']
+        zoom: 12,
+        type: 'yandex#map' 
     });
 
     var polygonCoordinates = [
@@ -44,14 +43,15 @@ function init() {
         ];
 
     // Polygon yaratish
-    var myPolygon = new ymaps.Polygon([polygonCoordinates], {
-        hintContent: "Diqqat! Bu hudud"
-    }, {
-        fillColor: '#c0e1c088',  // to'ldirish rangi (yashil, biroz shaffof)
-        strokeColor: '#008000',  // chegara rangi (qalin va yashil)
-        strokeWidth: 3,     // chegara qalinligi
-        fillOpacity: 1           
-    });
+    var myPolygon = new ymaps.Polygon([polygonCoordinates], 
+        {
+            // hintContent: "Diqqat! Bu hudud"
+        }, {
+            fillColor: '#c0e1c088',  
+            strokeColor: '#008000',  
+            strokeWidth: 3,    
+            fillOpacity: 1           
+        });
 
     // Polygonni xaritaga qo'shish
     map.geoObjects.add(myPolygon);
@@ -111,7 +111,7 @@ function init() {
                 iconImageSize: [40, 40], // Iconkaning o‘lchami
                 iconImageOffset: [-20, -20] // Markazlash uchun offset
             });
-            map.setCenter(point.coords, 18, { checkZoomRange: true });
+            map.setCenter(point.coords, 20, { checkZoomRange: true });
             // placemark.balloon.open();
             myPolygon.options.set('fillOpacity', 0);
         });

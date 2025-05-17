@@ -25,9 +25,11 @@ span{
 }
 img {
     border-radius: 50%;
-
 }
-a {
+a{
+    text-decoration: none;
+}
+.row .col-md-3 .site-name {
     text-decoration: none;
     color:darkblue;
     font-size: 24px;
