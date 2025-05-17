@@ -124,7 +124,7 @@ new Chart(ctx1, {
             },
             datalabels: {
                 anchor: 'end',
-                align: 'start',
+                align: 'end', // start
                 color: 'white',
                 font: {
                     weight: 'bold',
