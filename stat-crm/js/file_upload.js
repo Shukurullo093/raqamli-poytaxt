@@ -52,6 +52,8 @@ document.getElementById('fileInput').addEventListener('change', function (e) {
         document.getElementById('excel-table').innerHTML = html;
 // ----------------------------------------------------------------------
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        // console.log(jsonData);
+
         const headers = jsonData[0];
         // console.log(headers);
         const districtIndex = headers.indexOf("Tuman (shahar)\r\nnomi");

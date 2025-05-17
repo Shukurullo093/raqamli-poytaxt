@@ -97,3 +97,26 @@
         z-index: 1000;
     }
 }
+
+#excel-table{
+    border-radius: 5px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+tr{
+    color: white;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    color: white;
+}
+th {
+    background-color: #f0f0f0;
+    color: blue;
+}
