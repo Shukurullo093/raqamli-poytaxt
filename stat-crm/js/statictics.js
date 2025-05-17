@@ -111,12 +111,9 @@ new Chart(ctx1, {
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1,
-            // barThickness: 6,
-            // maxBarThickness: 8,
         }]
     },
     options: {
-        // indexAxis: 'y',
         responsive: true,
         plugins: {
             legend: {
@@ -124,6 +121,18 @@ new Chart(ctx1, {
             },
             tooltip: {
                 enabled: true
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'start',
+                color: 'white',
+                font: {
+                    weight: 'bold',
+                    size: 12
+                },
+                formatter: function(value) {
+                    return value;
+                }
             }
         },
         scales: {
@@ -145,7 +154,8 @@ new Chart(ctx1, {
                 }
             }
         }
-    }
+    },
+    plugins: [ChartDataLabels]
 });
 
 document.getElementById('type').innerText = `Toifalar kesimida: ${typeDataValues.reduce((a, b) => a + b, 0)}`;
