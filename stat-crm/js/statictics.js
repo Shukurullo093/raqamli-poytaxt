@@ -41,6 +41,18 @@ new Chart(ctx, {
             ],
             borderWidth: 1
         }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white'
+                }
+            },
+            datalabels: {
+                color: 'blue'
+            }
+        }
     }
 });
 
@@ -191,6 +203,12 @@ categorySelect.addEventListener('change', function() {
                 plugins: {
                     legend: {
                         position: 'top',
+                        labels: {
+                            color: 'white'
+                        }
+                    },
+                    datalabels: {
+                        color: 'white'
                     },
                     tooltip: {
                         enabled: true
@@ -212,6 +230,11 @@ categorySelect.addEventListener('change', function() {
                             font: {
                                 size: 12
                             }
+                        }
+                    },
+                    r: {
+                        pointLabels: {
+                            color: 'white'
                         }
                     }
                 }
