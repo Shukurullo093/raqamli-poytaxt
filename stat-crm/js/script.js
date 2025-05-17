@@ -1,11 +1,8 @@
-
-
 window.addEventListener("DOMContentLoaded", function () {
     const tableContainer = document.getElementById('excel-table');
 
     if (data && data.length > 0) {
       const table = document.createElement('table');
-    //   table.border = "1";
 
       // Head
       const headerRow = document.createElement('tr');
@@ -32,5 +29,3 @@ window.addEventListener("DOMContentLoaded", function () {
       tableContainer.innerText = 'Ma\'lumot yo‘q.';
     }
 });
-
-// ************
