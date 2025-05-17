@@ -5,7 +5,7 @@ let map;
 function init() {
     map = new ymaps.Map("map", {
         center: [41.314578053930845, 69.25047831274924],
-        zoom: 11,
+        zoom: 15,
         type: 'yandex#map' // Light mode by default
         // controls: ['searchControl']
     });
@@ -105,8 +105,14 @@ function init() {
         });
 
         placemark.events.add('click', function () {
+            placemark.options.set({
+                iconLayout: 'default#image',
+                iconImageHref: '../images/geo-fill.svg',
+                iconImageSize: [40, 40], // Iconkaning o‘lchami
+                iconImageOffset: [-20, -20] // Markazlash uchun offset
+            });
             map.setCenter(point.coords, 18, { checkZoomRange: true });
-            placemark.balloon.open();
+            // placemark.balloon.open();
             myPolygon.options.set('fillOpacity', 0);
         });
 

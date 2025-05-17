@@ -7,6 +7,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        }
+        tr{
+            color: white;
+        }
+        th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        color: white;
+        }
+        th {
+        background-color: #f0f0f0;
+        color: blue;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light rounded m-1 mt-1">
@@ -56,25 +77,73 @@
             <!-- <h1>Welcome to the Dashboard</h1> -->
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-10 col-sm-12 p-3">
-                        <input type="file" accept=".xls,.xlsx" class="form-control" id="dateInput">
+                    <div class="col-md-9 col-sm-12 p-3">
+                        <input type="file" accept=".xls,.xlsx" class="form-control" id="fileInput" placeholder="Faylni yuklang">
                     </div>
-                    <div class="col-md-2 col-sm-12 p-3">
-                        <button class="btn btn-primary w-100" id="searchButton"><i class="bi bi-file-earmark-arrow-up text-light"></i> Import</button>
+                    <div class="col-md-3 col-sm-12 p-3">
+                        <button class="btn btn-primary w-100" id="vizualBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-pie-chart-fill text-light"></i> Vizual ko'rish
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ma'lumotlarni vizual ko'rish</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body row">
+                                    <div class="col-5 text-center">
+                                        <h3 id="district">Tumanlar kesimida</h3>
+                                        <canvas id="myPieChart" width="400" height="400"></canvas>
+                                    </div>
+                                    <div class="col-7 text-center" style="max-height: 450px;">
+                                        <h3 id="type">Toifalar kesimida</h3>
+                                        <canvas id="myBarChart" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div id="excel-table"></div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/file_upload.js"></script>
     <script>
         $(document).ready(function () {
             $('.navbar-toggler').on('click', function () {
                 $('#sidebar-wrapper').toggleClass('active');
             });
         });
+    
+        
+        // document.getElementById('searchButton').addEventListener('click', function () {
+        //     const fileInput = document.getElementById('fileInput');
+        //     if (fileInput.files.length === 0) {
+        //         alert('Iltimos, faylni yuklang.');
+        //         return;
+        //     }
+        //     const file = fileInput.files[0];
+        //     const reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         const data = new Uint8Array(e.target.result);
+        //         const workbook = XLSX.read(data, { type: 'array' });
+        //         const sheetName = workbook.SheetNames[0];
+        //         const worksheet = workbook.Sheets[sheetName];
+        //         const html = XLSX.utils.sheet_to_html(worksheet);
+        //         document.getElementById('excel-table').innerHTML = html;
+        //     };
+        //     reader.readAsArrayBuffer(file);
+        // });
     </script>
 </body>
 </html>
