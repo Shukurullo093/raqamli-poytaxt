@@ -98,7 +98,7 @@ var chartOptions = {
         fontFamily: 'Helvetica, Arial, sans-serif',
         foreColor: '#6E729B',
         toolbar: {
-        show: false,
+            show: false,
         },
     },
     stroke: {

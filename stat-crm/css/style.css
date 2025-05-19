@@ -59,7 +59,6 @@
 }
 #page-content {
     width: 100%;
-    /* top: 200px; */
     margin-top: 70px;
     margin-left: 260px;
     margin-right: 4px;
@@ -68,8 +67,47 @@
     color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* min-height: calc(100vh - 20px); */
     transition: margin-left 0.3s ease;
+}
+.dashboard {
+    width: 100%;
+    margin-top: 70px;
+    margin-left: 260px;
+    margin-right: 4px;
+    padding: 10px;
+    background-color: white;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: margin-left 0.3s ease;
+}
+.dashboard .card {
+    background-color: #332841;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.dashboard .card i{
+    font-size: 50px;
+    color: #fff;
+}
+.dashboard .container {
+    background-color: #332841;
+    padding-bottom: 1rem;
+}
+.dashboard table {
+    width: 100%;
+}
+.dashboard table th{
+    font-size: 14px;
+    text-align: center;
+    background-color: #332841;
+    color: white;
+}
+.dashboard table td{
+    font-size: 12px;
 }
 #myPieChart {
     width: 200px;

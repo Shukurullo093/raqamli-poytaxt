@@ -52,23 +52,48 @@
                 <a href="general-list.html" class="list-group-item list-group-item-action"><i class="bi bi-list-check"></i> Umumiy ro'yhat</a>
             </div>
         </div>
-        <div id="page-content">
-            <!-- <h1>Welcome to the Dashboard</h1> -->
-            <div class="container">
-                <!-- <div class="row">
-                    <div class="col-md-4 col-sm-12 p-3 text-center">
-                        <h4 class="text-light">Tumanlar kesimida soni: 58832</h4>
-                        <canvas id="myPieChart"></canvas>
+        <div class="dashboard">
+            <div class="panel">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card m-1">
+                            <div class="d-flex flex-column">
+                                <strong class="text-light m-2">Hodimlar</strong>
+                                <span class="badge bg-light text-primary rounded-pill m-2">108</span>
+                            </div>
+                            <i class="bi bi-people text-light"></i>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-12 border-end border-start p-3 text-center">
-                        <h4 class="text-light">Sohaviy xizmatlar soni: 2350</h4>
-                        <canvas id="myBarChart"></canvas>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card m-1">
+                            <div class="d-flex flex-column">
+                                <strong class="text-light m-2">Tumanlar</strong>
+                                <span class="badge bg-light text-primary rounded-pill m-2">12</span>
+                            </div>
+                            <i class="bi bi-map text-light"></i>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-12 p-3 text-center">
-                        <h4 class="text-light">Jami yoshlar soni: 58832</h4>
-                        <canvas id="myPieChart2"></canvas>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card m-1">
+                            <div class="d-flex flex-column">
+                                <strong class="text-light m-2">Yoshlar</strong>
+                                <span class="badge bg-light text-primary rounded-pill m-2">357</span>
+                            </div>
+                            <i class="bi bi-person-plus text-light"></i>
+                        </div>
                     </div>
-                </div> -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card m-1">
+                            <div class="d-flex flex-column">
+                                <strong class="text-light m-2">Toifa</strong>
+                                <span class="badge bg-light text-primary rounded-pill m-2">10</span>
+                            </div>
+                            <i class="bi bi-bookmark-plus text-light"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-2 rounded">
                 <div class="row">
                     <div class="col-md-5 col-sm-12 p-3 text-center">
                         <h4 class="text-light" id="district">Tumanlar kesimida</h4>
@@ -78,6 +103,12 @@
                         <h4 class="text-light" id="type">Toifalar kesimida</h4>
                         <canvas id="myBarChart"></canvas>
                     </div>                    
+                </div>
+                <div class="row mt-3 mb-2">
+                    <div class="col-lg-8 col-sm-12 text-center">
+                        <h4 class="text-light mb-0">Yoshlar ro'yhati</h4>
+                        <div id="excel-table" class="table-responsive rounded"></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -160,203 +160,35 @@ new Chart(ctx1, {
 
 document.getElementById('type').innerText = `Toifalar kesimida: ${typeDataValues.reduce((a, b) => a + b, 0)}`;
 
-// Diagramma turini tanlash
-// const categorySelect = document.getElementById('category');
-// const chartSelect = document.getElementById('chart');
-// const chartCanvas = document.getElementById('myChart');
-// const chartTitle = document.getElementById('chartTitle');
-// const chartContainer = document.getElementById('chartContainer');
-// let myChart;
+window.addEventListener("DOMContentLoaded", function () {
+    const tableContainer = document.getElementById('excel-table');
+    // console.log(data);
+    const data1 = data.slice(0, 10);
+    if (data1 && data1.length > 0) {
+      const table = document.createElement('table');
 
-// categorySelect.addEventListener('change', function() {
-//     chartContainer.style.display = 'block';
-//     const selectedCategory = categorySelect.value;
-//     const selectedChart = chartSelect.value;
+      // Head
+      const headerRow = document.createElement('tr');
+      Object.keys(data1[0]).forEach(key => {
+        const th = document.createElement('th');
+        th.innerText = key;
+        headerRow.appendChild(th);
+      });
+      table.appendChild(headerRow);
 
-//     if (myChart) {
-//         myChart.destroy();
-//     }
+      // Rows
+      data1.forEach(row => {
+        const tr = document.createElement('tr');
+        Object.values(row).forEach(value => {
+          const td = document.createElement('td');
+          td.innerText = value;
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
 
-//     if (selectedCategory && selectedChart) {
-//         const counts = {};
-//         for (let i = 0; i < data.length; i++) {
-//             const row = data[i];
-//             let categoryValue = row[selectedCategory];
-//             if(categoryValue){
-//                 categoryValue = categoryValue.trim().replaceAll(' ', '_');
-//                 counts[categoryValue] = (counts[categoryValue] || 0) + 1;
-//             }
-//         }
-
-//         const labels = Object.keys(counts);
-//         const dataValues = Object.values(counts);
-
-//         chartTitle.innerText = `${selectedCategory.replaceAll('_', ' ')} bo‘yicha taqsimot: ${dataValues.reduce((a, b) => a + b, 0)}`;
-
-//         myChart = new Chart(chartCanvas, {
-//             type: selectedChart,
-//             data: {
-//                 labels: labels,
-//                 datasets: [{
-//                     label: `${selectedCategory.replaceAll('_', ' ')} bo‘yicha taqsimot`,
-//                     data: dataValues,
-//                     backgroundColor: [
-//                         'rgba(255, 99, 132, 0.2)',
-//                         'rgba(54, 162, 235, 0.2)',
-//                         'rgba(255, 206, 86, 0.2)',
-//                         'rgba(75, 192, 192, 0.2)',
-//                         'rgba(153, 102, 255, 0.2)',
-//                         'rgba(255, 159, 64, 0.2)'
-//                     ],
-//                     borderColor: [
-//                         'rgba(255, 99, 132, 1)',
-//                         'rgba(54, 162, 235, 1)',
-//                         'rgba(255, 206, 86, 1)',
-//                         'rgba(75, 192, 192, 1)',
-//                         'rgba(153, 102, 255, 1)',
-//                         'rgba(255, 159, 64, 1)'
-//                     ],
-//                     borderWidth: 1
-//                 }]
-//             },
-//             options: {
-//                 responsive: true,
-//                 plugins: {
-//                     legend: {
-//                         position: 'top',
-//                         labels: {
-//                             color: 'white'
-//                         }
-//                     },
-//                     datalabels: {
-//                         color: 'white'
-//                     },
-//                     tooltip: {
-//                         enabled: true
-//                     }
-//                 },
-//                 scales: {
-//                     y: {
-//                         ticks: {
-//                             color: 'white',
-//                             font: {
-//                                 size: 12
-//                             }
-//                         },
-//                         beginAtZero: true
-//                     },
-//                     x: {
-//                         ticks: {
-//                             color: 'white',
-//                             font: {
-//                                 size: 12
-//                             }
-//                         }
-//                     },
-//                     r: {
-//                         pointLabels: {
-//                             color: 'white'
-//                         }
-//                     }
-//                 }
-//             }
-//         });
-//     }
-// });
-
-// chartSelect.addEventListener('change', function() {
-//     chartContainer.style.display = 'block';
-//     const selectedCategory = categorySelect.value;
-//     const selectedChart = chartSelect.value;
-
-//     if (myChart) {
-//         myChart.destroy();
-//     }
-
-//     if (selectedCategory && selectedChart) {
-//         const counts = {};
-//         for (let i = 0; i < data.length; i++) {
-//             const row = data[i];
-//             let categoryValue = row[selectedCategory];
-//             if(categoryValue){
-//                 categoryValue = categoryValue.trim().replaceAll(' ', '_');
-//                 counts[categoryValue] = (counts[categoryValue] || 0) + 1;
-//             }
-//         }
-
-//         const labels = Object.keys(counts);
-//         const dataValues = Object.values(counts);
-
-//         chartTitle.innerText = `${selectedCategory.replaceAll('_', ' ')} bo‘yicha taqsimot: ${dataValues.reduce((a, b) => a + b, 0)}`;
-
-//         myChart = new Chart(chartCanvas, {
-//             type: selectedChart,
-//             data: {
-//                 labels: labels,
-//                 datasets: [{
-//                     label: `${selectedCategory.replaceAll('_', ' ')} bo‘yicha taqsimot`,
-//                     data: dataValues,
-//                     backgroundColor: [
-//                         'rgba(255, 99, 132, 0.2)',
-//                         'rgba(54, 162, 235, 0.2)',
-//                         'rgba(255, 206, 86, 0.2)',
-//                         'rgba(75, 192, 192, 0.2)',
-//                         'rgba(153, 102, 255, 0.2)',
-//                         'rgba(255, 159, 64, 0.2)'
-//                     ],
-//                     borderColor: [
-//                         'rgba(255, 99, 132, 1)',
-//                         'rgba(54, 162, 235, 1)',
-//                         'rgba(255, 206, 86, 1)',
-//                         'rgba(75, 192, 192, 1)',
-//                         'rgba(153, 102, 255, 1)',
-//                         'rgba(255, 159, 64, 1)'
-//                     ],
-//                     borderWidth: 1
-//                 }]
-//             },
-//             options: {
-//                 responsive: true,
-//                 plugins: {
-//                     legend: {
-//                         position: 'top',
-//                         labels: {
-//                             color: 'white'
-//                         }
-//                     },
-//                     datalabels: {
-//                         color: 'white'
-//                     },
-//                     tooltip: {
-//                         enabled: true
-//                     }
-//                 },
-//                 scales: {
-//                     y: {
-//                         ticks: {
-//                             color: 'white',
-//                             font: {
-//                                 size: 12
-//                             }
-//                         },
-//                         beginAtZero: true
-//                     },
-//                     x: {
-//                         ticks: {
-//                             color: 'white',
-//                             font: {
-//                                 size: 12
-//                             }
-//                         }
-//                     },
-//                     r: {
-//                         pointLabels: {
-//                             color: 'white'
-//                         }
-//                     }
-//                 }
-//             }
-//         });
-//     }
-// });
-   
+      tableContainer.appendChild(table);
+    } else {
+      tableContainer.innerText = 'Ma\'lumot yo‘q.';
+    }
+});
