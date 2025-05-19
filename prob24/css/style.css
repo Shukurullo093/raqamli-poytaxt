@@ -131,3 +131,18 @@ table thead tr th{
     cursor: pointer;
 }
 /* end inspections */
+
+/* Start application control */
+.applications table th{
+    border: 1px solid white;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 5px 10px;
+}
+.applications table td{
+    border: 1px solid black;
+    /* text-align: center; */
+    /* text-transform: capitalize; */
+    padding: 5px 10px;
+}
+/* end application control *

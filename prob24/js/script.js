@@ -56,28 +56,31 @@ function init() {
     // Polygonni xaritaga qo'shish
     map.geoObjects.add(myPolygon);
 
-    var points = [
-        { coords: [41.295399, 69.288816], title: "Mahalla markazi", color: "red" },
-        { coords: [41.293465, 69.291356], title: "Tibbiyot markazi" },
-        { coords: [41.293753, 69.283493], title: "Maktab" },
-        { coords: [41.289178, 69.279770], title: "Bozor" },
-        { coords: [41.296027, 69.283388], title: "39-maktab", color: "green" },
-        { coords: [41.289517, 69.277578], title: "6-oilaviy poliklinika" },
-        { coords: [41.286014, 69.281301], title: "Supermarket" },
-        { coords: [41.290720, 69.294592], title: "Tinchlik restoran" },
-        { coords: [41.292000, 69.287000], title: "Sport zali" },
-        { coords: [41.294000, 69.282000], title: "Avtobus bekati" },
-        { coords: [41.295800, 69.290200], title: "Bolalar bog'chasi", color: "blue" },
-        { coords: [41.296500, 69.285000], title: "Kino teatr" },
-        { coords: [41.293000, 69.278000], title: "Bank" },
-        { coords: [41.292500, 69.279500], title: "Apteka" },
-        { coords: [41.287500, 69.282500], title: "Kitob do'koni" },
-        { coords: [41.286800, 69.280100], title: "Neft baza" },
-        { coords: [41.289900, 69.288000], title: "Xususiy klinika" },
-        { coords: [41.291000, 69.286000], title: "Kafe" },
-        { coords: [41.290000, 69.284000], title: "Avto xizmat" },
-        { coords: [41.288000, 69.283000], title: "Yotoqxona", color: "orange" }
-    ];
+    // var points = [
+    //     { coords: [41.295399, 69.288816], title: "Mahalla markazi", color: "red" },
+    //     { coords: [41.293465, 69.291356], title: "Tibbiyot markazi" },
+    //     { coords: [41.293753, 69.283493], title: "Maktab" },
+    //     { coords: [41.289178, 69.279770], title: "Bozor" },
+    //     { coords: [41.296027, 69.283388], title: "39-maktab", color: "green" },
+    //     { coords: [41.289517, 69.277578], title: "6-oilaviy poliklinika" },
+    //     { coords: [41.286014, 69.281301], title: "Supermarket" },
+    //     { coords: [41.290720, 69.294592], title: "Tinchlik restoran" },
+    //     { coords: [41.292000, 69.287000], title: "Sport zali" },
+    //     { coords: [41.294000, 69.282000], title: "Avtobus bekati" },
+    //     { coords: [41.295800, 69.290200], title: "Bolalar bog'chasi", color: "blue" },
+    //     { coords: [41.296500, 69.285000], title: "Kino teatr" },
+    //     { coords: [41.293000, 69.278000], title: "Bank" },
+    //     { coords: [41.292500, 69.279500], title: "Apteka" },
+    //     { coords: [41.287500, 69.282500], title: "Kitob do'koni" },
+    //     { coords: [41.286800, 69.280100], title: "Neft baza" },
+    //     { coords: [41.289900, 69.288000], title: "Xususiy klinika" },
+    //     { coords: [41.291000, 69.286000], title: "Kafe" },
+    //     { coords: [41.290000, 69.284000], title: "Avto xizmat" },
+    //     { coords: [41.288000, 69.283000], title: "Yotoqxona", color: "orange" }
+    // ];
+
+    const points = convertToLocationData(data);
+    // var points = convertedData;
 
     var clusterer = new ymaps.Clusterer({
         preset: 'islands#invertedVioletClusterIcons',
@@ -94,11 +97,9 @@ function init() {
             hintContent: point.title,
             balloonContent: `
                 <div style="font-family: Arial; width: 200px;">
-                    <h4 style="margin: 0;">${point.title}</h4>
-                    <p><strong>Manzil:</strong> Toshkent, Ko‘cha 12</p>
-                    <p style="margin: 0;"><strong>Telefon:</strong> +998 90 123-45-67</p>
-                    <a href="https://example.com" target="_blank">Batafsil ma'lumot</a><br>
-                    <button type='button' class='btn btn-primary' onclick="findNearest(${index})"><i class="bi bi-geo-alt"></i> Eng yaqin</button>
+                    <h6 style="margin: 0; font-weight: bold;">${point.title}</h6>
+                    <p style="margin: 0;"><strong>Manzil:</strong> ${point.location}</p>
+                    <p style="margin: 0;"><strong>Telefon:</strong> +998 ${point.phone}</p>
                 </div>`
         }, {
             preset: presetColor
@@ -179,4 +180,25 @@ function init() {
     // });
 
     map.geoObjects.add(clusterer);
+}
+
+function convertToLocationData(originalData) {
+  return originalData.map(item => {
+    // Extract and convert coordinates
+    const coords = item.локация 
+      ? item.локация.split(',').map(coord => parseFloat(coord.trim()))
+      : [0, 0]; // Default if no location
+    
+    // Create title from ФИО
+    const title = item.ФИО || 'Nomalum';
+    const location = item['яшаш манзили'] || 'Nomalum';
+    const phone = item['махкумнинг тел раками'] || 'Nomalum';
+    
+    return {
+      coords,
+      title,
+      location,
+      phone
+    };
+  });
 }
