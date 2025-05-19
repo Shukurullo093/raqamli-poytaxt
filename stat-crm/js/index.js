@@ -250,32 +250,15 @@ new Chart(ctx2, {
                 color: 'white',
                 font: {
                     weight: 'bold',
-                    size: 12
+                    size: 10
                 },
                 formatter: function(value) {
-                    return value;
+                    if (value > 10) {
+                        return value;
+                    }
                 }
             }
-        },
-        // scales: {
-        //     y: {
-        //         ticks: {
-        //             color: 'white',
-        //             font: {
-        //                 size: 12
-        //             }
-        //         },
-        //         beginAtZero: true
-        //     },
-        //     x: {
-        //         ticks: {
-        //             color: 'white',
-        //             font: {
-        //                 size: 12
-        //             }
-        //         }
-        //     }
-        // }
+        }
     },
     plugins: [ChartDataLabels]
 });
