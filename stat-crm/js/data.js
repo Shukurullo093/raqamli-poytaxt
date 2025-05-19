@@ -3033,3 +3033,26 @@ const data = [
         "Biriktirilgan rahbarlar ": "Yunusobod tumani QB boshlig`i podpolkovnik S.A.Abduqodirov"
     }
 ]
+
+function standardizeDate(dateStr) {
+    let year;
+    dateStr = dateStr.trim();
+
+    if (dateStr.includes('.')) {
+        year = dateStr.split('.').pop();
+    } else if (dateStr.includes(',')) {
+        year = dateStr.split(',').pop();
+    } else if (dateStr.includes('/')) {
+        year = dateStr.split('/').pop();
+    } else if (dateStr.includes('-')) {
+        year = dateStr.split('-').pop();
+    } 
+
+    if (year.length === 2 && parseInt(year) > 20) {
+        year = `19${year}`;
+    } else if (year.length === 2 && parseInt(year) <= 20) {
+        year = `20${year}`;
+    }
+
+    return year;
+}

@@ -56,28 +56,6 @@ new Chart(ctx, {
 
 document.getElementById('youth').innerText = `Yoshlar kesimida: ${dataValues.reduce((a, b) => a + b, 0)}`;
 
-function standardizeDate(dateStr) {
-    let year;
-    dateStr = dateStr.trim();
-
-    if (dateStr.includes('.')) {
-        year = dateStr.split('.').pop();
-    } else if (dateStr.includes(',')) {
-        year = dateStr.split(',').pop();
-    } else if (dateStr.includes('/')) {
-        year = dateStr.split('/').pop();
-    } else if (dateStr.includes('-')) {
-        year = dateStr.split('-').pop();
-    } 
-
-    if (year.length === 2 && parseInt(year) > 20) {
-        year = `19${year}`;
-    } else if (year.length === 2 && parseInt(year) <= 20) {
-        year = `20${year}`;
-    }
-
-    return year;
-}
 // toifalar kesimida
 const categoryDict = {};
 for (let i = 0; i < data.length; i++) {
