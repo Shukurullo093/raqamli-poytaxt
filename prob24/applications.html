@@ -144,11 +144,11 @@
                         <input type="search" class="form-control" placeholder="FIO bo'yicha qidirish">
                         <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                     </div>
-                    <select class="form-control mx-1">
-                        <option selected>Tuman</option>
-                        <option value="1">Toshkent</option>
-                        <option value="2">Samarqand</option>
-                        <option value="3">Buxoro</option>
+                    <select class="form-control mx-1" id="districtSelect">
+                        <option value="" selected>Tuman</option>
+                        <option value="Юнусобод">Юнусобод</option>
+                        <option value="Яшнобод">Яшнобод</option>
+                        <option value="Учтепа">Учтепа</option>
                     </select>      
                     <select class="form-control">
                         <option selected>Mahalla</option>
@@ -159,7 +159,8 @@
                     <button class="btn btn-danger w-100 ml-1" type="button">Filterlarni bekor qilish</button>
                 </div>                
             </div>
-            <div class="table-responsive mt-3" id="tableContainer">
+
+            <div class="table-responsive mt-3 border border-dark" id="tableContainer">
                 <!-- <table class="table table-hover">
                   <thead>
                     <tr class="text-primary">
@@ -202,7 +203,26 @@
                     </tr>
                   </tbody>
                 </table> -->
-              </div>
+            </div>
+            <nav class="mt-1">
+                <ul class="pagination" id="pagination">
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </nav>
         </main>
     </div>
 
