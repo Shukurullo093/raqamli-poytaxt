@@ -151,3 +151,52 @@ document.getElementById('districtSelect').addEventListener('change', function(ev
     tableContainer.appendChild(table);
 }
 );
+
+document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.trim().toLowerCase();
+    const tableContainer = document.getElementById('tableContainer');
+    
+    // Filter data based on search term (case-insensitive)
+    const filteredData = searchTerm === "" 
+        ? data 
+        : data.filter(item => {
+            const fullName = item['ФИО']?.toLowerCase() || '';
+            return fullName.includes(searchTerm);
+          });
+
+    // Clear previous content
+    tableContainer.innerHTML = '';
+
+    // Handle empty results
+    if (filteredData.length === 0) {
+        tableContainer.innerHTML = '<p class="no-results">No matching records found</p>';
+        return;
+    }
+
+    // Create table element
+    const table = document.createElement('table');
+    table.className = 'data-table';
+
+    // Create table header
+    const headerRow = document.createElement('tr');
+    Object.keys(filteredData[0]).forEach(key => {
+        const th = document.createElement('th');
+        th.textContent = key;
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    // Create table rows
+    filteredData.forEach(row => {
+        const tr = document.createElement('tr');
+        Object.values(row).forEach(value => {
+            const td = document.createElement('td');
+            td.textContent = value !== undefined && value !== null ? value : '';
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+
+    // Add table to container
+    tableContainer.appendChild(table);
+});
