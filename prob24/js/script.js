@@ -164,19 +164,19 @@ function init() {
     }
 
     // Toggle rejim tugmasi
-    document.getElementById("toggleMode").addEventListener("click", () => {
-        if (currentMode === 'light') {
-            map.setType('yandex#hybrid'); // Darkga o‘xshash
-            document.body.style.background = '#121212';
-            document.getElementById("toggleMode").textContent = '☀️';
-            currentMode = 'dark';
-        } else {
-            map.setType('yandex#map'); // Light
-            document.body.style.background = '#f4f4f4';
-            document.getElementById("toggleMode").textContent = '🌙';
-            currentMode = 'light';
-        }
-    });
+    // document.getElementById("toggleMode").addEventListener("click", () => {
+    //     if (currentMode === 'light') {
+    //         map.setType('yandex#hybrid'); // Darkga o‘xshash
+    //         document.body.style.background = '#121212';
+    //         document.getElementById("toggleMode").textContent = '☀️';
+    //         currentMode = 'dark';
+    //     } else {
+    //         map.setType('yandex#map'); // Light
+    //         document.body.style.background = '#f4f4f4';
+    //         document.getElementById("toggleMode").textContent = '🌙';
+    //         currentMode = 'light';
+    //     }
+    // });
 
     map.geoObjects.add(clusterer);
 }
