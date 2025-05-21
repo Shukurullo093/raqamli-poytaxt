@@ -112,6 +112,40 @@
                 $('.bi-chevron-down').toggleClass('d-none d-block');
             });
         });
+    
+        const lotinToKirill = (text) => {
+            const map = [
+            [/Sh/g, 'Ш'], [/sh/g, 'ш'], [/Ch/g, 'Ч'], [/ch/g, 'ч'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
+            [/Yu/g, 'Ю'], [/yu/g, 'ю'], [/Ya/g, 'Я'], [/ya/g, 'я'], [/G'/g, 'Ғ'], [/g'/g, 'ғ'],
+            [/O'/g, 'Ў'], [/o'/g, 'ў'],
+            [/A/g, 'А'], [/a/g, 'а'], [/B/g, 'Б'], [/b/g, 'б'], [/D/g, 'Д'], [/d/g, 'д'],
+            [/E/g, 'Э'], [/e/g, 'э'], [/F/g, 'Ф'], [/f/g, 'ф'], [/G/g, 'Г'], [/g/g, 'г'],
+            [/H/g, 'Ҳ'], [/h/g, 'ҳ'], [/I/g, 'И'], [/i/g, 'и'], [/J/g, 'Ж'], [/j/g, 'ж'],
+            [/K/g, 'К'], [/k/g, 'к'], [/L/g, 'Л'], [/l/g, 'л'], [/M/g, 'М'], [/m/g, 'м'],
+            [/N/g, 'Н'], [/n/g, 'н'], [/O/g, 'О'], [/o/g, 'о'], [/P/g, 'П'], [/p/g, 'п'],
+            [/Q/g, 'Қ'], [/q/g, 'қ'], [/R/g, 'Р'], [/r/g, 'р'], [/S/g, 'С'], [/s/g, 'с'],
+            [/T/g, 'Т'], [/t/g, 'т'], [/U/g, 'У'], [/u/g, 'у'], [/V/g, 'В'], [/v/g, 'в'],
+            [/X/g, 'Х'], [/x/g, 'х'], [/Y/g, 'Й'], [/y/g, 'й'], [/Z/g, 'З'], [/z/g, 'з']
+            ];
+            map.forEach(([r, l]) => {
+            text = text.replace(r, l);
+            });
+            return text;
+        };
+
+        const convertVisibleText = (node) => {
+            if (node.nodeType === 3) { // text node
+            node.nodeValue = lotinToKirill(node.nodeValue);
+            } else if (node.nodeType === 1) { // element node
+            for (let child of node.childNodes) {
+                convertVisibleText(child);
+            }
+            }
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+            convertVisibleText(document.body);
+        });
     </script>
 </body>
 </html>
