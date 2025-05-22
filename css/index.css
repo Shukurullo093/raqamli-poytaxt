@@ -1,4 +1,3 @@
- /* #131528  */
 * {
     margin: 0;
     padding: 0;
@@ -14,11 +13,42 @@ header {
     position: relative;
     /* overflow: hidden; */
 }
-header img {
+header .box {
+    width: 150px;
+}
+header .logo {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 1px solid #fff;
+}
+header .avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+}
+header span {
+    font-size: 14px;
+}
+.curved-header {
+    background-color: #131528;
+    border-bottom: 2px solid #fff;
+    border-radius: 0 0 15px 15px;
+    color: white;
+    text-align: center;
+    padding: 20px 20px 12px 20px;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+}
+.header-title {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
 }
 .comet {
     position: absolute;
@@ -30,64 +60,50 @@ header img {
     animation: moveComet 4s linear infinite;
     z-index: -1;
 }
-
 @keyframes moveComet {
     0%   { left: -60px; opacity: 0; }
     10%  { opacity: 1; }
     90%  { opacity: 1; }
     100% { left: 96%; opacity: 0; }
 }
-header h4 {
-    /* border: 1px solid #fff; */
-    border-bottom: none;
-    margin: 0;
-    /* padding: 12px 100px; */
-    border-radius: 3rem 3rem 0 0;
-
-    position: relative;
-    z-index: 1;
-    background-color: #131528;
-    /* overflow: hidden; */
+.accordion-card {
+    /* border: 1px solid white; */
 }
-/* Bottom-left inverted corner */
-/* h4::before,
-h4::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-color: #f0f0f0; 
-}
-h4::before {
-    bottom: 0;
-    left: 0;
-    border-top-right-radius: 100%;
-}
-h4::after {
-    bottom: 0;
-    right: 0;
-    border-top-left-radius: 100%;
-} */
-
 .accordion-card .card {
     display: flex;
     border-radius: 5px;
     border: none;
     color: #fff;
+    transition: all 0.3s ease;
+    /* height: 100%; */
+}
+.accordion-card .card:hover {
+    background-color: #131528;
+    transform: translateY(-4px) scale(1.01);
 }
 .accordion-card .card-header {
     background-color: #063055;
     border-radius: 5px 5px 0 0;
+    cursor: pointer;
 }
 .accordion-card .card-header .card-title {
     text-transform: capitalize;
+    font-size: 12px;
+}
+.accordion-card .card .card-body .card-title {
+    font-size: 10px;
+}
+.accordion-card .card .card-body .card-header .card-actions i {
+    font-size: 10px;
+}
+.accordion-card .card .card-body i {
     font-size: 12px;
 }
 .accordion-card .card .card-body {
     background-color: #1b4264;
     border-radius: 0 0 5px 5px;
     padding: 5px;
-    min-height: 100px;
+    min-height: 70px;
 }
 .url .list-item {
     background-color: #063055;
@@ -102,6 +118,13 @@ h4::after {
     transform: translateX(5px);
     /* font-size: 20px; */
 }
+input[type=date] {
+    border: 1px solid #fff;
+    background-color: #063055;
+    color: #fff;
+    height: 28px;
+    border-radius: 0;
+}
 #map{
     /* background: #1b4264 url("Tashkent.svg"); */
     /* background-repeat: no-repeat; */
@@ -110,12 +133,13 @@ h4::after {
     min-height: 250px;
     padding: 2px;
 }
+/* #modalBody, */
 #map img {
     width: 60%;
     height: 60%;
     position: absolute;
-    top: 15%;
-    right: 5px;
+    top: 15px;
+    right: 55px;
     /* transform: translate(0, 10%); */
     z-index: 10;
     /* opacity: 0.5; */
@@ -125,13 +149,18 @@ h4::after {
 #map .card-body {
     background-color: #063055;
 }
+#modalBody ul li,
 #map ul li{
     margin: 5px 0;
 }
 .my-box {
     background-color: #063055;
     padding: 5px;
-    margin: 3px 0;
+    margin: 0;
+}
+.chart-container {
+    background-color: #063055;
+    margin: 0;
 }
 .my-box h6{
     font-size: 14px;
@@ -141,30 +170,40 @@ h4::after {
     align-items: center;
     justify-content: space-between;
     gap: 2px;
-    /* background-color: #1d2d3d; */
-    /* padding: 5px 0; */
-    /* border-radius: 10px; */
     width: min-content;
 }
-
+.progress-wrapper1 {
+    display: flex;
+    flex-direction: column;
+    /* align-items:start; */
+    /* justify-content: center; */
+    align-items: center;
+    justify-content: start;
+    /* gap: 2px; */
+    width: fit-content;
+    padding: 0;
+    margin: 0;
+}
 .circle {
     position: relative;
     width: 45px;
     height: 45px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
-
 .circle svg {
     transform: rotate(-90deg);
     width: 100%;
     height: 100%;
+    text-align: center;
+    padding: 0;
 }
-
 .circle-bg {
     fill: none;
     stroke: #2c3e50;
     stroke-width: 5;
 }
-
 .circle-bar {
     fill: none;
     stroke: #ff3e3e;
@@ -174,7 +213,9 @@ h4::after {
     stroke-dashoffset: 188.5;
     transition: stroke-dashoffset 1s ease;
 }
-
+.progress-wrapper1 .circle-bar {
+    stroke: aqua;
+}
 .circle-text {
     position: absolute;
     top: 50%;
@@ -184,7 +225,9 @@ h4::after {
     font-weight: bold;
     font-size: 12px;
 }
-
+.progress-wrapper1 .circle-text {
+    color: #fff;
+}
 .text-content {
     color: white;
     font-size: 10px;
@@ -194,7 +237,6 @@ h4::after {
     text-transform: uppercase;
     padding: 0;
 }
-
 .text-content small {
     display: block;
     color: #aaa;
@@ -214,4 +256,20 @@ h4::after {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+.height {
+    height: calc(100vh - 100px);
+}
+.modal-content {
+    /* background-color: #131528;
+    color: #fff; */
+    border-radius: 10px;
+}
+#Tmap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /* z-index: -1; */
 }
