@@ -45,12 +45,13 @@ function init() {
     // Polygon yaratish
     var myPolygon = new ymaps.Polygon([polygonCoordinates], 
         {
-            fillColor: '#c0e1c088',  
-            strokeColor: '#008000',  
+            fillColor: '#19c41988',  
+            // strokeColor: '#008000',  
             strokeWidth: 3,    
             fillOpacity: 1           
         });
 
     // Polygonni xaritaga qo'shish
     map.geoObjects.add(myPolygon);
+    // map.container.fitToViewport();
 }
