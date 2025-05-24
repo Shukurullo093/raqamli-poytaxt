@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jinoyatlar Tahlili Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a{
+            width: 120px;
+            height: 120px;
+        }
+
+        .header a img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .stat-description {
+            font-size: 0.9em;
+            color: #888;
+        }
+        
+        .charts-section {
+            padding: 30px;
+        }
+        
+        .chart-container {
+            background: white;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .insight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .insight-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        #hourlyChart, #weeklyChart {
+            max-height: 400px;
+        }
+        
+        .danger-time {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .safe-time {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html"><img src="stat-crm/images/iib_logo.png" class="rounded-circle"></a>
+            <div>
+                <h1>🔍 JINOYATLAR TAHLILI</h1>
+                <p>Vaqt bo'yicha batafsil statistika va prognozlar</p>
+            </div>
+            <div></div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCrimes">1,247</div>
+                <div class="stat-label">Jami jinoyatlar</div>
+                <div class="stat-description">Umumiy hisobot</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number danger-time" id="peakHour">14:00</div>
+                <div class="stat-label">Eng xavfli soat</div>
+                <div class="stat-description">Maksimal faollik vaqti</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number safe-time" id="safestHour">04:00</div>
+                <div class="stat-label">Eng xavfsiz soat</div>
+                <div class="stat-description">Minimal faollik vaqti</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="avgPerHour">52</div>
+                <div class="stat-label">O'rtacha soatiga</div>
+                <div class="stat-description">Jinoyatlar soni</div>
+            </div>
+        </div>
+        
+        <div class="charts-section">
+            <div class="chart-container">
+                <div class="chart-title">📊 Soatlik Jinoyatlar Taqsimoti</div>
+                <canvas id="hourlyChart"></canvas>
+                <div class="insight-box">
+                    <div class="insight-title">💡 Asosiy xulosalar:</div>
+                    <div>• Eng ko'p jinoyatlar 14:00-16:00 oralig'ida sodir bo'ladi</div>
+                    <div>• Tun vaqti (02:00-06:00) eng xavfsiz hisoblanadi</div>
+                    <div>• Kechqurun (18:00-20:00) ikkinchi pik kuzatiladi</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">📅 Haftalik Jinoyatlar Taqsimoti</div>
+                <canvas id="weeklyChart"></canvas>
+                <div class="insight-box">
+                    <div class="insight-title">💡 Haftalik tendensiyalar:</div>
+                    <div>• Dam olish kunlari jinoyatlar ko'payadi</div>
+                    <div>• Dushanba va seshanba eng xavfsiz kunlar</div>
+                    <div>• Juma kuni maksimal faollik kuzatiladi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Soatlik grafik
+        const hourlyData = {
+            labels: Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`),
+            datasets: [{
+                label: 'Jinoyatlar soni',
+                data: [12, 8, 5, 3, 4, 6, 15, 28, 35, 42, 48, 55, 62, 75, 68, 58, 52, 65, 70, 55, 45, 35, 25, 18],
+                borderColor: '#2a5298',
+                backgroundColor: 'rgba(42, 82, 152, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#2a5298',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5
+            }]
+        };
+
+        const hourlyChart = new Chart(document.getElementById('hourlyChart'), {
+            type: 'line',
+            data: hourlyData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Haftalik grafik
+        const weeklyData = {
+            labels: ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba', 'Yakshanba'],
+            datasets: [{
+                label: 'Jinoyatlar soni',
+                data: [145, 132, 158, 167, 189, 203, 185],
+                backgroundColor: [
+                    '#28a745', '#28a745', '#ffc107', '#ffc107', '#dc3545', '#dc3545', '#fd7e14'
+                ],
+                borderRadius: 8,
+                borderSkipped: false,
+            }]
+        };
+
+        const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+            type: 'bar',
+            data: weeklyData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Real ma'lumotlar bilan yangilash funksiyasi
+        function updateData(hourlyData, weeklyData, stats) {
+            // Bu yerda Colab dan kelgan ma'lumotlarni ishlatishingiz mumkin
+            // Masalan: updateCharts(colab_hourly_data, colab_weekly_data);
+        }
+    
+        const lotinToKirill = (text) => {
+            const map = [
+            [/Sh/g, 'Ш'], [/sh/g, 'ш'], [/Ch/g, 'Ч'], [/ch/g, 'ч'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
+            [/Yu/g, 'Ю'], [/yu/g, 'ю'], [/Ya/g, 'Я'], [/ya/g, 'я'], [/G'/g, 'Ғ'], [/g'/g, 'ғ'],
+            [/O'/g, 'Ў'], [/o'/g, 'ў'],
+            [/A/g, 'А'], [/a/g, 'а'], [/B/g, 'Б'], [/b/g, 'б'], [/D/g, 'Д'], [/d/g, 'д'],
+            [/E/g, 'Э'], [/e/g, 'э'], [/F/g, 'Ф'], [/f/g, 'ф'], [/G/g, 'Г'], [/g/g, 'г'],
+            [/H/g, 'Ҳ'], [/h/g, 'ҳ'], [/I/g, 'И'], [/i/g, 'и'], [/J/g, 'Ж'], [/j/g, 'ж'],
+            [/K/g, 'К'], [/k/g, 'к'], [/L/g, 'Л'], [/l/g, 'л'], [/M/g, 'М'], [/m/g, 'м'],
+            [/N/g, 'Н'], [/n/g, 'н'], [/O/g, 'О'], [/o/g, 'о'], [/P/g, 'П'], [/p/g, 'п'],
+            [/Q/g, 'Қ'], [/q/g, 'қ'], [/R/g, 'Р'], [/r/g, 'р'], [/S/g, 'С'], [/s/g, 'с'],
+            [/T/g, 'Т'], [/t/g, 'т'], [/U/g, 'У'], [/u/g, 'у'], [/V/g, 'В'], [/v/g, 'в'],
+            [/X/g, 'Х'], [/x/g, 'х'], [/Y/g, 'Й'], [/y/g, 'й'], [/Z/g, 'З'], [/z/g, 'з']
+            ];
+            map.forEach(([r, l]) => {
+            text = text.replace(r, l);
+            });
+            return text;
+        };
+
+        const convertVisibleText = (node) => {
+            if (node.nodeType === 3) { // text node
+            node.nodeValue = lotinToKirill(node.nodeValue);
+            } else if (node.nodeType === 1) { // element node
+            for (let child of node.childNodes) {
+                convertVisibleText(child);
+            }
+            }
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+            convertVisibleText(document.body);
+        });
+    </script>
+</body>
+</html>
