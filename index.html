@@ -68,10 +68,10 @@
                     <div class="card-body">
                         <div class="p-0 m-0">
                             <div class="d-flex flex-wrap w-100 justify-content-between overflow-hidden row-gap-2">
-                                <div class="d-flex justify-content-between w-100">
-                                    <input type="date" class="form-control w-25 mx-2">
-                                    <input type="date" class="form-control w-25 mx-2">
-                                    <a href="crime_dashboard.html" class="btn btn-success">Model statistikasi va tavsiyalari</a>
+                                <div class="d-flex justify-content-center w-100">
+                                    <input type="date" class="form-control mx-5">
+                                    <input type="date" class="form-control mx-5">
+                                    <!-- <a href="crime_dashboard.html" class="btn btn-success">Model statistikasi va tavsiyalari</a> -->
                                 </div>
                                 <div class="d-flex flex-column w-100 border">
                                     <div class="d-flex justify-content-between gap-1 my-box w-100">
@@ -506,7 +506,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-12 p-1 accordion-card" id="monitoring">
+            <div class="col-lg-4 col-md-6 col-sm-12 p-1 accordion-card" id="monitoring">
                 <div class="card w-100">
                     <div class="card-header d-flex justify-content-between align-items-center p-0 px-2">
                         <strong class="card-title m-0">Хавф мониторинги</strong>
@@ -516,14 +516,33 @@
                             <i class="fa-solid fa-xmark"></i>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body w-100 overflow-auto">
+                        <div class="d-flex gap-1 w-100">
+                            <div class="col-lg-4 col-sm-12 text-primary rounded border">
+                                <strong>1475</strong>
+                                <span>Жами жиноятлар миқдори</span>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 text-danger rounded border">
+                                <strong>17:00 - 19:00</strong>
+                                <span>Энг хавфли вақт оралиғи</span>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 text-success rounded border">
+                                <strong>05:10 - 06:00</strong>
+                                <span>Энг хавфсиз вақт оралиғи</span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <img src="images/time.png" class="img-fluid w-100 h-100 rounded my-1">
+                            <img src="images/topdistrict.png" class="img-fluid w-100 h-100 rounded my-1">
+                            <img src="images/crimetypes.png" class="img-fluid w-100 h-100 rounded my-1">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-12 p-1 accordion-card" id="personal">
+            <div class="col-lg-2 col-md-6 col-sm-12 p-1 accordion-card" id="prophylactic">
                 <div class="card w-100">
                     <div class="card-header d-flex justify-content-between align-items-center p-0 px-2">
-                        <strong class="card-title m-0">шахсий назорат</strong>
+                        <strong class="card-title м-0">профилактик тадбирлар</strong>
                         <div class="card-actions">
                             <i class="fa-solid fa-angle-up toggle-btn cursor-pointer"></i>
                             <i class="fa-solid fa-expand mx-1"></i>
@@ -531,7 +550,10 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        
+                        <ul class="list-unstyled">
+                            <li class="list-item"><mark>17:00 - 19:00</mark> оралиғида патрул кучайтириш</li>
+                            <li class="list-item"><mark>Бешқўрғон МФЙ</mark> ҳудудида доимий назорат</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -613,11 +635,11 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 p-1 accordion-card" id="prophylactic">
+            </div>                
+            <div class="col-lg-2 col-md-6 col-sm-12 p-1 accordion-card" id="personal">
                 <div class="card w-100">
                     <div class="card-header d-flex justify-content-between align-items-center p-0 px-2">
-                        <strong class="card-title м-0">профилактик тадбирлар</strong>
+                        <strong class="card-title m-0">шахсий назорат</strong>
                         <div class="card-actions">
                             <i class="fa-solid fa-angle-up toggle-btn cursor-pointer"></i>
                             <i class="fa-solid fa-expand mx-1"></i>
@@ -625,9 +647,10 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        
                     </div>
                 </div>
-            </div>            
+            </div>        
             <div class="col-lg-2 col-md-4 col-sm-12 p-1 accordion-card" id="statistic">
                 <div class="card w-100">
                     <div class="card-header d-flex justify-content-between align-items-center p-0 px-2">
