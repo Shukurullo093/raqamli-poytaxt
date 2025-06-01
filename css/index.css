@@ -4,14 +4,29 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     background-color: #131528;
+    background: linear-gradient(135deg, #131528 0%, #0a0b1a 50%, #000000 100%);
     color: #fff;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* background-image: url('../images/matrix'); */
+    background-repeat:repeat-y;
+    background-size: cover;
+}
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
 }
 header {
     height: 50px;
     position: relative;
-    /* overflow: hidden; */
+    background-color: #131528;
 }
 header .box {
     width: 220px;
@@ -41,8 +56,8 @@ header .box i {
     cursor: pointer;
 }
 header .logo {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1px solid #fff;
 }
@@ -67,7 +82,7 @@ header span {
     align-items: center;
 }
 .header-title {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 2px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -89,9 +104,6 @@ header span {
     10%  { opacity: 1; }
     90%  { opacity: 1; }
     100% { left: 96%; opacity: 0; }
-}
-.accordion-card {
-    /* border: 1px solid white; */
 }
 .accordion-card .card {
     display: flex;

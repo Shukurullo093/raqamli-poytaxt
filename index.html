@@ -12,7 +12,7 @@
 <body>
     <header class="w-100 d-flex align-items-center justify-content-between p-1 px-lg-2 border-bottom">
         <div class="box">
-            <img src="./stat-crm/images/iib_logo.png" class="logo" alt="Logo">
+            <a href="index1.html"><img src="./stat-crm/images/iib_logo.png" class="logo" alt="Logo"></a>
         </div>
         <div class="curved-header">
             <h4 class="header-title pt-3 text-uppercase">рақамли пойтахт</h4>
@@ -38,6 +38,8 @@
         </div>
         <div class="comet d-lg-block d-sm-none"></div>
     </header>
+
+    <canvas id="matrix-canvas"></canvas>
     
     <main class="container-fluid mt-3">
         <div class="d-flex flex-wrap align-items-start mt-1 p-2" id="columnsRow">
@@ -533,8 +535,8 @@
                         </div>
                         <div class="d-flex flex-wrap">
                             <img src="images/time.png" class="img-fluid w-100 h-100 rounded my-1">
-                            <img src="images/topdistrict.png" class="img-fluid w-100 h-100 rounded my-1">
-                            <img src="images/crimetypes.png" class="img-fluid w-100 h-100 rounded my-1">
+                            <!-- <img src="images/topdistrict.png" class="img-fluid w-100 h-100 rounded my-1"> -->
+                            <!-- <img src="images/crimetypes.png" class="img-fluid w-100 h-100 rounded my-1"> -->
                         </div>
                     </div>
                 </div>
@@ -833,6 +835,80 @@
 
             circle.style.strokeDasharray = circumference;
             circle.style.strokeDashoffset = offset;
+        });
+    // ------------------------------------------------------------------------------
+        const canvas = document.getElementById('matrix-canvas');
+        const ctxMatrix = canvas.getContext('2d');
+
+        // Canvas o'lchamini sozlash
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Binary belgilar
+        const binary = ['0', '1'];
+        
+        // Har bir ustun uchun ma'lumotlar (kengroq oraliq)
+        const columns = Math.floor(canvas.width / 40);
+        const drops = [];
+
+        // Har bir ustun uchun boshlang'ich pozitsiyalarni sozlash
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * canvas.height;
+        }
+
+        function draw() {
+            // Gradient fon bilan shaffoflik effekti
+            ctxMatrix.fillStyle = 'rgba(19, 21, 40, 0.1)';
+            ctxMatrix.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Har bir ustun uchun
+            for (let i = 0; i < drops.length; i++) {
+                // Tasodifiy binary belgi tanlash
+                const text = binary[Math.floor(Math.random() * binary.length)];
+                
+                // Pastga tushgan sayin yorqinlashish effekti
+                const brightness = Math.min(2 * drops[i] / canvas.height, 1);
+                const whiteValue = Math.floor(brightness * 255);
+                
+                ctxMatrix.fillStyle = `rgb(${whiteValue}, ${whiteValue}, ${whiteValue})`;
+                ctxMatrix.font = '20px Courier New';
+                
+                // Belgini chizish (kengroq oraliq)
+                ctxMatrix.fillText(text, i * 40, drops[i]);
+                
+                // Agar belgi pastki qismga yetsa yoki tasodifiy ravishda
+                if (drops[i] > canvas.height || Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+                
+                // Keyingi pozitsiyaga o'tish
+                drops[i] += 25;
+            }
+        }
+
+        // Animatsiyani boshlash
+        setInterval(draw, 70);
+
+        // Sichqoncha harakati effekti
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Sichqoncha atrofida qo'shimcha binary effekt
+            if (Math.random() > 0.8) {
+                const nearbyColumn = Math.floor(mouseX / 40);
+                if (nearbyColumn >= 0 && nearbyColumn < drops.length) {
+                    drops[nearbyColumn] = mouseY;
+                }
+            }
         });
     </script>
 </body>

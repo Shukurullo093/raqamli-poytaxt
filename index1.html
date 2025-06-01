@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raqamli Poytaxt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --sidebar-bg: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            height: 50px;
+            filter: brightness(1.2);
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            top: 20px;
+            right: -15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .nav-item {
+            margin: 0.5rem 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-item-icon {
+            display: inline-block;
+            width: 20px;
+            margin-right: 1rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .nav-item-text {
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .nav-item-text {
+            opacity: 0;
+        }
+
+        .sidebar.collapsed .nav-item {
+            margin: 0.5rem 0.25rem;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        /* Card Styles */
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        /* Map Styles */
+        #Tmap {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .overlay-card {
+            margin-top: 55px;
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 0.3rem;
+            border: 1px solid var(--border-color);
+            min-width: 200px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Circles */
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .circle {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 4;
+        }
+
+        .circle-bar {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sidebar {
+            animation: slideInLeft 0.5s ease;
+        }
+
+        .content-area {
+            animation: slideInRight 0.5s ease;
+        }
+
+        .dashboard-card {
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                z-index: 1001;
+                height: 100vh;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .content-area {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 0 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Chart Styles */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        /* List Styles */
+        .custom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .list-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-effect {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .platform-card {
+        padding: 1.5rem;
+        border-radius: 12px;
+        color: white;
+        text-align: center;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .platform-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .platform-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .alert {
+        background: rgba(245, 158, 11, 0.1);
+        border-left: 4px solid var(--accent-color);
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="d-flex align-items-center">
+            <a href="index.html"><img src="./stat-crm/images/iib_logo.png" class="logo" alt="Logo"></a>
+            <button class="btn btn-link text-light d-md-none ms-2" id="sidebarToggleMobile">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <h1 class="header-title">Рақамли Пойтахт</h1>
+        <div class="user-info">
+            <i class="fas fa-language fs-5"></i>
+            <img src="./m24-admin/images/avatar.jpg" alt="User" class="avatar">
+            <span class="d-none d-md-inline">Тоштемиров Б.</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="p-3">
+                <div class="nav-item active" data-card="mapCard">
+                    <i class="nav-item-icon fas fa-map-marker-alt"></i>
+                    <span class="nav-item-text">Рақамли хавфсиз маҳалла</span>
+                </div>
+                
+                <div class="nav-item" data-card="crime">
+                    <i class="nav-item-icon fas fa-exclamation-triangle"></i>
+                    <span class="nav-item-text">Жиноий ҳуқуқбузарликлар</span>
+                </div>
+                
+                <div class="nav-item" data-card="demographic">
+                    <i class="nav-item-icon fas fa-users"></i>
+                    <span class="nav-item-text">Демографик маълумотлар</span>
+                </div>
+                
+                <div class="nav-item" data-card="monitoring">
+                    <i class="nav-item-icon fas fa-chart-line"></i>
+                    <span class="nav-item-text">Хавф мониторинги</span>
+                </div>
+                
+                <div class="nav-item" data-card="personal">
+                    <i class="nav-item-icon fas fa-user-shield"></i>
+                    <span class="nav-item-text">Шахсий назорат</span>
+                </div>
+                
+                <div class="nav-item" data-card="maHuq">
+                    <i class="nav-item-icon fas fa-gavel"></i>
+                    <span class="nav-item-text">Маъмурий ҳуқуқбузарликлар</span>
+                </div>
+                
+                <div class="nav-item" data-card="e-ma-mo">
+                    <i class="nav-item-icon fas fa-envelope"></i>
+                    <span class="nav-item-text">E-материал мониторинги</span>
+                </div>
+                
+                <div class="nav-item" data-card="prophylactic">
+                    <i class="nav-item-icon fas fa-shield-alt"></i>
+                    <span class="nav-item-text">Профилактик тадбирлар</span>
+                </div>
+                
+                <div class="nav-item" data-card="statistic">
+                    <i class="nav-item-icon fas fa-th-large"></i>
+                    <span class="nav-item-text">Таркибий платформалар</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Map Card -->
+            <div class="dashboard-card" id="mapCard">
+                <div class="card-header">
+                    <h2 class="card-title">Рақамли хавфсиз маҳалла</h2>
+                </div>
+                <div class="card-body">
+                    <div id="Tmap" style="height: 100%; border-radius: 12px;"></div>
+                    
+                  <script>
+    ymaps.ready(init);
+    
+    function init() {
+        var map = new ymaps.Map("Tmap", {
+            center: [41.2995, 69.2401], // Toshkent markazi
+            zoom: 11,
+            controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+        });
+        
+        // Turli xil hududlar uchun belgilar
+        var districts = [
+            {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
+            {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
+            {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
+            {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
+            {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
+        ];
+        
+        districts.forEach(function(district) {
+            var color = district.crime > 25 ? '#ef4444' : 
+                       district.crime > 15 ? '#f59e0b' : '#10b981';
+            
+            var placemark = new ymaps.Placemark(district.coords, {
+                balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
+            }, {
+                preset: 'islands#circleIcon',
+                iconColor: color
+            });
+            
+            map.geoObjects.add(placemark);
+        });
+        
+        // Kameralar joylashuvi - updated to be near district centers
+        var cameras = [
+            [41.2855, 69.2203], // Near Mirzo Ulugbek
+            [41.3359, 69.2807], // Near Yunusobod
+            [41.3151, 69.2755], // Near Shaykhontokhur
+            [41.2958, 69.1457], // Near Almazar
+            [41.3523, 69.2604], // Near Yashnobod
+            [41.3025, 69.2401]  // Central area
+        ];
+        
+        cameras.forEach(function(camera) {
+            var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+                preset: 'islands#videoCameraIcon',
+                iconColor: '#2563eb'
+            });
+            map.geoObjects.add(cameraPlacemark);
+        });
+    }
+</script>
+
+                    <!-- Map Overlays -->
+                    <div class="map-overlay">
+                        <div class="overlay-card">
+                            <h6 class="text-gradient mb-2">Камералар</h6>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="fas fa-video text-primary"></i>
+                                <span>Видеокузатув: <strong>806</strong></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="fas fa-user-check text-success"></i>
+                                <span>FaceID: <strong>3509</strong></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-camera text-warning"></i>
+                                <span>PTZ: <strong>51</strong></span>
+                            </div>
+                        </div>
+            
+                        <div class="overlay-card">
+                            <h6 class="text-gradient mb-2">Хавфсизлик кўрсатгичи</h6>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" 
+                                                style="stroke-dasharray: 157; stroke-dashoffset: 15.7;" />
+                                    </svg>
+                                    <div class="circle-text">95%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Умумий хавфсизлик</div>
+                                    <small class="text-success">+2.5% бугунги кунда</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime Card -->
+            <div class="dashboard-card d-none" id="crime">
+                <div class="card-header">
+                    <h2 class="card-title">Жиноий ҳуқуқбузарликлар</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">532</div>
+                            <div class="stat-label">Жами жиноятлар</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-up text-danger"></i>
+                                <span class="badge bg-danger">+4.1%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">214</div>
+                            <div class="stat-label">Олдини олиш мумкин бўлган</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-down text-success"></i>
+                                <span class="badge bg-success">-5.1%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">198</div>
+                            <div class="stat-label">Аниқланган жиноятлар</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-down text-success"></i>
+                                <span class="badge bg-success">-3.8%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="chart-container">
+                                <canvas id="crimeChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="mb-3">Жиноят турлари</h5>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">43%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Унча оғир бўлмаган</div>
+                                    <small class="text-secondary">229 та</small>
+                                </div>
+                            </div>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">67%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Оғир</div>
+                                    <small class="text-secondary">357 та</small>
+                                </div>
+                            </div>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">33%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Ўта оғир</div>
+                                    <small class="text-secondary">176 та</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Cards (Hidden by Default) -->
+            <div class="dashboard-card d-none" id="demographic">
+                <div class="card-header">
+                    <h2 class="card-title">Демографик маълумотлар</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="populationChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">2,694,400</div>
+                                    <div class="stat-label">Аҳоли сони</div>
+                                    <div class="stat-trend">
+                                        <i class="fas fa-arrow-up text-success"></i>
+                                        <span class="badge bg-success">+1.8%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-value">1.29M</div>
+                                    <div class="stat-label">Эркаклар</div>
+                                    <div class="stat-trend">
+                                        <i class="fas fa-mars text-primary"></i>
+                                        <span>48%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-value">1.40M</div>
+                                    <div class="stat-label">Аёллар</div>
+                                    <div class="stat-trend">
+                                        <i class="fas fa-venus text-danger"></i>
+                                        <span>52%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-value">23.5</div>
+                                    <div class="stat-label">Ўртача ёш</div>
+                                    <div class="stat-trend">
+                                        <i class="fas fa-user-clock text-warning"></i>
+                                        <span>+0.3 йил</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h5>Туманлар бўйича аҳоли</h5>
+                                <ul class="custom-list">
+                                    <li class="list-item">
+                                        <div>Мирзо Улуғбек</div>
+                                        <strong>365,200</strong>
+                                    </li>
+                                    <li class="list-item">
+                                        <div>Юнусобод</div>
+                                        <strong>341,800</strong>
+                                    </li>
+                                    <li class="list-item">
+                                        <div>Шайхонтохур</div>
+                                        <strong>298,500</strong>
+                                    </li>
+                                    <li class="list-item">
+                                        <div>Олмазор</div>
+                                        <strong>276,300</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Population Chart
+                            const popCtx = document.getElementById('populationChart').getContext('2d');
+                            const popChart = new Chart(popCtx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['0-14', '15-24', '25-54', '55-64', '65+'],
+                                    datasets: [{
+                                        label: 'Эркаклар',
+                                        data: [320000, 280000, 450000, 150000, 90000],
+                                        backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                                        borderColor: 'rgba(37, 99, 235, 1)',
+                                        borderWidth: 1
+                                    }, {
+                                        label: 'Аёллар',
+                                        data: [310000, 290000, 470000, 170000, 120000],
+                                        backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                                        borderColor: 'rgba(239, 68, 68, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        title: {
+                                            display: true,
+                                            text: 'Ёш гуруҳлари бўйича аҳоли тақсимоти',
+                                            color: '#f1f5f9'
+                                        },
+                                        legend: {
+                                            labels: {
+                                                color: '#f1f5f9'
+                                            }
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            ticks: {
+                                                color: '#94a3b8'
+                                            },
+                                            grid: {
+                                                color: 'rgba(148, 163, 184, 0.1)'
+                                            }
+                                        },
+                                        y: {
+                                            ticks: {
+                                                color: '#94a3b8'
+                                            },
+                                            grid: {
+                                                color: 'rgba(148, 163, 184, 0.1)'
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="dashboard-card d-none" id="monitoring">
+    <div class="card-header">
+        <h2 class="card-title">Хавф мониторинги</h2>
+    </div>
+    <div class="card-body">
+        <div class="stats-grid mb-4">
+            <div class="stat-card">
+                <div class="stat-value">1,475</div>
+                <div class="stat-label">Жами жиноятлар миқдори</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">17:00-19:00</div>
+                <div class="stat-label">Энг хавфли вақт</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">05:10-06:00</div>
+                <div class="stat-label">Энг хавфсиз вақт</div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <h6 class="text-center mt-2">Вақт бўйича таҳлил</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="districtChart"></canvas>
+                </div>
+                <h6 class="text-center mt-2">Туманлар бўйича</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="typeChart"></canvas>
+                </div>
+                <h6 class="text-center mt-2">Жиноят турлари</h6>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h5>Охирги 7 кундаги жиноятлар</h5>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Сана</th>
+                            <th>Туман</th>
+                            <th>Жиноят тури</th>
+                            <th>Ҳолати</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2023-11-20</td>
+                            <td>Шайхонтохур</td>
+                            <td>Уғрилик</td>
+                            <td><span class="badge bg-success">Аникланган</span></td>
+                        </tr>
+                        <tr>
+                            <td>2023-11-19</td>
+                            <td>Мирзо Улуғбек</td>
+                            <td>Қасаллик</td>
+                            <td><span class="badge bg-warning">Терговда</span></td>
+                        </tr>
+                        <tr>
+                            <td>2023-11-18</td>
+                            <td>Юнусобод</td>
+                            <td>Ноқонуний мол олиб қочиш</td>
+                            <td><span class="badge bg-danger">Қидирувда</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Time Analysis Chart
+                const timeCtx = document.getElementById('timeChart').getContext('2d');
+                const timeChart = new Chart(timeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+                        datasets: [{
+                            label: 'Жиноятлар',
+                            data: [12, 8, 5, 18, 22, 35, 42, 28],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                
+                // District Chart
+                const districtCtx = document.getElementById('districtChart').getContext('2d');
+                const districtChart = new Chart(districtCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Шайхонтохур', 'Мирзо Улуғбек', 'Юнусобод', 'Олмазор', 'Яшнобод'],
+                        datasets: [{
+                            data: [31, 23, 18, 15, 12],
+                            backgroundColor: [
+                                '#ef4444',
+                                '#f59e0b',
+                                '#10b981',
+                                '#3b82f6',
+                                '#8b5cf6'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+                
+                // Type Chart
+                const typeCtx = document.getElementById('typeChart').getContext('2d');
+                const typeChart = new Chart(typeCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Уғрилик', 'Қасаллик', 'Ноқонуний мол', 'Бошқалар'],
+                        datasets: [{
+                            label: 'Жиноятлар',
+                            data: [45, 32, 28, 15],
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>
+
+          <!-- Personal Control Card -->
+<div class="dashboard-card d-none" id="personal">
+    <div class="card-header">
+        <h2 class="card-title">Шахсий назорат</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="stat-card mb-4">
+                    <div class="stat-value">1,248</div>
+                    <div class="stat-label">Назоратдаги шахслар</div>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up text-warning"></i>
+                        <span class="badge bg-warning">+2.3%</span>
+                    </div>
+                </div>
+                
+                <ul class="custom-list">
+                    <li class="list-item">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-clock text-primary me-2"></i>
+                            <span>Профилактикадаги шахслар</span>
+                        </div>
+                        <strong>892</strong>
+                    </li>
+                    <li class="list-item">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-shield text-success me-2"></i>
+                            <span>Назоратдаги оилавий зўравонлик</span>
+                        </div>
+                        <strong>156</strong>
+                    </li>
+                    <li class="list-item">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-graduate text-info me-2"></i>
+                            <span>Ижтимоий ишлардаги шахслар</span>
+                        </div>
+                        <strong>200</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="personalChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Administrative Violations Card -->
+<div class="dashboard-card d-none" id="maHuq">
+    <div class="card-header">
+        <h2 class="card-title">Маъмурий ҳуқуқбузарликлар</h2>
+    </div>
+    <div class="card-body">
+        <div class="stats-grid mb-4">
+            <div class="stat-card">
+                <div class="stat-value">1,128</div>
+                <div class="stat-label">Жами аниқланган ҳуқуқбузарликлар</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">221</div>
+                <div class="stat-label">Профилактика инспектори томонидан</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">147</div>
+                <div class="stat-label">Суд томонидан кўриб чиқилган</div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="mb-3">Жарималар</h5>
+                <div class="progress-wrapper">
+                    <div class="circle">
+                        <svg>
+                            <circle class="circle-bg" cx="30" cy="30" r="25" />
+                            <circle class="circle-bar" cx="30" cy="30" r="25" />
+                        </svg>
+                        <div class="circle-text">68%</div>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Жарима солинган</div>
+                        <small class="text-secondary">767 та</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3">Огоҳлантириш</h5>
+                <div class="progress-wrapper">
+                    <div class="circle">
+                        <svg>
+                            <circle class="circle-bg" cx="30" cy="30" r="25" />
+                            <circle class="circle-bar" cx="30" cy="30" r="25" />
+                        </svg>
+                        <div class="circle-text">22%</div>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Огоҳлантирилган</div>
+                        <small class="text-secondary">248 та</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3">Маъмурий қамоқ</h5>
+                <div class="progress-wrapper">
+                    <div class="circle">
+                        <svg>
+                            <circle class="circle-bg" cx="30" cy="30" r="25" />
+                            <circle class="circle-bar" cx="30" cy="30" r="25" />
+                        </svg>
+                        <div class="circle-text">10%</div>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Қамоққа олинган</div>
+                        <small class="text-secondary">113 та</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- E-Material Monitoring Card -->
+<div class="dashboard-card d-none" id="e-ma-mo">
+    <div class="card-header">
+        <h2 class="card-title">E-материал мониторинги</h2>
+    </div>
+    <div class="card-body">
+        <ul class="custom-list">
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-envelope bg-primary p-2 rounded-circle me-3"></i>
+                    <div>
+                        <div class="fw-bold">Келиб тушган хабарлар</div>
+                        <small class="text-secondary">Охирги 24 соатда</small>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <div class="fw-bold">203</div>
+                    <small class="text-danger">
+                        <i class="fas fa-arrow-trend-up"></i> +127.9%
+                    </small>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-phone bg-success p-2 rounded-circle me-3"></i>
+                    <div>
+                        <div class="fw-bold">Қўзғатилган ишлар</div>
+                        <small class="text-secondary">Охирги 7 кунда</small>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <div class="fw-bold">156</div>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-trend-down"></i> -27.9%
+                    </small>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-file bg-info p-2 rounded-circle me-3"></i>
+                    <div>
+                        <div class="fw-bold">Судга юборилган ҳужжатлар</div>
+                        <small class="text-secondary">Охирги 30 кунда</small>
+                    </div>
+                </div>
+                <div class="fw-bold">87</div>
+            </li>
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-camera bg-warning p-2 rounded-circle me-3"></i>
+                    <div>
+                        <div class="fw-bold">Жиноят ишини қўзғатишни рад этиш</div>
+                        <small class="text-secondary">Охирги 7 кунда</small>
+                    </div>
+                </div>
+                <div class="fw-bold">23</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Prophylactic Measures Card -->
+<div class="dashboard-card d-none" id="prophylactic">
+    <div class="card-header">
+        <h2 class="card-title">Профилактик тадбирлар</h2>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>17:00 - 19:00 оралиғида патрул кучайтириш</strong>
+            <p class="mb-0 mt-1">Бешқўрғон МФЙ ҳудудида доимий назорат</p>
+        </div>
+        
+        <h5 class="mt-4 mb-3">Яқиндаги тадбирлар</h5>
+        <ul class="custom-list">
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-calendar-check text-primary me-3"></i>
+                    <div>
+                        <div class="fw-bold">Ижтимоий хавфсизлик машғулотлари</div>
+                        <small class="text-secondary">2023-11-15, 10:00</small>
+                    </div>
+                </div>
+                <span class="badge bg-success">Бажарилди</span>
+            </li>
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-calendar-day text-info me-3"></i>
+                    <div>
+                        <div class="fw-bold">Ёшлар билан ишлаш бўйича семинар</div>
+                        <small class="text-secondary">2023-11-20, 14:00</small>
+                    </div>
+                </div>
+                <span class="badge bg-warning">Режалаштирилган</span>
+            </li>
+            <li class="list-item">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-calendar-alt text-success me-3"></i>
+                    <div>
+                        <div class="fw-bold">Махалла хавфсизлиги кенгаши</div>
+                        <small class="text-secondary">2023-11-25, 09:30</small>
+                    </div>
+                </div>
+                <span class="badge bg-primary">Яқинлашмокда</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Structural Platforms Card -->
+<div class="dashboard-card d-none" id="statistic">
+    <div class="card-header">
+        <h2 class="card-title">Таркибий платформалар</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <a href="m24-admin/index.html" class="text-decoration-none">
+                    <div class="platform-card bg-primary">
+                        <img src="images/mahalla.png" alt="Mahalla 24" class="platform-icon">
+                        <h5>Маҳалла 24</h5>
+                        <p>Махаллабай ишлаш тизими</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="prob24/dashboard.html" class="text-decoration-none">
+                    <div class="platform-card bg-success">
+                        <img src="images/prob.png" alt="Digital Probation" class="platform-icon">
+                        <h5>Рақамли Пробация</h5>
+                        <p>Пробация хизмати тизими</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="stat-crm/index.html" class="text-decoration-none">
+                    <div class="platform-card bg-warning">
+                        <img src="images/Yoshlar.png" alt="Youth Work" class="platform-icon">
+                        <h5>Ёшлар билан ишлаш</h5>
+                        <p>Ёшлар ижтимоий хавфсизлиги</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Interactive Functionality -->
+<script>
+    // Initialize sidebar toggle functionality
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed');
+        
+        // Change icon based on state
+        if (sidebar.classList.contains('collapsed')) {
+            this.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        } else {
+            this.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        }
+    });
+
+    // Mobile sidebar toggle
+    document.getElementById('sidebarToggleMobile').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // Card navigation from sidebar
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+            
+            // Hide all cards
+            document.querySelectorAll('.dashboard-card').forEach(card => {
+                card.classList.add('d-none');
+            });
+            
+            // Show selected card
+            const cardId = this.getAttribute('data-card');
+            document.getElementById(cardId).classList.remove('d-none');
+        });
+    });
+
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+
+        if (document.getElementById('Tmap')) {
+        ymaps.ready(init);
+        
+        function init() {
+            var map = new ymaps.Map("Tmap", {
+                center: [41.2995, 69.2401], // Toshkent markazi
+                zoom: 11,
+                controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+            });
+            
+            // Turli xil hududlar uchun belgilar
+            var districts = [
+                {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
+                {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
+                {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
+                {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
+                {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
+            ];
+            
+            districts.forEach(function(district) {
+                var color = district.crime > 25 ? '#ef4444' : 
+                           district.crime > 15 ? '#f59e0b' : '#10b981';
+                
+                var placemark = new ymaps.Placemark(district.coords, {
+                    balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
+                }, {
+                    preset: 'islands#circleIcon',
+                    iconColor: color
+                });
+                
+                map.geoObjects.add(placemark);
+            });
+            
+            // Kameralar joylashuvi
+            var cameras = [
+                [41.2925, 69.2263], [41.2989, 69.2447], [41.3011, 69.2595],
+                [41.3228, 69.2397], [41.3173, 69.2164], [41.2875, 69.1963]
+            ];
+            
+            cameras.forEach(function(camera) {
+                var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+                    preset: 'islands#videoCameraIcon',
+                    iconColor: '#2563eb'
+                });
+                map.geoObjects.add(cameraPlacemark);
+            });
+        }
+    }
+        // Crime Chart
+        const crimeCtx = document.getElementById('crimeChart').getContext('2d');
+        const crimeChart = new Chart(crimeCtx, {
+            type: 'line',
+            data: {
+                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+                datasets: [{
+                    label: 'Жиноятлар сони',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Personal Chart
+        const personalCtx = document.getElementById('personalChart').getContext('2d');
+        const personalChart = new Chart(personalCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Профилактикадаги', 'Оилавий зўравонлик', 'Ижтимоий ишлардаги'],
+                datasets: [{
+                    data: [892, 156, 200],
+                    backgroundColor: [
+                        'rgba(37, 99, 235, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(59, 130, 246, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+    });
+
+    // Initialize progress circles
+    document.querySelectorAll('.circle').forEach(wrapper => {
+        const percent = parseFloat(wrapper.getAttribute('data-percent')) || 75;
+        const circle = wrapper.querySelector('.circle-bar');
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (percent / 100) * circumference;
+
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = offset;
+    });
+</script>
+<!-- Updated Map Script Section -->
