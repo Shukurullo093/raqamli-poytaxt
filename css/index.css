@@ -76,7 +76,7 @@ header span {
     border-radius: 0 0 15px 15px;
     color: white;
     text-align: center;
-    padding: 20px 20px 12px 20px;
+    padding: 15px 20px 12px 20px;
     margin-top: 0px;
     display: flex;
     align-items: center;
@@ -107,11 +107,40 @@ header span {
 }
 .accordion-card .card {
     display: flex;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     border: none;
     color: #fff;
     transition: all 0.3s ease;
     /* height: 100%; */
+}
+.card::before,
+.card::after,
+.card .top-right,
+.card .bottom-left {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4fd1c7;
+}
+.card::before { /* chap yuqori */
+    top: -2px; left: -2px;
+    border-right: none; border-bottom: none;
+}
+
+.card::after { /* o'ng pastki */
+    bottom: -2px; right: -2px;
+    border-left: none; border-top: none;
+}
+
+.card .top-right { /* o'ng yuqori */
+    top: -2px; right: -2px;
+    border-left: none; border-bottom: none;
+}
+
+.card .bottom-left { /* chap pastki */
+    bottom: -2px; left: -2px;
+    border-right: none; border-top: none;
 }
 .accordion-card .card:hover {
     background-color: #131528;
@@ -119,12 +148,13 @@ header span {
 }
 .accordion-card .card-header {
     background-color: #063055;
-    border-radius: 5px 5px 0 0;
+    background-color: #1b4264;
+    /* border-radius: 5px 5px 0 0; */
     cursor: pointer;
 }
 .accordion-card .card-header .card-title {
     text-transform: capitalize;
-    font-size: 12px;
+    font-size: 13px;
 }
 .accordion-card .card .card-body .card-title {
     font-size: 10px;
@@ -137,7 +167,7 @@ header span {
 }
 .accordion-card .card .card-body {
     background-color: #1b4264;
-    border-radius: 0 0 5px 5px;
+    /* border-radius: 0 0 5px 5px; */
     padding: 5px;
     min-height: 70px;
 }
@@ -301,6 +331,7 @@ input[type=date] {
 }
 /* start monitoring */
 #monitoring .card-body .col-lg-4 {
+    width: 32%;
     background-color: #063055;
     box-shadow: 2px 2px 2px #131528;
     display: flex;
@@ -309,7 +340,10 @@ input[type=date] {
     padding: 10px 5px;
     cursor: pointer;
 }
+#monitoring .card-body .col-lg-4 strong {
+    font-size: 20px;
+}
 #monitoring .card-body .col-lg-4 span {
-    font-size: 14px;
+    font-size: 16px;
 }
 /* end monitoring */
