@@ -4,7 +4,7 @@ let map;
 function init() {
     map = new ymaps.Map("Tmap", {
         center: [41.314578053930845, 69.25047831274924],
-        zoom: 11,
+        zoom: 10,
         type: 'yandex#map',
         controls: []
     });
