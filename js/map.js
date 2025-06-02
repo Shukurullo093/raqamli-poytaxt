@@ -49,4 +49,6 @@ function init() {
     });
 
     map.geoObjects.add(myPolygon);
+
+   
 }

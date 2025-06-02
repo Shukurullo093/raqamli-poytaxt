@@ -230,7 +230,7 @@
         }
 
         .card-body {
-            padding: 1.5rem;
+            padding: .5rem;
             height: calc(100vh - 200px);
             overflow-y: auto;
         }
@@ -241,6 +241,8 @@
             height: 100%;
             border-radius: 12px;
             position: relative;
+            border-radius: 5px;
+            overflow: hidden;
         }
 
         .map-overlay {
@@ -541,7 +543,7 @@
                 
                 <div class="nav-item" data-card="crime">
                     <i class="nav-item-icon fas fa-exclamation-triangle"></i>
-                    <span class="nav-item-text">Жиноий ҳуқуқбузарликлар</span>
+                    <span class="nav-item-text">Жиноят</span>
                 </div>
                 
                 <div class="nav-item" data-card="demographic">
@@ -592,60 +594,164 @@
                     <div id="Tmap" style="height: 100%; border-radius: 12px;"></div>
                     
                   <script>
-    ymaps.ready(init);
-    
-    function init() {
-        var map = new ymaps.Map("Tmap", {
-            center: [41.2995, 69.2401], // Toshkent markazi
-            zoom: 11,
-            controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
-        });
-        
-        // Turli xil hududlar uchun belgilar
-        var districts = [
-            {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
-            {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
-            {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
-            {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
-            {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
-        ];
-        
-        districts.forEach(function(district) {
-            var color = district.crime > 25 ? '#ef4444' : 
-                       district.crime > 15 ? '#f59e0b' : '#10b981';
+                    ymaps.ready(init);
             
-            var placemark = new ymaps.Placemark(district.coords, {
-                balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
-            }, {
-                preset: 'islands#circleIcon',
-                iconColor: color
-            });
-            
-            map.geoObjects.add(placemark);
-        });
-        
-        // Kameralar joylashuvi - updated to be near district centers
-        var cameras = [
-            [41.2855, 69.2203], // Near Mirzo Ulugbek
-            [41.3359, 69.2807], // Near Yunusobod
-            [41.3151, 69.2755], // Near Shaykhontokhur
-            [41.2958, 69.1457], // Near Almazar
-            [41.3523, 69.2604], // Near Yashnobod
-            [41.3025, 69.2401]  // Central area
-        ];
-        
-        cameras.forEach(function(camera) {
-            var cameraPlacemark = new ymaps.Placemark(camera, {}, {
-                preset: 'islands#videoCameraIcon',
-                iconColor: '#2563eb'
-            });
-            map.geoObjects.add(cameraPlacemark);
-        });
-    }
-</script>
+                    function init() {
+                        var map = new ymaps.Map("Tmap", {
+                            center: [41.311649232954316, 69.24125933467975], // Toshkent markazi
+                            zoom: 12,
+                            controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+                        });
+
+                         var mirobodCoordinates = [
+                            [41.312697240084375, 69.26901837914095],
+                            [41.305010925533516, 69.26554798348963],
+                            [41.30456583881327, 69.26542369422948],
+                            [41.3037736708225, 69.2654388670942],
+                            [41.30271363241355, 69.26585612087365],
+                            [41.30120407907706, 69.26705949283362],
+                            [41.29979939401375, 69.26763689061126],
+                            [41.29979400590848, 69.26764529083748],
+                            [41.29572292382547, 69.26873131358758],
+                            [41.292549490781504, 69.27121869513802],
+                            [41.29063219663235, 69.2690114213818],
+                            [41.28954890054428, 69.26896038615163],
+                            [41.28880112814945, 69.26755691732205],
+                            [41.28763151815846, 69.26628103652654],
+                            [41.287458950987556, 69.26555378449666],
+                            [41.28568531750194, 69.26616620725866],
+                            [41.284774514003814, 69.26423962731988],
+                            [41.284028411025396, 69.26505928299743],
+                            [41.28326449798294, 69.26553722823571],
+                            [41.28359514800942, 69.26636414936227],
+                            [41.28011183680799, 69.2690497465342],
+                            [41.2778484400206, 69.27297951864895],
+                            [41.2715310382408, 69.2673579719591],
+                            [41.269780530892106, 69.2656055060854],
+                            [41.26817253164325, 69.26363303367341],
+                            [41.267592608214, 69.2623709863034],
+                            [41.26730749529848, 69.26270858254314],
+                            [41.26708225521493, 69.26340653431967],
+                            [41.26717064065679, 69.26410448609622],
+                            [41.2680801484248, 69.26639558876052],
+                            [41.2685990468676, 69.26854254922664],
+                            [41.27014461830773, 69.27742177950338],
+                            [41.271426762356384, 69.2828183837723],
+                            [41.27066026397842, 69.2865943949216],
+                            [41.2653379293872, 69.29311752733246],
+                            [41.26443470228793, 69.29734468852918],
+                            [41.263208874098495, 69.29734468852918],
+                            [41.26285402477284, 69.30094957759923],
+                            [41.261966893094886, 69.30266619128318],
+                            [41.264644381092126, 69.30813789740075],
+                            [41.260934579197254, 69.31079864902595],
+                            [41.257208435570334, 69.30202246127686],
+                            [41.252643216631185, 69.30221558030456],
+                            [41.25254230092032, 69.30164197718175],
+                            [41.24427947371576, 69.30162868776581],
+                            [41.24424524801555, 69.31188554484181],
+                            [41.2436462953993, 69.3141235424853],
+                            [41.24210040185822, 69.31664223814636],
+                            [41.237445387156335, 69.32253689631675],
+                            [41.23693765101891, 69.32650460064956],
+                            [41.23810263427187, 69.33077662047191],
+                            [41.27782612941688, 69.30818658868588],
+                            [41.279609564746444, 69.30619621470939],
+                            [41.2825626730758, 69.30583896809823],
+                            [41.291567317704505, 69.29963602484807],
+                            [41.29959275853903, 69.29155245665495],
+                            [41.30029764872079, 69.2903976612204],
+                            [41.302629154276175, 69.28823241978058],
+                            [41.30990779540875, 69.28079842375675],
+                            [41.31009754426568, 69.27892188117559],
+                            [41.31281825127222, 69.2691388820126],
+                            [41.30928848664218, 69.26733643764446],
+                            [41.305049292993175, 69.26557690861841],
+                        ];
+
+                        var mirobodPolygon = new ymaps.Polygon([mirobodCoordinates], {
+                                balloonContent: `
+                                    <div style="padding: 5px;">
+                                        <b>Mirobod Tumani</b><br>
+                                        <small>Hudud: ~28.58 km²</small><br>
+                                        <a href="#" onclick="alert('More info about Mirobod!'); return false;">Batafsil</a>
+                                    </div>
+                                `,
+                                hintContent: "Mirobod Tumani"
+                            }, {
+                                fillColor: '#000080',
+                                strokeColor: '#000080',
+                                strokeWidth: 3,
+                                fillOpacity: .5
+                            });
+
+                        map.geoObjects.add(mirobodPolygon);                     
+                        
+                        // Kameralar joylashuvi - updated to be near district centers
+                        var cameras = [
+                            [41.2855, 69.2203], // Near Mirzo Ulugbek
+                            [41.3359, 69.2807], // Near Yunusobod
+                            [41.3151, 69.2755], // Near Shaykhontokhur
+                            // [41.2958, 69.1457], // Near Almazar
+                            [41.3523, 69.2604], // Near Yashnobod
+                            [41.3025, 69.2401]  // Central area
+                        ];
+                        
+                        cameras.forEach(function(camera) {
+                            var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+                                preset: 'islands#videoCameraIcon',
+                                iconColor: '#2563eb'
+                            });
+                            map.geoObjects.add(cameraPlacemark);
+                        });
+
+                        var polygonCoordinates = [
+                            [41.397959470975074, 69.23403486321702],
+                            [41.357255685865226, 69.16811689682896],
+                            [41.333027425069545, 69.1626237329633],
+                            [41.310744371279036, 69.15180162417637],
+                            [41.28006679416332, 69.14726476493163],
+                            [41.266001416392456, 69.14669765752605],
+                            [41.24894841080359, 69.16257666488261],
+                            [41.229758457888266, 69.17335170558883],
+                            [41.227199371794676, 69.18469385370067],
+                            [41.22762589309935, 69.19887153884045],
+                            [41.23189095311937, 69.20567682770755],
+                            [41.24169953525792, 69.21361633138581],
+                            [41.244980557233994, 69.27014669867877], // 41.244980557233994, 69.27014669867877
+                            [41.24340522537849, 69.31456144958106],
+                            [41.23786156971283, 69.32136673844816],
+                            [41.23786156971283, 69.32760491990967],
+                            [41.248522028619945, 69.35255764575568], 
+                            [41.26770647207268, 69.36503400867869],
+                            [41.26813272903575, 69.36616822348988],
+                            [41.290720365750985, 69.357661612406],
+                            [41.30648445947063, 69.33951417542708],
+                            [41.333743085290884, 69.37807747900729],
+                            [41.33459473363532, 69.37807747900729],
+                            [41.341407519542706, 69.37580904938494],
+                            [41.35503095343275, 69.3440510346718],
+                            [41.36950272840403, 69.32476938288171],
+                            [41.36907713389997, 69.3259035976929],
+                            [41.38524776780425, 69.31626277179784],
+                            [41.38397128498231, 69.28337054227356],
+                            [41.39716039908299, 69.26068624604989],
+                            [41.397585809826694, 69.23516641279829]
+                        ];
+
+                        var myPolygon = new ymaps.Polygon([polygonCoordinates], {}, {
+                            strokeColor: '#008000',
+                            strokeWidth: 3,
+                            fillOpacity: 0
+                        });
+                       
+                        map.geoObjects.add(myPolygon);
+                    }
+                
+                </script>
 
                     <!-- Map Overlays -->
-                    <div class="map-overlay">
+                    <!-- <div class="map-overlay">
                         <div class="overlay-card">
                             <h6 class="text-gradient mb-2">Камералар</h6>
                             <div class="d-flex align-items-center gap-2 mb-2">
@@ -679,14 +785,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <!-- Crime Card -->
             <div class="dashboard-card d-none" id="crime">
                 <div class="card-header">
-                    <h2 class="card-title">Жиноий ҳуқуқбузарликлар</h2>
+                    <h2 class="card-title">жиноят</h2>
                 </div>
                 <div class="card-body">
                     <div class="stats-grid">
@@ -1387,56 +1493,56 @@
     });
 
     // Initialize charts
-    document.addEventListener('DOMContentLoaded', function() {
+    // document.addEventListener('DOMContentLoaded', function() {
 
-        if (document.getElementById('Tmap')) {
-        ymaps.ready(init);
+    //     if (document.getElementById('Tmap')) {
+    //     ymaps.ready(init);
         
-        function init() {
-            var map = new ymaps.Map("Tmap", {
-                center: [41.2995, 69.2401], // Toshkent markazi
-                zoom: 11,
-                controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
-            });
+    //     function init() {
+    //         var map = new ymaps.Map("Tmap", {
+    //             center: [41.2995, 69.2401], // Toshkent markazi
+    //             zoom: 11,
+    //             controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+    //         });
             
-            // Turli xil hududlar uchun belgilar
-            var districts = [
-                {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
-                {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
-                {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
-                {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
-                {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
-            ];
+    //         // Turli xil hududlar uchun belgilar
+    //         var districts = [
+    //             {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
+    //             {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
+    //             {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
+    //             {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
+    //             {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
+    //         ];
             
-            districts.forEach(function(district) {
-                var color = district.crime > 25 ? '#ef4444' : 
-                           district.crime > 15 ? '#f59e0b' : '#10b981';
+    //         districts.forEach(function(district) {
+    //             var color = district.crime > 25 ? '#ef4444' : 
+    //                        district.crime > 15 ? '#f59e0b' : '#10b981';
                 
-                var placemark = new ymaps.Placemark(district.coords, {
-                    balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
-                }, {
-                    preset: 'islands#circleIcon',
-                    iconColor: color
-                });
+    //             var placemark = new ymaps.Placemark(district.coords, {
+    //                 balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
+    //             }, {
+    //                 preset: 'islands#circleIcon',
+    //                 iconColor: color
+    //             });
                 
-                map.geoObjects.add(placemark);
-            });
+    //             map.geoObjects.add(placemark);
+    //         });
             
-            // Kameralar joylashuvi
-            var cameras = [
-                [41.2925, 69.2263], [41.2989, 69.2447], [41.3011, 69.2595],
-                [41.3228, 69.2397], [41.3173, 69.2164], [41.2875, 69.1963]
-            ];
+    //         // Kameralar joylashuvi
+    //         var cameras = [
+    //             [41.2925, 69.2263], [41.2989, 69.2447], [41.3011, 69.2595],
+    //             [41.3228, 69.2397], [41.3173, 69.2164], [41.2875, 69.1963]
+    //         ];
             
-            cameras.forEach(function(camera) {
-                var cameraPlacemark = new ymaps.Placemark(camera, {}, {
-                    preset: 'islands#videoCameraIcon',
-                    iconColor: '#2563eb'
-                });
-                map.geoObjects.add(cameraPlacemark);
-            });
-        }
-    }
+    //         cameras.forEach(function(camera) {
+    //             var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+    //                 preset: 'islands#videoCameraIcon',
+    //                 iconColor: '#2563eb'
+    //             });
+    //             map.geoObjects.add(cameraPlacemark);
+    //         });
+    //     }
+    // }
         // Crime Chart
         const crimeCtx = document.getElementById('crimeChart').getContext('2d');
         const crimeChart = new Chart(crimeCtx, {
@@ -1493,7 +1599,7 @@
                 }
             }
         });
-    });
+    // });
 
     // Initialize progress circles
     document.querySelectorAll('.circle').forEach(wrapper => {

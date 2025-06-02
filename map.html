@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toshkent Jinoyat Statistikasi</title>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin: 10px 0;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        #Tmap {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        .legend {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .legend h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .legend-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .danger { background-color: #ef4444; }
+        .warning { background-color: #f59e0b; }
+        .safe { background-color: #10b981; }
+        .camera { background-color: #2563eb; }
+
+        /* Modal stilları */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .stat-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .crime-high { background-color: #ef4444; }
+        .crime-medium { background-color: #f59e0b; }
+        .crime-low { background-color: #10b981; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ Toshkent Jinoyat Statistikasi</h1>
+            <p>Shahar tumanlarining xavfsizlik darajasi va kuzatuv kameralari</p>
+        </div>
+
+        <div class="map-container">
+            <div id="Tmap"></div>
+        </div>
+
+        <div class="legend">
+            <h3>📊 Belgishlar</h3>
+            <div class="legend-item">
+                <div class="legend-color danger"></div>
+                <span><strong>Yuqori xavfli hudud</strong> (25+ jinoyat)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color warning"></div>
+                <span><strong>O'rtacha xavfli hudud</strong> (15-25 jinoyat)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color safe"></div>
+                <span><strong>Xavfsiz hudud</strong> (15 dan kam jinoyat)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color camera"></div>
+                <span><strong>Kuzatuv kameralari</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="crimeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Tuman Statistikasi</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Bu yerda statistika ma'lumotlari ko'rsatiladi -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var map = new ymaps.Map("Tmap", {
+                center: [41.2995, 69.2401], // Toshkent markazi
+                zoom: 11,
+                controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+            });
+
+            // Turli xil hududlar uchun belgilar (kengaytirilgan ma'lumotlar bilan)
+            var districts = [
+                {
+                    coords: [41.2825, 69.2163], 
+                    name: "Мирзо Улуғбек тумани", 
+                    crime: 23,
+                    population: 385000,
+                    cameras: 45,
+                    patrol: 12,
+                    crimeTypes: {
+                        "O'g'irlik": 8,
+                        "Huquqbuzarlik": 6,
+                        "Yo'l-transport": 5,
+                        "Boshqa": 4
+                    }
+                },
+                {
+                    coords: [41.3389, 69.2847], 
+                    name: "Юнусобод тумани", 
+                    crime: 18,
+                    population: 420000,
+                    cameras: 52,
+                    patrol: 15,
+                    crimeTypes: {
+                        "O'g'irlik": 7,
+                        "Huquqbuzarlik": 4,
+                        "Yo'l-transport": 4,
+                        "Boshqa": 3
+                    }
+                },
+                {
+                    coords: [41.3111, 69.2795], 
+                    name: "Шайхонтохур тумани", 
+                    crime: 31,
+                    population: 365000,
+                    cameras: 38,
+                    patrol: 10,
+                    crimeTypes: {
+                        "O'g'irlik": 12,
+                        "Huquqbuzarlik": 8,
+                        "Yo'l-transport": 6,
+                        "Boshqa": 5
+                    }
+                },
+                {
+                    coords: [41.2928, 69.1397], 
+                    name: "Олмазор тумани", 
+                    crime: 15,
+                    population: 310000,
+                    cameras: 41,
+                    patrol: 14,
+                    crimeTypes: {
+                        "O'g'irlik": 6,
+                        "Huquqbuzarlik": 3,
+                        "Yo'l-transport": 3,
+                        "Boshqa": 3
+                    }
+                },
+                {
+                    coords: [41.3573, 69.2664], 
+                    name: "Яшнобод тумани", 
+                    crime: 12,
+                    population: 295000,
+                    cameras: 47,
+                    patrol: 16,
+                    crimeTypes: {
+                        "O'g'irlik": 4,
+                        "Huquqbuzarlik": 3,
+                        "Yo'l-transport": 3,
+                        "Boshqa": 2
+                    }
+                }
+            ];
+
+            // Tumanlar uchun belgilar qo'shish
+            districts.forEach(function(district) {
+                var color = district.crime > 25 ? '#ef4444' :
+                           district.crime > 15 ? '#f59e0b' : '#10b981';
+
+                var placemark = new ymaps.Placemark(district.coords, {
+                    balloonContent: `<strong>${district.name}</strong><br>Jinoyatlar: ${district.crime}<br><small>Batafsil ma'lumot uchun bosing</small>`
+                }, {
+                    preset: 'islands#circleIcon',
+                    iconColor: color,
+                    iconImageSize: [40, 40]
+                });
+
+                // Click event qo'shish
+                placemark.events.add('click', function() {
+                    showModal(district);
+                });
+
+                map.geoObjects.add(placemark);
+            });
+
+            // Kameralar joylashuvi
+            var cameras = [
+                [41.2855, 69.2203], // Near Mirzo Ulugbek
+                [41.3359, 69.2807], // Near Yunusobod
+                [41.3151, 69.2755], // Near Shaykhontokhur
+                [41.2958, 69.1457], // Near Almazar
+                [41.3523, 69.2604], // Near Yashnobod
+                [41.3025, 69.2401]  // Central area
+            ];
+
+            cameras.forEach(function(camera) {
+                var cameraPlacemark = new ymaps.Placemark(camera, {
+                    balloonContent: '<strong>📹 Kuzatuv kamerasi</strong><br>Faol holda'
+                }, {
+                    preset: 'islands#videoCameraIcon',
+                    iconColor: '#2563eb'
+                });
+                map.geoObjects.add(cameraPlacemark);
+            });
+        }
+
+        // Modal funksiyalari
+        function showModal(district) {
+            var modal = document.getElementById('crimeModal');
+            var modalTitle = document.getElementById('modalTitle');
+            var modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = district.name;
+
+            var crimeClass = district.crime > 25 ? 'crime-high' :
+                            district.crime > 15 ? 'crime-medium' : 'crime-low';
+
+            var crimeTypesHtml = '';
+            for (var type in district.crimeTypes) {
+                var percentage = ((district.crimeTypes[type] / district.crime) * 100).toFixed(1);
+                crimeTypesHtml += `
+                    <div class="stat-item">
+                        <span class="stat-label">${type}</span>
+                        <div style="text-align: right;">
+                            <span style="color: #666;">${district.crimeTypes[type]} ta (${percentage}%)</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%; background-color: #667eea;"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modalBody.innerHTML = `
+                <div class="stat-item">
+                    <span class="stat-label">📊 Umumiy jinoyatlar soni</span>
+                    <span class="stat-value ${crimeClass}">${district.crime}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">👥 Aholi soni</span>
+                    <span class="stat-value" style="background-color: #6b7280;">${district.population.toLocaleString()}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">📹 Kuzatuv kameralari</span>
+                    <span class="stat-value" style="background-color: #2563eb;">${district.cameras}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">🚔 Patrul xizmati</span>
+                    <span class="stat-value" style="background-color: #059669;">${district.patrol}</span>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 15px; color: #333;">📈 Jinoyat turlari bo'yicha</h4>
+                    ${crimeTypesHtml}
+                </div>
+            `;
+
+            modal.style.display = 'block';
+
+            // Animatsiya uchun kichik kechikish
+            setTimeout(function() {
+                var progressBars = modal.querySelectorAll('.progress-fill');
+                progressBars.forEach(function(bar) {
+                    bar.style.width = bar.style.width;
+                });
+            }, 100);
+        }
+
+        // Modal yopish
+        var modal = document.getElementById('crimeModal');
+        var closeBtn = document.getElementsByClassName('close')[0];
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
