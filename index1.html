@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/other.js"></script>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -222,17 +223,50 @@
             border-bottom: 1px solid var(--border-color);
             background: rgba(30, 41, 59, 0.5);
         }
-
         .card-title {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
         }
-
         .card-body {
             padding: .5rem;
             height: calc(100vh - 200px);
             overflow-y: auto;
+            position: relative;
+        }
+        .districts {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            background-color: var(--card-bg);
+            padding: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .statistics {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            background-color: var(--card-bg);
+            padding: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 350px;
+            max-width: 350px;
+            min-height: 650px;
+        }
+        .districts li{
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: var(--border-color);
+            margin: 5px 0;
+        }
+        .districts li:hover{
+            transform: translateX(-5px);
+            cursor: pointer;
+
         }
 
         /* Map Styles */
@@ -543,7 +577,7 @@
                 
                 <div class="nav-item" data-card="crime">
                     <i class="nav-item-icon fas fa-exclamation-triangle"></i>
-                    <span class="nav-item-text">Жиноят</span>
+                    <span class="nav-item-text">Жиноятчилик</span>
                 </div>
                 
                 <div class="nav-item" data-card="demographic">
@@ -792,87 +826,381 @@
             <!-- Crime Card -->
             <div class="dashboard-card d-none" id="crime">
                 <div class="card-header">
-                    <h2 class="card-title">жиноят</h2>
+                    <h2 class="card-title">Жиноятчилик</h2>
                 </div>
                 <div class="card-body">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value">532</div>
-                            <div class="stat-label">Жами жиноятлар</div>
-                            <div class="stat-trend">
-                                <i class="fas fa-arrow-up text-danger"></i>
-                                <span class="badge bg-danger">+4.1%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-value">214</div>
-                            <div class="stat-label">Олдини олиш мумкин бўлган</div>
-                            <div class="stat-trend">
-                                <i class="fas fa-arrow-down text-success"></i>
-                                <span class="badge bg-success">-5.1%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-value">198</div>
-                            <div class="stat-label">Аниқланган жиноятлар</div>
-                            <div class="stat-trend">
-                                <i class="fas fa-arrow-down text-success"></i>
-                                <span class="badge bg-success">-3.8%</span>
-                            </div>
-                        </div>
+                    <script src="js/data.js"></script>
+                    <div id="map" style="height: 100%; border-radius: 12px;"></div>
+                    
+                    <div class="districts">
+                        <h5>Tumanlar ro'yhati</h5>
+                        <ul class="list-unstyled">
+                            <li>Olmazor tumani</li>
+                            <li>Shayhontohur tumani</li>
+                            <li>Bektemir tumani</li>
+                            <li>Chilonzor tumani</li>
+                            <li>Mirobod tumani</li>
+                            <li>Mirzo Ulug'bek tumani</li>
+                            <li>Sergeli tumani</li>
+                            <li>Uchtepa tumani</li>
+                            <li>Yakkasaroy tumani</li>
+                            <li>Yangihayot tumani</li>
+                            <li>Yashnaobod tumani</li>
+                            <li>Yunusobod tumani</li>
+                        </ul>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="chart-container">
-                                <canvas id="crimeChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="mb-3">Жиноят турлари</h5>
-                            <div class="progress-wrapper">
-                                <div class="circle">
-                                    <svg>
-                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
-                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
-                                    </svg>
-                                    <div class="circle-text">43%</div>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Унча оғир бўлмаган</div>
-                                    <small class="text-secondary">229 та</small>
-                                </div>
-                            </div>
-                            <div class="progress-wrapper">
-                                <div class="circle">
-                                    <svg>
-                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
-                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
-                                    </svg>
-                                    <div class="circle-text">67%</div>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Оғир</div>
-                                    <small class="text-secondary">357 та</small>
-                                </div>
-                            </div>
-                            <div class="progress-wrapper">
-                                <div class="circle">
-                                    <svg>
-                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
-                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
-                                    </svg>
-                                    <div class="circle-text">33%</div>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Ўта оғир</div>
-                                    <small class="text-secondary">176 та</small>
-                                </div>
-                            </div>
+                    <div class="statistics">
+                        <h5>Tuman bo'yicha statistika</h5>
+                        <div class="chart-container">
+                            <canvas id="birthRegionChart"></canvas>
+                            <canvas id="ageGroupChart" class="mt-5"></canvas>
                         </div>
                     </div>
+                  <script>
+                    function filterByDistrict(other, districtName) {
+                        return other.filter(item => 
+                            item["Туман"].toLowerCase().includes(districtName.toLowerCase())
+                        );
+                    }
+                    // 1. Filter for "Олмазор тумани"
+                    const olmazorResults = filterByDistrict(other, "Миробод");
+                    console.log("Миробод туманидаги жиноятлар:", olmazorResults);
+
+                   // Group data by birth region and count
+                    const regionCounts = olmazorResults.reduce((acc, item) => {
+                        const region = item["Тўғилган вилоят"];
+                        if (region !== undefined){
+                            acc[region] = (acc[region] || 0) + 1;
+                        }
+                        return acc;
+                    }, {});
+
+                    // Prepare data for Chart.js
+                    const regions = Object.keys(regionCounts);
+                    const counts = Object.values(regionCounts);
+
+                    // Generate colors dynamically
+                    const borderColors = regions.map((_, i) => {
+                        const hue = (i * 360 / regions.length) % 360;
+                        return `hsl(${hue}, 70%, 50%)`;
+                    });
+
+                    // Create line chart
+                    const ctx = document.getElementById('birthRegionChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: regions,
+                            datasets: [{
+                                // label: 'Тўғилган вилоят буйича динамика',
+                                data: counts,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: borderColors,
+                                borderWidth: 3,
+                                pointBackgroundColor: borderColors,
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                tension: 0.3,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: false,
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Вилоят буйича динамика',
+                                    font: {
+                                        size: 18
+                                    },
+                                    color: 'white'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.y} нафар`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        // text: 'Сон'
+                                    },
+                                    ticks: {
+                                        color: 'white',
+                                        stepSize: 1
+                                    }
+                                },
+                                x: {
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                }
+                            },
+                            animation: {
+                                duration: 2000
+                            }
+                        }
+                    });
+                    
+                    // Group data by age category
+                    const ageGroups = {};
+                    olmazorResults.forEach(item => {
+                        const ageGroup = item[" Ёш тоифаси"];
+                        if (!ageGroups[ageGroup]) {
+                            ageGroups[ageGroup] = 0;
+                        }
+                        ageGroups[ageGroup]++;
+                    });
+
+                    // Sort age groups logically
+                    const sortedAgeGroups = {
+                        "15-17 ёш": ageGroups["15-17 ёш"] || 0,
+                        "18-30 ёш": ageGroups["18-30 ёш"] || 0,
+                        "31-49 ёш": ageGroups["31-49 ёш"] || 0,
+                        "50-59 ёш": ageGroups["50-59 ёш"] || 0,
+                        "60 ёш ва ундан катта": ageGroups["60 ёш ва ундан катта"] || 0
+                    };
+
+                    // Prepare chart data
+                    const labels = Object.keys(sortedAgeGroups);
+                    const data1 = Object.values(sortedAgeGroups);
+
+                    // Create bar chart
+                    const ctx1 = document.getElementById('ageGroupChart').getContext('2d');
+                    new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Сон',
+                                data: data1,
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.7)',
+                                    'rgba(255, 99, 132, 0.7)',
+                                    'rgba(75, 192, 192, 0.7)',
+                                    'rgba(153, 102, 255, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Ёш гуруҳлари буйича динамика',
+                                    font: {
+                                        size: 16
+                                    },
+                                    color: 'white'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.y} нафар`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        // text: 'Сон'
+                                    },
+                                    ticks: {
+                                        precision: 0,
+                                        color: 'white'
+                                    }
+                                },
+                                x: {
+                                    // title: {
+                                    //     display: true,
+                                    //     text: 'Ёш тоифаси'
+                                    // },
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    // *****************************************************************
+                    ymaps.ready(init);
+            
+                    function init() {
+                        var map = new ymaps.Map("map", {
+                            center: [41.311649232954316, 69.24125933467975], // Toshkent markazi
+                            zoom: 12,
+                            controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+                        });
+
+                        var mirobodCoordinates = [
+                            [41.312697240084375, 69.26901837914095],
+                            [41.305010925533516, 69.26554798348963],
+                            [41.30456583881327, 69.26542369422948],
+                            [41.3037736708225, 69.2654388670942],
+                            [41.30271363241355, 69.26585612087365],
+                            [41.30120407907706, 69.26705949283362],
+                            [41.29979939401375, 69.26763689061126],
+                            [41.29979400590848, 69.26764529083748],
+                            [41.29572292382547, 69.26873131358758],
+                            [41.292549490781504, 69.27121869513802],
+                            [41.29063219663235, 69.2690114213818],
+                            [41.28954890054428, 69.26896038615163],
+                            [41.28880112814945, 69.26755691732205],
+                            [41.28763151815846, 69.26628103652654],
+                            [41.287458950987556, 69.26555378449666],
+                            [41.28568531750194, 69.26616620725866],
+                            [41.284774514003814, 69.26423962731988],
+                            [41.284028411025396, 69.26505928299743],
+                            [41.28326449798294, 69.26553722823571],
+                            [41.28359514800942, 69.26636414936227],
+                            [41.28011183680799, 69.2690497465342],
+                            [41.2778484400206, 69.27297951864895],
+                            [41.2715310382408, 69.2673579719591],
+                            [41.269780530892106, 69.2656055060854],
+                            [41.26817253164325, 69.26363303367341],
+                            [41.267592608214, 69.2623709863034],
+                            [41.26730749529848, 69.26270858254314],
+                            [41.26708225521493, 69.26340653431967],
+                            [41.26717064065679, 69.26410448609622],
+                            [41.2680801484248, 69.26639558876052],
+                            [41.2685990468676, 69.26854254922664],
+                            [41.27014461830773, 69.27742177950338],
+                            [41.271426762356384, 69.2828183837723],
+                            [41.27066026397842, 69.2865943949216],
+                            [41.2653379293872, 69.29311752733246],
+                            [41.26443470228793, 69.29734468852918],
+                            [41.263208874098495, 69.29734468852918],
+                            [41.26285402477284, 69.30094957759923],
+                            [41.261966893094886, 69.30266619128318],
+                            [41.264644381092126, 69.30813789740075],
+                            [41.260934579197254, 69.31079864902595],
+                            [41.257208435570334, 69.30202246127686],
+                            [41.252643216631185, 69.30221558030456],
+                            [41.25254230092032, 69.30164197718175],
+                            [41.24427947371576, 69.30162868776581],
+                            [41.24424524801555, 69.31188554484181],
+                            [41.2436462953993, 69.3141235424853],
+                            [41.24210040185822, 69.31664223814636],
+                            [41.237445387156335, 69.32253689631675],
+                            [41.23693765101891, 69.32650460064956],
+                            [41.23810263427187, 69.33077662047191],
+                            [41.27782612941688, 69.30818658868588],
+                            [41.279609564746444, 69.30619621470939],
+                            [41.2825626730758, 69.30583896809823],
+                            [41.291567317704505, 69.29963602484807],
+                            [41.29959275853903, 69.29155245665495],
+                            [41.30029764872079, 69.2903976612204],
+                            [41.302629154276175, 69.28823241978058],
+                            [41.30990779540875, 69.28079842375675],
+                            [41.31009754426568, 69.27892188117559],
+                            [41.31281825127222, 69.2691388820126],
+                            [41.30928848664218, 69.26733643764446],
+                            [41.305049292993175, 69.26557690861841],
+                        ];
+
+                        var mirobodPolygon = new ymaps.Polygon([mirobodCoordinates], {
+                                balloonContent: `
+                                    <div style="padding: 5px;">
+                                        <b>Mirobod Tumani</b><br>
+                                        <small>Hudud: ~28.58 km²</small><br>
+                                        <a href="#" onclick="alert('More info about Mirobod!'); return false;">Batafsil</a>
+                                    </div>
+                                `,
+                                hintContent: "Mirobod Tumani"
+                            }, {
+                                fillColor: '#000080',
+                                strokeColor: '#000080',
+                                strokeWidth: 3,
+                                fillOpacity: .5
+                            });
+
+                        map.geoObjects.add(mirobodPolygon);                     
+                        
+                        // Kameralar joylashuvi - updated to be near district centers
+                        var cameras = [
+                            [41.2855, 69.2203], // Near Mirzo Ulugbek
+                            [41.3359, 69.2807], // Near Yunusobod
+                            [41.3151, 69.2755], // Near Shaykhontokhur
+                            // [41.2958, 69.1457], // Near Almazar
+                            [41.3523, 69.2604], // Near Yashnobod
+                            [41.3025, 69.2401]  // Central area
+                        ];
+                        
+                        cameras.forEach(function(camera) {
+                            var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+                                preset: 'islands#videoCameraIcon',
+                                iconColor: '#2563eb'
+                            });
+                            map.geoObjects.add(cameraPlacemark);
+                        });
+
+                        var polygonCoordinates = [
+                            [41.397959470975074, 69.23403486321702],
+                            [41.357255685865226, 69.16811689682896],
+                            [41.333027425069545, 69.1626237329633],
+                            [41.310744371279036, 69.15180162417637],
+                            [41.28006679416332, 69.14726476493163],
+                            [41.266001416392456, 69.14669765752605],
+                            [41.24894841080359, 69.16257666488261],
+                            [41.229758457888266, 69.17335170558883],
+                            [41.227199371794676, 69.18469385370067],
+                            [41.22762589309935, 69.19887153884045],
+                            [41.23189095311937, 69.20567682770755],
+                            [41.24169953525792, 69.21361633138581],
+                            [41.244980557233994, 69.27014669867877], // 41.244980557233994, 69.27014669867877
+                            [41.24340522537849, 69.31456144958106],
+                            [41.23786156971283, 69.32136673844816],
+                            [41.23786156971283, 69.32760491990967],
+                            [41.248522028619945, 69.35255764575568], 
+                            [41.26770647207268, 69.36503400867869],
+                            [41.26813272903575, 69.36616822348988],
+                            [41.290720365750985, 69.357661612406],
+                            [41.30648445947063, 69.33951417542708],
+                            [41.333743085290884, 69.37807747900729],
+                            [41.33459473363532, 69.37807747900729],
+                            [41.341407519542706, 69.37580904938494],
+                            [41.35503095343275, 69.3440510346718],
+                            [41.36950272840403, 69.32476938288171],
+                            [41.36907713389997, 69.3259035976929],
+                            [41.38524776780425, 69.31626277179784],
+                            [41.38397128498231, 69.28337054227356],
+                            [41.39716039908299, 69.26068624604989],
+                            [41.397585809826694, 69.23516641279829]
+                        ];
+
+                        var myPolygon = new ymaps.Polygon([polygonCoordinates], {}, {
+                            strokeColor: '#008000',
+                            strokeWidth: 3,
+                            fillOpacity: 0
+                        });
+                       
+                        map.geoObjects.add(myPolygon);
+                    }
+                
+                </script>
                 </div>
             </div>
 
@@ -1176,441 +1504,445 @@
                 });
             });
         </script>
-    </div>
-</div>
+        </div>
+            </div>
 
-          <!-- Personal Control Card -->
-<div class="dashboard-card d-none" id="personal">
-    <div class="card-header">
-        <h2 class="card-title">Шахсий назорат</h2>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="stat-card mb-4">
-                    <div class="stat-value">1,248</div>
-                    <div class="stat-label">Назоратдаги шахслар</div>
-                    <div class="stat-trend">
-                        <i class="fas fa-arrow-up text-warning"></i>
-                        <span class="badge bg-warning">+2.3%</span>
-                    </div>
+                    <!-- Personal Control Card -->
+            <div class="dashboard-card d-none" id="personal">
+                <div class="card-header">
+                    <h2 class="card-title">Шахсий назорат</h2>
                 </div>
-                
-                <ul class="custom-list">
-                    <li class="list-item">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-user-clock text-primary me-2"></i>
-                            <span>Профилактикадаги шахслар</span>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="stat-card mb-4">
+                                <div class="stat-value">1,248</div>
+                                <div class="stat-label">Назоратдаги шахслар</div>
+                                <div class="stat-trend">
+                                    <i class="fas fa-arrow-up text-warning"></i>
+                                    <span class="badge bg-warning">+2.3%</span>
+                                </div>
+                            </div>
+                            
+                            <ul class="custom-list">
+                                <li class="list-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-clock text-primary me-2"></i>
+                                        <span>Профилактикадаги шахслар</span>
+                                    </div>
+                                    <strong>892</strong>
+                                </li>
+                                <li class="list-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-shield text-success me-2"></i>
+                                        <span>Назоратдаги оилавий зўравонлик</span>
+                                    </div>
+                                    <strong>156</strong>
+                                </li>
+                                <li class="list-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-graduate text-info me-2"></i>
+                                        <span>Ижтимоий ишлардаги шахслар</span>
+                                    </div>
+                                    <strong>200</strong>
+                                </li>
+                            </ul>
                         </div>
-                        <strong>892</strong>
-                    </li>
-                    <li class="list-item">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-user-shield text-success me-2"></i>
-                            <span>Назоратдаги оилавий зўравонлик</span>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="personalChart"></canvas>
+                            </div>
                         </div>
-                        <strong>156</strong>
-                    </li>
-                    <li class="list-item">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-user-graduate text-info me-2"></i>
-                            <span>Ижтимоий ишлардаги шахслар</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Administrative Violations Card -->
+            <div class="dashboard-card d-none" id="maHuq">
+                <div class="card-header">
+                    <h2 class="card-title">Маъмурий ҳуқуқбузарликлар</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid mb-4">
+                        <div class="stat-card">
+                            <div class="stat-value">1,128</div>
+                            <div class="stat-label">Жами аниқланган ҳуқуқбузарликлар</div>
                         </div>
-                        <strong>200</strong>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <div class="chart-container">
-                    <canvas id="personalChart"></canvas>
+                        <div class="stat-card">
+                            <div class="stat-value">221</div>
+                            <div class="stat-label">Профилактика инспектори томонидан</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">147</div>
+                            <div class="stat-label">Суд томонидан кўриб чиқилган</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="mb-3">Жарималар</h5>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">68%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Жарима солинган</div>
+                                    <small class="text-secondary">767 та</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="mb-3">Огоҳлантириш</h5>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">22%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Огоҳлантирилган</div>
+                                    <small class="text-secondary">248 та</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="mb-3">Маъмурий қамоқ</h5>
+                            <div class="progress-wrapper">
+                                <div class="circle">
+                                    <svg>
+                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
+                                        <circle class="circle-bar" cx="30" cy="30" r="25" />
+                                    </svg>
+                                    <div class="circle-text">10%</div>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Қамоққа олинган</div>
+                                    <small class="text-secondary">113 та</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<!-- Administrative Violations Card -->
-<div class="dashboard-card d-none" id="maHuq">
-    <div class="card-header">
-        <h2 class="card-title">Маъмурий ҳуқуқбузарликлар</h2>
-    </div>
-    <div class="card-body">
-        <div class="stats-grid mb-4">
-            <div class="stat-card">
-                <div class="stat-value">1,128</div>
-                <div class="stat-label">Жами аниқланган ҳуқуқбузарликлар</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">221</div>
-                <div class="stat-label">Профилактика инспектори томонидан</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">147</div>
-                <div class="stat-label">Суд томонидан кўриб чиқилган</div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <h5 class="mb-3">Жарималар</h5>
-                <div class="progress-wrapper">
-                    <div class="circle">
-                        <svg>
-                            <circle class="circle-bg" cx="30" cy="30" r="25" />
-                            <circle class="circle-bar" cx="30" cy="30" r="25" />
-                        </svg>
-                        <div class="circle-text">68%</div>
-                    </div>
-                    <div>
-                        <div class="fw-bold">Жарима солинган</div>
-                        <small class="text-secondary">767 та</small>
-                    </div>
+            <!-- E-Material Monitoring Card -->
+            <div class="dashboard-card d-none" id="e-ma-mo">
+                <div class="card-header">
+                    <h2 class="card-title">E-материал мониторинги</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="custom-list">
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-envelope bg-primary p-2 rounded-circle me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Келиб тушган хабарлар</div>
+                                    <small class="text-secondary">Охирги 24 соатда</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">203</div>
+                                <small class="text-danger">
+                                    <i class="fas fa-arrow-trend-up"></i> +127.9%
+                                </small>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-phone bg-success p-2 rounded-circle me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Қўзғатилган ишлар</div>
+                                    <small class="text-secondary">Охирги 7 кунда</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">156</div>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-trend-down"></i> -27.9%
+                                </small>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-file bg-info p-2 rounded-circle me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Судга юборилган ҳужжатлар</div>
+                                    <small class="text-secondary">Охирги 30 кунда</small>
+                                </div>
+                            </div>
+                            <div class="fw-bold">87</div>
+                        </li>
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-camera bg-warning p-2 rounded-circle me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Жиноят ишини қўзғатишни рад этиш</div>
+                                    <small class="text-secondary">Охирги 7 кунда</small>
+                                </div>
+                            </div>
+                            <div class="fw-bold">23</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h5 class="mb-3">Огоҳлантириш</h5>
-                <div class="progress-wrapper">
-                    <div class="circle">
-                        <svg>
-                            <circle class="circle-bg" cx="30" cy="30" r="25" />
-                            <circle class="circle-bar" cx="30" cy="30" r="25" />
-                        </svg>
-                        <div class="circle-text">22%</div>
-                    </div>
-                    <div>
-                        <div class="fw-bold">Огоҳлантирилган</div>
-                        <small class="text-secondary">248 та</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <h5 class="mb-3">Маъмурий қамоқ</h5>
-                <div class="progress-wrapper">
-                    <div class="circle">
-                        <svg>
-                            <circle class="circle-bg" cx="30" cy="30" r="25" />
-                            <circle class="circle-bar" cx="30" cy="30" r="25" />
-                        </svg>
-                        <div class="circle-text">10%</div>
-                    </div>
-                    <div>
-                        <div class="fw-bold">Қамоққа олинган</div>
-                        <small class="text-secondary">113 та</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- E-Material Monitoring Card -->
-<div class="dashboard-card d-none" id="e-ma-mo">
-    <div class="card-header">
-        <h2 class="card-title">E-материал мониторинги</h2>
-    </div>
-    <div class="card-body">
-        <ul class="custom-list">
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-envelope bg-primary p-2 rounded-circle me-3"></i>
-                    <div>
-                        <div class="fw-bold">Келиб тушган хабарлар</div>
-                        <small class="text-secondary">Охирги 24 соатда</small>
+            <!-- Prophylactic Measures Card -->
+            <div class="dashboard-card d-none" id="prophylactic">
+                <div class="card-header">
+                    <h2 class="card-title">Профилактик тадбирлар</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>17:00 - 19:00 оралиғида патрул кучайтириш</strong>
+                        <p class="mb-0 mt-1">Бешқўрғон МФЙ ҳудудида доимий назорат</p>
                     </div>
+                    
+                    <h5 class="mt-4 mb-3">Яқиндаги тадбирлар</h5>
+                    <ul class="custom-list">
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-check text-primary me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Ижтимоий хавфсизлик машғулотлари</div>
+                                    <small class="text-secondary">2023-11-15, 10:00</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success">Бажарилди</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-day text-info me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Ёшлар билан ишлаш бўйича семинар</div>
+                                    <small class="text-secondary">2023-11-20, 14:00</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-warning">Режалаштирилган</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-alt text-success me-3"></i>
+                                <div>
+                                    <div class="fw-bold">Махалла хавфсизлиги кенгаши</div>
+                                    <small class="text-secondary">2023-11-25, 09:30</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-primary">Яқинлашмокда</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="text-end">
-                    <div class="fw-bold">203</div>
-                    <small class="text-danger">
-                        <i class="fas fa-arrow-trend-up"></i> +127.9%
-                    </small>
-                </div>
-            </li>
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-phone bg-success p-2 rounded-circle me-3"></i>
-                    <div>
-                        <div class="fw-bold">Қўзғатилган ишлар</div>
-                        <small class="text-secondary">Охирги 7 кунда</small>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <div class="fw-bold">156</div>
-                    <small class="text-success">
-                        <i class="fas fa-arrow-trend-down"></i> -27.9%
-                    </small>
-                </div>
-            </li>
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-file bg-info p-2 rounded-circle me-3"></i>
-                    <div>
-                        <div class="fw-bold">Судга юборилган ҳужжатлар</div>
-                        <small class="text-secondary">Охирги 30 кунда</small>
-                    </div>
-                </div>
-                <div class="fw-bold">87</div>
-            </li>
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-camera bg-warning p-2 rounded-circle me-3"></i>
-                    <div>
-                        <div class="fw-bold">Жиноят ишини қўзғатишни рад этиш</div>
-                        <small class="text-secondary">Охирги 7 кунда</small>
-                    </div>
-                </div>
-                <div class="fw-bold">23</div>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<!-- Prophylactic Measures Card -->
-<div class="dashboard-card d-none" id="prophylactic">
-    <div class="card-header">
-        <h2 class="card-title">Профилактик тадбирлар</h2>
-    </div>
-    <div class="card-body">
-        <div class="alert alert-warning">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <strong>17:00 - 19:00 оралиғида патрул кучайтириш</strong>
-            <p class="mb-0 mt-1">Бешқўрғон МФЙ ҳудудида доимий назорат</p>
-        </div>
-        
-        <h5 class="mt-4 mb-3">Яқиндаги тадбирлар</h5>
-        <ul class="custom-list">
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-calendar-check text-primary me-3"></i>
-                    <div>
-                        <div class="fw-bold">Ижтимоий хавфсизлик машғулотлари</div>
-                        <small class="text-secondary">2023-11-15, 10:00</small>
-                    </div>
-                </div>
-                <span class="badge bg-success">Бажарилди</span>
-            </li>
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-calendar-day text-info me-3"></i>
-                    <div>
-                        <div class="fw-bold">Ёшлар билан ишлаш бўйича семинар</div>
-                        <small class="text-secondary">2023-11-20, 14:00</small>
-                    </div>
-                </div>
-                <span class="badge bg-warning">Режалаштирилган</span>
-            </li>
-            <li class="list-item">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-calendar-alt text-success me-3"></i>
-                    <div>
-                        <div class="fw-bold">Махалла хавфсизлиги кенгаши</div>
-                        <small class="text-secondary">2023-11-25, 09:30</small>
-                    </div>
-                </div>
-                <span class="badge bg-primary">Яқинлашмокда</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<!-- Structural Platforms Card -->
-<div class="dashboard-card d-none" id="statistic">
-    <div class="card-header">
-        <h2 class="card-title">Таркибий платформалар</h2>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <a href="m24-admin/index.html" class="text-decoration-none">
-                    <div class="platform-card bg-primary">
-                        <img src="images/mahalla.png" alt="Mahalla 24" class="platform-icon">
-                        <h5>Маҳалла 24</h5>
-                        <p>Махаллабай ишлаш тизими</p>
-                    </div>
-                </a>
             </div>
-            <div class="col-md-4 mb-4">
-                <a href="prob24/dashboard.html" class="text-decoration-none">
-                    <div class="platform-card bg-success">
-                        <img src="images/prob.png" alt="Digital Probation" class="platform-icon">
-                        <h5>Рақамли Пробация</h5>
-                        <p>Пробация хизмати тизими</p>
+
+            <!-- Structural Platforms Card -->
+            <div class="dashboard-card d-none" id="statistic">
+                <div class="card-header">
+                    <h2 class="card-title">Таркибий платформалар</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <a href="m24-admin/index.html" class="text-decoration-none">
+                                <div class="platform-card bg-primary">
+                                    <img src="images/mahalla.png" alt="Mahalla 24" class="platform-icon">
+                                    <h5>Маҳалла 24</h5>
+                                    <p>Махаллабай ишлаш тизими</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <a href="prob24/dashboard.html" class="text-decoration-none">
+                                <div class="platform-card bg-success">
+                                    <img src="images/prob.png" alt="Digital Probation" class="platform-icon">
+                                    <h5>Рақамли Пробация</h5>
+                                    <p>Пробация хизмати тизими</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <a href="stat-crm/index.html" class="text-decoration-none">
+                                <div class="platform-card bg-warning">
+                                    <img src="images/Yoshlar.png" alt="Youth Work" class="platform-icon">
+                                    <h5>Ёшлар билан ишлаш</h5>
+                                    <p>Ёшлар ижтимоий хавфсизлиги</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </a>
+                </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <a href="stat-crm/index.html" class="text-decoration-none">
-                    <div class="platform-card bg-warning">
-                        <img src="images/Yoshlar.png" alt="Youth Work" class="platform-icon">
-                        <h5>Ёшлар билан ишлаш</h5>
-                        <p>Ёшлар ижтимоий хавфсизлиги</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- JavaScript for Interactive Functionality -->
-<script>
-    // Initialize sidebar toggle functionality
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('collapsed');
-        
-        // Change icon based on state
-        if (sidebar.classList.contains('collapsed')) {
-            this.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        } else {
-            this.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        }
-    });
-
-    // Mobile sidebar toggle
-    document.getElementById('sidebarToggleMobile').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('open');
-    });
-
-    // Card navigation from sidebar
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function() {
-            // Remove active class from all nav items
-            document.querySelectorAll('.nav-item').forEach(nav => {
-                nav.classList.remove('active');
-            });
-            
-            // Add active class to clicked item
-            this.classList.add('active');
-            
-            // Hide all cards
-            document.querySelectorAll('.dashboard-card').forEach(card => {
-                card.classList.add('d-none');
-            });
-            
-            // Show selected card
-            const cardId = this.getAttribute('data-card');
-            document.getElementById(cardId).classList.remove('d-none');
-        });
-    });
-
-    // Initialize charts
-    // document.addEventListener('DOMContentLoaded', function() {
-
-    //     if (document.getElementById('Tmap')) {
-    //     ymaps.ready(init);
-        
-    //     function init() {
-    //         var map = new ymaps.Map("Tmap", {
-    //             center: [41.2995, 69.2401], // Toshkent markazi
-    //             zoom: 11,
-    //             controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
-    //         });
-            
-    //         // Turli xil hududlar uchun belgilar
-    //         var districts = [
-    //             {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
-    //             {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
-    //             {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
-    //             {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
-    //             {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
-    //         ];
-            
-    //         districts.forEach(function(district) {
-    //             var color = district.crime > 25 ? '#ef4444' : 
-    //                        district.crime > 15 ? '#f59e0b' : '#10b981';
-                
-    //             var placemark = new ymaps.Placemark(district.coords, {
-    //                 balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
-    //             }, {
-    //                 preset: 'islands#circleIcon',
-    //                 iconColor: color
-    //             });
-                
-    //             map.geoObjects.add(placemark);
-    //         });
-            
-    //         // Kameralar joylashuvi
-    //         var cameras = [
-    //             [41.2925, 69.2263], [41.2989, 69.2447], [41.3011, 69.2595],
-    //             [41.3228, 69.2397], [41.3173, 69.2164], [41.2875, 69.1963]
-    //         ];
-            
-    //         cameras.forEach(function(camera) {
-    //             var cameraPlacemark = new ymaps.Placemark(camera, {}, {
-    //                 preset: 'islands#videoCameraIcon',
-    //                 iconColor: '#2563eb'
-    //             });
-    //             map.geoObjects.add(cameraPlacemark);
-    //         });
-    //     }
-    // }
-        // Crime Chart
-        const crimeCtx = document.getElementById('crimeChart').getContext('2d');
-        const crimeChart = new Chart(crimeCtx, {
-            type: 'line',
-            data: {
-                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-                datasets: [{
-                    label: 'Жиноятлар сони',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
-                    borderColor: 'rgba(37, 99, 235, 1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
+            <!-- JavaScript for Interactive Functionality -->
+            <script>
+                // Initialize sidebar toggle functionality
+                document.getElementById('sidebarToggle').addEventListener('click', function() {
+                    const sidebar = document.getElementById('sidebar');
+                    sidebar.classList.toggle('collapsed');
+                    
+                    // Change icon based on state
+                    if (sidebar.classList.contains('collapsed')) {
+                        this.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                    } else {
+                        this.innerHTML = '<i class="fas fa-chevron-left"></i>';
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+                });
 
-        // Personal Chart
-        const personalCtx = document.getElementById('personalChart').getContext('2d');
-        const personalChart = new Chart(personalCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Профилактикадаги', 'Оилавий зўравонлик', 'Ижтимоий ишлардаги'],
-                datasets: [{
-                    data: [892, 156, 200],
-                    backgroundColor: [
-                        'rgba(37, 99, 235, 0.7)',
-                        'rgba(16, 185, 129, 0.7)',
-                        'rgba(59, 130, 246, 0.7)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right'
-                    }
-                }
-            }
-        });
-    // });
+                // Mobile sidebar toggle
+                document.getElementById('sidebarToggleMobile').addEventListener('click', function() {
+                    document.getElementById('sidebar').classList.toggle('open');
+                });
 
-    // Initialize progress circles
-    document.querySelectorAll('.circle').forEach(wrapper => {
-        const percent = parseFloat(wrapper.getAttribute('data-percent')) || 75;
-        const circle = wrapper.querySelector('.circle-bar');
-        const radius = circle.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (percent / 100) * circumference;
+                // Card navigation from sidebar
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        // Remove active class from all nav items
+                        document.querySelectorAll('.nav-item').forEach(nav => {
+                            nav.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked item
+                        this.classList.add('active');
+                        
+                        // Hide all cards
+                        document.querySelectorAll('.dashboard-card').forEach(card => {
+                            card.classList.add('d-none');
+                        });
+                        
+                        // Show selected card
+                        const cardId = this.getAttribute('data-card');
+                        document.getElementById(cardId).classList.remove('d-none');
+                    });
+                });
 
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = offset;
-    });
-</script>
-<!-- Updated Map Script Section -->
+                // Initialize charts
+                // document.addEventListener('DOMContentLoaded', function() {
+
+                //     if (document.getElementById('Tmap')) {
+                //     ymaps.ready(init);
+                    
+                //     function init() {
+                //         var map = new ymaps.Map("Tmap", {
+                //             center: [41.2995, 69.2401], // Toshkent markazi
+                //             zoom: 11,
+                //             controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+                //         });
+                        
+                //         // Turli xil hududlar uchun belgilar
+                //         var districts = [
+                //             {coords: [41.2825, 69.2163], name: "Мирзо Улуғбек тумани", crime: 23},
+                //             {coords: [41.3389, 69.2847], name: "Юнусобод тумани", crime: 18},
+                //             {coords: [41.3111, 69.2795], name: "Шайхонтохур тумани", crime: 31},
+                //             {coords: [41.2928, 69.1397], name: "Олмазор тумани", crime: 15},
+                //             {coords: [41.3573, 69.2664], name: "Яшнобод тумани", crime: 12}
+                //         ];
+                        
+                //         districts.forEach(function(district) {
+                //             var color = district.crime > 25 ? '#ef4444' : 
+                //                        district.crime > 15 ? '#f59e0b' : '#10b981';
+                            
+                //             var placemark = new ymaps.Placemark(district.coords, {
+                //                 balloonContent: `<strong>${district.name}</strong><br>Жиноятлар: ${district.crime}`
+                //             }, {
+                //                 preset: 'islands#circleIcon',
+                //                 iconColor: color
+                //             });
+                            
+                //             map.geoObjects.add(placemark);
+                //         });
+                        
+                //         // Kameralar joylashuvi
+                //         var cameras = [
+                //             [41.2925, 69.2263], [41.2989, 69.2447], [41.3011, 69.2595],
+                //             [41.3228, 69.2397], [41.3173, 69.2164], [41.2875, 69.1963]
+                //         ];
+                        
+                //         cameras.forEach(function(camera) {
+                //             var cameraPlacemark = new ymaps.Placemark(camera, {}, {
+                //                 preset: 'islands#videoCameraIcon',
+                //                 iconColor: '#2563eb'
+                //             });
+                //             map.geoObjects.add(cameraPlacemark);
+                //         });
+                //     }
+                // }
+                    // Crime Chart
+                    // const crimeCtx = document.getElementById('crimeChart').getContext('2d');
+                    // const crimeChart = new Chart(crimeCtx, {
+                    //     type: 'line',
+                    //     data: {
+                    //         labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+                    //         datasets: [{
+                    //             label: 'Жиноятлар сони',
+                    //             data: [65, 59, 80, 81, 56, 55, 40],
+                    //             backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    //             borderColor: 'rgba(37, 99, 235, 1)',
+                    //             borderWidth: 2,
+                    //             tension: 0.4,
+                    //             fill: true
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         responsive: true,
+                    //         plugins: {
+                    //             legend: {
+                    //                 display: false
+                    //             }
+                    //         },
+                    //         scales: {
+                    //             y: {
+                    //                 beginAtZero: true
+                    //             }
+                    //         }
+                    //     }
+                    // });
+
+                    // Personal Chart
+                    const personalCtx = document.getElementById('personalChart').getContext('2d');
+                    const personalChart = new Chart(personalCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Профилактикадаги', 'Оилавий зўравонлик', 'Ижтимоий ишлардаги'],
+                            datasets: [{
+                                data: [892, 156, 200],
+                                backgroundColor: [
+                                    'rgba(37, 99, 235, 0.7)',
+                                    'rgba(16, 185, 129, 0.7)',
+                                    'rgba(59, 130, 246, 0.7)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right'
+                                }
+                            }
+                        }
+                    });
+                // });
+
+                // Initialize progress circles
+                document.querySelectorAll('.circle').forEach(wrapper => {
+                    const percent = parseFloat(wrapper.getAttribute('data-percent')) || 75;
+                    const circle = wrapper.querySelector('.circle-bar');
+                    const radius = circle.r.baseVal.value;
+                    const circumference = 2 * Math.PI * radius;
+                    const offset = circumference - (percent / 100) * circumference;
+
+                    circle.style.strokeDasharray = circumference;
+                    circle.style.strokeDashoffset = offset;
+                });
+            </script>
+            <!-- Updated Map Script Section -->
+        </main>
+    </div>
+</body>
+</html>
