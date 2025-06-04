@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,11 +14,9 @@
             <div class="d-flex align-items-center">
                 <a href="../index.html">
                     <img src="images/favicon-32x32.png" alt="Logo" class="mr-2 rounded-circle" style="height: 40px;">
-                    <!-- <span class="h5 mb-0">Dashboard</span> -->
                 </a>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <!-- language switcher with flags -->
                 <i id="themeSwitcher" class="bi bi-moon"></i>
                 <div class="d-flex align-items-center ml-2">
                     <div class="dropdown">
@@ -61,7 +59,6 @@
                 </li>
                 <li class="nav-item ml-auto d-flex align-items-center">
                     <i class="bi bi-bell bg-light rounded p-0 px-1 text-primary position-relative">
-                        <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">9+</span> -->
                     </i>
                     <a class="nav-link pl-1" href="#">SOS</a>
                 </li>
@@ -78,66 +75,7 @@
                         <span class="input-group-text"><i class="bi bi-filetype-xlsx text-primary"></i></span>
                     </div>
                 </div>
-                <!-- <div class="modal fade" id="addLawModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-dark" id="editUserModalLabel">Qo'shish:</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form class="text-dark">
-                                    <div class="d-flex flex-column flex-sm-row">
-                                        <label for="lawName" class="col-sm-2 col-form-label">FISH:</label>
-                                        <input type="text" class="form-control" id="lawName" placeholder="Qonun nomi">
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawDocument" class="col-sm-2 col-form-label">Rasm:</label>
-                                        <input type="file" class="form-control" id="lawDocument">
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawDescription" class="col-sm-2 col-form-label">Mahalla:</label>
-                                        <input type="text" class="form-control" id="lawName" placeholder="Qonun nomi">
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawStatus" class="col-sm-2 col-form-label">Mahkumga ogohlantirish sms yuborish holati:</label>
-                                        <select class="form-control" id="lawStatus">
-                                            <option selected>Tanlang...</option>
-                                            <option value="1">Faol</option>
-                                            <option value="2">Faol emas</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawStatus" class="col-sm-2 col-form-label">Mahalla inspektoriga ogohlantirish sms yuborilish holati:</label>
-                                        <select class="form-control" id="lawStatus">
-                                            <option selected>Tanlang...</option>
-                                            <option value="1">Faol</option>
-                                            <option value="2">Faol emas</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawDocument" class="col-sm-2 col-form-label">Mahkum joylashuv manzili:</label>
-                                        <input type="file" class="form-control" id="lawDocument">
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawDocument" class="col-sm-2 col-form-label">Tekshiruv o'tkazilish holati:</label>
-                                        <input type="file" class="form-control" id="lawDocument">
-                                    </div>
-                                    <div class="d-flex flex-column flex-sm-row mt-2">
-                                        <label for="lawDocument" class="col-sm-2 col-form-label">Dalolatnoma rasmiylashtirish holati:</label>
-                                        <input type="file" class="form-control" id="lawDocument">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                                <button type="button" class="btn btn-primary">Saqlash</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <button type="button" class="btn btn-primary"><i class="bi bi-filetype-xlsx"></i> Excel formatda yuklash</button> -->
-            </div>           
+                 </div>           
             <div class="filters mt-1">
                 <div class="w-100 d-flex justify-content-around gap-1">
                     <div class="input-group">
@@ -161,66 +99,10 @@
             </div>
 
             <div class="table-responsive mt-3 border border-dark" id="tableContainer">
-                <!-- <table class="table table-hover">
-                  <thead>
-                    <tr class="text-primary">
-                        <th scope="col" class="bg-light">№</th>
-                        <th scope="col" class="bg-light">F.I.Sh</th>
-                        <th scope="col" class="bg-light">Rasm</th>
-                        <th scope="col">Tug'ilgan sana</th>
-                        <th scope="col">Yashash manzili</th>
-                        <th scope="col">Lokatsiya</th>
-                        <th scope="col">Tug'ilgan sanasi</th>
-                        <th scope="col">Hisobga olingan sana</th>
-                        <th scope="col">Hisobga olgan IIO FMB</th>
-                        <th scope="col">Hukm chiqarilgan sana,<br>sud nomi va JK moddasi</th>
-                        <th scope="col">Jazo muddati</th>
-                        <th scope="col">Hukm qonuniy kuchga kirgan sana</th>
-                        <th scope="col">Jazo tugash sanasi</th>
-                        <th scope="col">O'rnatilgan cheklov vaqti</th>
-                        <th scope="col">Pasport seriyasi va raqami</th>
-                        <th scope="col">PINFL</th>
-                        <th scope="col">Inspektor telefon raqami</th>
-                        <th scope="col">Profilaktika telefon raqami</th>
-                        <th scope="col">Mahkumning telefon raqami</th>
-                        <th scope="col">Jazo o'tash tartibi buzilgan sana</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="text-primary">
-                        <td class="bg-light border-bottom border-primary" scope="row">1</td>
-                        <td class="bg-light border-bottom border-primary">Rajapov M.X.</td>
-                        <td class="bg-light border-bottom"><img src="images/favicon-32x32.png" alt="Rasm" class="rounded-circle" style="width: 40px; height: 40px;"></td>
-                        <td>2023-10-01 12:00</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                        <td><i class="bi bi-check-circle-fill text-success"></i></td>
-                        <td><i class="bi bi-x-circle-fill text-danger"></i></td>
-                        <td>Toshkent shahar, Yashnobod tumani</td>
-                        <td><i class="bi bi-check-circle-fill text-success"></i></td>
-                        <td><i class="bi bi-x-circle-fill text-danger"></i></td>
-                        <td><button class="btn btn-primary">Izoh qoldirish</button></td>
-                        <td></td>
-                    </tr>
-                  </tbody>
-                </table> -->
-            </div>
+               </div>
             <nav class="mt-1">
                 <ul class="pagination" id="pagination">
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li> -->
+                   
                 </ul>
             </nav>
         </main>
@@ -263,4 +145,4 @@
         });
     </script>
 </body>
-</html>
+</html> -->
