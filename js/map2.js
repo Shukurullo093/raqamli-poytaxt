@@ -572,4 +572,25 @@ function init() {
     });
     
     map.geoObjects.add(myPolygon);
+
+            const crimeMarkers = data2.map(item => {
+  const coords = item["Содир этилган жиноятнинг локацияси"]
+    .split(',').map(coord => parseFloat(coord.trim()));
+  return {
+    coords: coords,
+    title: `Жиноят: ${item["Ҳужжат id"]}`,
+    color: "red"
+  };
+});
+crimeMarkers.forEach(function (point) {
+  var placemark = new ymaps.Placemark(point.coords, {
+      hintContent: point.title,
+      balloonContent: point.title
+  }, {
+      preset: point.color === "red" ? 'islands#redIcon' : 'islands#blueIcon'
+  });
+
+  map.geoObjects.add(placemark);
+});
+
 }
