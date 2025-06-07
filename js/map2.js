@@ -604,7 +604,7 @@ function init() {
 
         // 🔍 Markerga klik qilinganda fokuslash
         placemark.events.add('click', function () {
-            map.setCenter(point.coords, 16, {
+            map.setCenter(point.coords, 18, {
                 checkZoomRange: true
             });
         });
