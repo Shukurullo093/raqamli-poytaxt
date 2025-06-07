@@ -586,14 +586,44 @@ function init() {
         };
     });
 
-    crimeMarkers.forEach(function (point) {
+    var clusterer = new ymaps.Clusterer({
+        preset: 'islands#invertedRedClusterIcons', // markerlar guruhi uchun dizayn
+        groupByCoordinates: false,
+        clusterDisableClickZoom: false,
+        clusterOpenBalloonOnClick: false
+    });
+
+    // 🔁 Har bir marker uchun Placemark yaratish
+    var placemarks = crimeMarkers.map(function (point) {
         var placemark = new ymaps.Placemark(point.coords, {
             hintContent: point.title,
             balloonContent: point.title
         }, {
             preset: point.color === "red" ? 'islands#redIcon' : 'islands#blueIcon'
         });
-    
-        map.geoObjects.add(placemark);
+
+        // 🔍 Markerga klik qilinganda fokuslash
+        placemark.events.add('click', function () {
+            map.setCenter(point.coords, 16, {
+                checkZoomRange: true
+            });
+        });
+
+        return placemark;
     });
+
+    // 🧲 Markerlarni klasterga qo‘shish
+    clusterer.add(placemarks);
+    map.geoObjects.add(clusterer);
+
+    // crimeMarkers.forEach(function (point) {
+    //     var placemark = new ymaps.Placemark(point.coords, {
+    //         hintContent: point.title,
+    //         balloonContent: point.title
+    //     }, {
+    //         preset: point.color === "red" ? 'islands#redIcon' : 'islands#blueIcon'
+    //     });
+    
+    //     map.geoObjects.add(placemark);
+    // });
 }
