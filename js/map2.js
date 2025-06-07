@@ -575,6 +575,7 @@ function init() {
     // console.log(data2.map(x => console.log(x['Содир этилган жиноятнинг локацияси'])))
     const crimeMarkers = data2.map(item => {
         if (item['Содир этилган жиноятнинг локацияси']){
+            console.log(item['Содир этилган жиноятнинг локацияси'])
             const coords = item["Содир этилган жиноятнинг локацияси"].split(',').map(coord => parseFloat(coord.trim()));
             return {
                 coords: coords,
