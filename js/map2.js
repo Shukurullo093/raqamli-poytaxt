@@ -575,8 +575,7 @@ function init() {
     
     const validLocationRegex = /^-?\d+(\.\d+)?, ?-?\d+(\.\d+)?$/;
 
-    const crimeMarkers = data
-    .filter(item => validLocationRegex.test(item["Содир этилган жиноятнинг локацияси"]))
+    const crimeMarkers = data2.filter(item => validLocationRegex.test(item["Содир этилган жиноятнинг локацияси"]))
     .map(item => {
         const coords = item["Содир этилган жиноятнинг локацияси"]
         .split(',').map(coord => parseFloat(coord.trim()));
