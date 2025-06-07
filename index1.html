@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://api-maps.yandex.ru/2.1/?lang=uz_UZ" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/data2.js"></script>
     <script src="js/other.js"></script>
     <style>
         :root {
@@ -1056,6 +1057,49 @@
                         });
                        
                         map.geoObjects.add(myPolygon);
+
+                        const validLocationRegex = /^-?\d+(\.\d+)?, ?-?\d+(\.\d+)?$/;
+
+                        const crimeMarkers = data2.filter(item => validLocationRegex.test(item["Содир этилган жиноятнинг локацияси"]))
+                        .map(item => {
+                            const coords = item["Содир этилган жиноятнинг локацияси"]
+                            .split(',').map(coord => parseFloat(coord.trim()));
+                            return {
+                            coords: coords,
+                            title: `Жиноят: ${item["Ҳужжат id"]}`,
+                            color: "red"
+                            };
+                        });
+
+                        var clusterer = new ymaps.Clusterer({
+                            preset: 'islands#invertedRedClusterIcons', // markerlar guruhi uchun dizayn
+                            groupByCoordinates: false,
+                            clusterDisableClickZoom: false,
+                            clusterOpenBalloonOnClick: false
+                        });
+
+                        // Har bir marker uchun Placemark yaratish
+                        var placemarks = crimeMarkers.map(function (point) {
+                            var placemark = new ymaps.Placemark(point.coords, {
+                                hintContent: point.title,
+                                balloonContent: point.title
+                            }, {
+                                preset: point.color === "red" ? 'islands#redIcon' : 'islands#blueIcon'
+                            });
+
+                            // 🔍 Markerga klik qilinganda fokuslash
+                            placemark.events.add('click', function () {
+                                map.setCenter(point.coords, 20, {
+                                    checkZoomRange: true
+                                });
+                            });
+
+                            return placemark;
+                        });
+
+                        // Markerlarni klasterga qo‘shish
+                        clusterer.add(placemarks);
+                        map.geoObjects.add(clusterer);
                     }
                 
                 </script>
@@ -1676,25 +1720,6 @@
                                 area: area
                             };
                         }
-                        
-                        // Kameralar joylashuvi - updated to be near district centers
-                        var cameras = [
-                            [41.2855, 69.2203], // Near Mirzo Ulugbek
-                            [41.3359, 69.2807], // Near Yunusobod
-                            [41.3151, 69.2755], // Near Shaykhontokhur
-                            // [41.2958, 69.1457], // Near Almazar
-                            [41.3523, 69.2604], // Near Yashnobod
-                            [41.3025, 69.2401],  // Central area
-                            [41.261152, 69.152796]
-                        ];
-                        
-                        cameras.forEach(function(camera) {
-                            var cameraPlacemark = new ymaps.Placemark(camera, {}, {
-                                preset: 'islands#videoCameraIcon',
-                                iconColor: '#2563eb'
-                            });
-                            map.geoObjects.add(cameraPlacemark);
-                        });
 
                         var polygonCoordinates = [
                             [41.397959470975074, 69.23403486321702],
@@ -1737,6 +1762,49 @@
                         });
                        
                         map.geoObjects.add(myPolygon);
+
+                        const validLocationRegex = /^-?\d+(\.\d+)?, ?-?\d+(\.\d+)?$/;
+
+                        const crimeMarkers = data2.filter(item => validLocationRegex.test(item["Содир этилган жиноятнинг локацияси"]))
+                        .map(item => {
+                            const coords = item["Содир этилган жиноятнинг локацияси"]
+                            .split(',').map(coord => parseFloat(coord.trim()));
+                            return {
+                            coords: coords,
+                            title: `Жиноят: ${item["Ҳужжат id"]}`,
+                            color: "red"
+                            };
+                        });
+
+                        var clusterer = new ymaps.Clusterer({
+                            preset: 'islands#invertedRedClusterIcons', // markerlar guruhi uchun dizayn
+                            groupByCoordinates: false,
+                            clusterDisableClickZoom: false,
+                            clusterOpenBalloonOnClick: false
+                        });
+
+                        // Har bir marker uchun Placemark yaratish
+                        var placemarks = crimeMarkers.map(function (point) {
+                            var placemark = new ymaps.Placemark(point.coords, {
+                                hintContent: point.title,
+                                balloonContent: point.title
+                            }, {
+                                preset: point.color === "red" ? 'islands#redIcon' : 'islands#blueIcon'
+                            });
+
+                            // 🔍 Markerga klik qilinganda fokuslash
+                            placemark.events.add('click', function () {
+                                map.setCenter(point.coords, 20, {
+                                    checkZoomRange: true
+                                });
+                            });
+
+                            return placemark;
+                        });
+
+                        // Markerlarni klasterga qo‘shish
+                        clusterer.add(placemarks);
+                        map.geoObjects.add(clusterer);
                     }
                 
                 </script>
