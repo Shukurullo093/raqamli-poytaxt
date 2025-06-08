@@ -306,7 +306,5 @@ function init() {
         fillOpacity: 0
     });
 
-    map.geoObjects.add(myPolygon);
-
-   
+    map.geoObjects.add(myPolygon);   
 }
