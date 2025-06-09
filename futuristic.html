@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="offline_modules/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="css/futuristic.css">
+    <title>Futuristic Interface</title>
+</head>
+<body>
+    <!-- Animated Grid Background -->
+    <div class="grid-background">
+        <div class="grid-lines">
+            <div class="vertical-line"></div>
+            <div class="vertical-line"></div>
+            <div class="vertical-line"></div>
+            <div class="vertical-line"></div>
+            <div class="vertical-line"></div>
+            <div class="vertical-line"></div>
+            <div class="horizontal-line"></div>
+            <div class="horizontal-line"></div>
+            <div class="horizontal-line"></div>
+            <div class="horizontal-line"></div>
+            <div class="horizontal-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <img src="images/iib_logo.png" class="logo" width="70">
+            <h4 class="hero-title">raqamli poytaxt</h4>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="features">
+            <div class="feature-card">
+                <h3 class="feature-title">raqamli xavfsiz mahalla</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Quantum Processing</h3>
+                <p class="feature-description">Harness the power of quantum computing for unprecedented processing speeds and complex calculations in real-time.</p>
+            </div>
+            <!-- <div class="feature-card">
+                <h3 class="feature-title">Holographic Display</h3>
+                <p class="feature-description">Immersive 3D interfaces that project information directly into your visual field, revolutionizing how we interact with data.</p>
+            </div> -->
+        </section>
+    </main>
+
+    <!-- Modal Trigger Button -->
+    <i class="fa-solid fa-chevron-up modal-trigger" onclick="openModal()"></i>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+    <div class="modal" id="modal">
+        <div class="modal-header" id="modalHeader">
+            <h2 class="modal-title">SYSTEM CONSOLE</h2>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-content">
+            <p>Welcome to the advanced system console. This interface provides access to core system functions and real-time monitoring capabilities.</p>
+            <br>
+            <p>• Neural Network Status: <span style="color: #00ff00;">ACTIVE</span></p>
+            <p>• Quantum Processing: <span style="color: #00ff00;">ONLINE</span></p>
+            <p>• Holographic Display: <span style="color: #ffff00;">CALIBRATING</span></p>
+            <p>• Security Protocol: <span style="color: #00ff00;">SECURE</span></p>
+            <br>
+            <p>Use the resize handle in the bottom-right corner to adjust the console size. Drag the header to reposition the modal.</p>
+        </div>
+        <div class="modal-resize-handle"></div>
+    </div>
+
+    <script src="js/futuristic.js"></script>
+</body>
+</html>
