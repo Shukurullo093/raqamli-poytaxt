@@ -34,7 +34,6 @@ function init() {
         { coords: [41.293465, 69.291356], title: "Tibbiyot markazi" },
         { coords: [41.293753, 69.283493], title: "Maktab" },
         { coords: [41.289178, 69.279770], title: "Bozor" },
-
         { coords: [41.296027, 69.283388], title: "39-maktab", color: "red" },
         { coords: [41.289517, 69.277578], title: "6-oilaviy poliklinika" },
         { coords: [41.286014, 69.281301], title: "Supermarket" },

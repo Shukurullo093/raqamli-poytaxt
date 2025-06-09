@@ -184,7 +184,7 @@ body {
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-columns: repeat(auto-fit, minmax(48%, 48%));
+    grid-template-columns: repeat(auto-fit, minmax(100%, 100%));
     gap: 30px;
     /* margin-top: 60px; */
 }
