@@ -1458,5 +1458,5 @@ function init() {
 
     // Markerlarni klasterga qo‘shish
     clusterer.add(placemarks);
-    // map.geoObjects.add(clusterer);
+    map.geoObjects.add(clusterer);
 }
