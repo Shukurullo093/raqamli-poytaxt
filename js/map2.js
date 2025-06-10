@@ -18,7 +18,7 @@ function init() {
     // 3. Ranglarni belgilash
     const getColor = (count) => {
         if (count <= 10) return "#00ff00";
-        if (count > 10 && count < 50) return "#ff00ff";
+        if (count > 10 && count < 50) return "#ffff00";
         return "#ff0000";
     };
 
@@ -1317,7 +1317,7 @@ function init() {
             fillColor: bg,
             strokeColor: '#800000',
             strokeWidth: 1,
-            fillOpacity: 0.2
+            fillOpacity: 0.5
         });
         
         return {
