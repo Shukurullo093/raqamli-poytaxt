@@ -7,6 +7,43 @@ function init() {
         controls: ['fullscreenControl']
     });
 
+    // Guruhlash
+    const counts = {};
+
+    data2.forEach(item => {
+        const key = item["махалла"];
+        counts[key] = (counts[key] || 0) + 1;
+    });
+
+    // 3. Ranglarni belgilash
+    const getColor = (count) => {
+        if (count <= 10) return "#00ff00";
+        if (count > 10 && count < 50) return "#ff00ff";
+        return "#ff0000";
+    };
+
+    // Saralash va qayta lug‘at qilish
+    const sorted = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .reduce((acc, [key, value]) => {
+            acc[key] = {
+                count: value,
+                color: getColor(value)
+            };
+            return acc;
+    }, {});
+
+    function findColorByText(text) {
+        for (const mahalla in sorted) {            
+            if (mahalla.toLowerCase().includes(text)) {
+                return sorted[mahalla].color;
+            }
+        }
+        return "#ffffff";
+    }
+
+    // console.log(sorted);
+
     var neighborhoods = {
         al_xorazmiy: createDistrictPolygon(
             [[41.263111, 69.154577],
@@ -22,7 +59,7 @@ function init() {
             [41.262019, 69.151616],
             [41.262440, 69.152818],
             [41.262998, 69.154556]],
-            "Al Xorazmiy mahalla", "12.34"
+            "Al-Xorazmiy", "12.34"
         ),
         katta_xirmontepa: createDistrictPolygon(
             [[41.271467, 69.177231],
@@ -74,7 +111,7 @@ function init() {
             [41.268094, 69.163458],
             [41.268690, 69.163939],
             [41.268770, 69.164136],],
-            "Qizil Sharq", "2.3"
+            "Qizil-Sharq", "2.3"
         ),
         sharq_tongi: createDistrictPolygon(
             [[41.267794, 69.167795],
@@ -157,7 +194,7 @@ function init() {
             [41.263532, 69.206985],
             [41.263532, 69.206985],
             [41.270108, 69.211291]],
-            "gavhar", '5.6'
+            "gavxar", '5.6'
         ),
         dombirobod: createDistrictPolygon(
             [[41.254432, 69.203777],
@@ -276,7 +313,7 @@ function init() {
             [41.266722, 69.184428],
             [41.267426, 69.183506],
             [41.267681, 69.182675]],
-            "shuhrat", '5.7'
+            "shuxrat", '5.7'
         ),
         yakkatut: createDistrictPolygon(
             [[41.265574, 69.176634],
@@ -300,7 +337,7 @@ function init() {
             [41.263137, 69.181376],
             [41.263437, 69.180603],
             [41.265548, 69.176733]],
-            "Yakatut", '4.6'
+            "Yakkatut", '4.6'
         ),
         kichik_xirmontepa: createDistrictPolygon(
             [[41.272783, 69.182889],
@@ -481,7 +518,7 @@ function init() {
             [41.262955, 69.157946],
             [41.263470, 69.157105],
             [41.263850, 69.156859]],
-            "Bahoriston", '5.6'
+            "Baxoriston", '5.6'
         ),
         xirmontepa: createDistrictPolygon(
             [[41.271463, 69.177215],
@@ -616,7 +653,7 @@ function init() {
             [41.274579, 69.194351],
             [41.273762, 69.193851],
             [41.270718, 69.192078]],
-            'mehrjon', '5.9'
+            'mexrjon', '5.9'
         ),
         botirma: createDistrictPolygon(
             [[41.270503, 69.192328],
@@ -822,7 +859,7 @@ function init() {
             [41.297486, 69.210115],
             [41.298269, 69.210329],
             [41.299396, 69.209426]],
-            "Oq tepa", '9.6'
+            "Oq-tepa", '9.6'
         ),
         nafosat: createDistrictPolygon(
             [[41.293902, 69.197763],
@@ -1003,7 +1040,7 @@ function init() {
             [41.280559, 69.227743],
             [41.280811, 69.228019],
             [41.283368, 69.223976]],
-            "1 katta chilonzor", '6.5'
+            "katta chilonzor-1", '6.5'
         ),
         katta_chilonzor_2: createDistrictPolygon(
             [[41.278852, 69.217613],
@@ -1026,7 +1063,7 @@ function init() {
             [41.274725, 69.225616],
             [41.274053, 69.225262],
             [41.278790, 69.217701]],
-            '2-katta chilonzor', '5.6'
+            'katta chilonzor-2', '5.6'
         ),
         katta_chilonzor_3: createDistrictPolygon(
             [[41.278854, 69.217673],
@@ -1079,7 +1116,7 @@ function init() {
             [41.288236, 69.229379],
             [41.283240, 69.223809],
             [41.278797, 69.217715]],
-            "3-katta chilonzor", '7.6'
+            "katta chilonzor-3", '7.6'
         ),
         chilonzor: createDistrictPolygon(
             [[41.284778, 69.234830],
@@ -1228,7 +1265,7 @@ function init() {
             [41.288649, 69.197904],
             [41.288608, 69.195855],
             [41.286198, 69.195901]],
-            "Cho'pon ota", '7.6'
+            "Cho'pon-ota", '7.6'
         ),
         kotarma: createDistrictPolygon(
             [[41.278830, 69.198039],
@@ -1265,6 +1302,9 @@ function init() {
     
     // Poligon yaratish uchun yordamchi funksiya
     function createDistrictPolygon(coordinates, name, area) {
+        const krill = lotinToKirill(name.toLowerCase())
+        const bg = findColorByText(krill)
+        console.log(krill, bg)
         var polygon = new ymaps.Polygon([coordinates], {
             balloonContent: `
                 <div style="padding: 5px;">
@@ -1274,7 +1314,7 @@ function init() {
             `,
             hintContent: name
         }, {
-            fillColor: '#000080',
+            fillColor: bg,
             strokeColor: '#800000',
             strokeWidth: 1,
             fillOpacity: 0.2
@@ -1460,3 +1500,23 @@ function init() {
     clusterer.add(placemarks);
     map.geoObjects.add(clusterer);
 }
+
+const lotinToKirill = (text) => {
+    const map = [
+        [/Sh/g, 'Ш'], [/sh/g, 'ш'], [/Ch/g, 'Ч'], [/ch/g, 'ч'], [/Yo/g, 'Ё'], [/yo/g, 'ё'],
+        [/Yu/g, 'Ю'], [/yu/g, 'ю'], [/Ya/g, 'Я'], [/ya/g, 'я'], [/G'/g, 'Ғ'], [/g'/g, 'ғ'],
+        [/O'/g, 'Ў'], [/o'/g, 'ў'],
+        [/A/g, 'А'], [/a/g, 'а'], [/B/g, 'Б'], [/b/g, 'б'], [/D/g, 'Д'], [/d/g, 'д'],
+        [/E/g, 'Э'], [/e/g, 'е'], [/F/g, 'Ф'], [/f/g, 'ф'], [/G/g, 'Г'], [/g/g, 'г'],
+        [/H/g, 'Ҳ'], [/h/g, 'ҳ'], [/I/g, 'И'], [/i/g, 'и'], [/J/g, 'Ж'], [/j/g, 'ж'],
+        [/K/g, 'К'], [/k/g, 'к'], [/L/g, 'Л'], [/l/g, 'л'], [/M/g, 'М'], [/m/g, 'м'],
+        [/N/g, 'Н'], [/n/g, 'н'], [/O/g, 'О'], [/o/g, 'о'], [/P/g, 'П'], [/p/g, 'п'],
+        [/Q/g, 'Қ'], [/q/g, 'қ'], [/R/g, 'Р'], [/r/g, 'р'], [/S/g, 'С'], [/s/g, 'с'],
+        [/T/g, 'Т'], [/t/g, 'т'], [/U/g, 'У'], [/u/g, 'у'], [/V/g, 'В'], [/v/g, 'в'],
+        [/X/g, 'Х'], [/x/g, 'х'], [/Y/g, 'Й'], [/y/g, 'й'], [/Z/g, 'З'], [/z/g, 'з']
+    ];
+    map.forEach(([r, l]) => {
+        text = text.replace(r, l);
+    });
+    return text;
+};
