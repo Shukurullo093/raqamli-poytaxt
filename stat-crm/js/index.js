@@ -14,7 +14,7 @@
 const counts = {};
 for (let i = 0; i < data.length; i++) {
     const row = data[i];
-    const district = row['Tuman'];
+    const district = row['Tuman (shahar)\nnomi'];
     if (district) {
         counts[district] = (counts[district] || 0) + 1;
     }
@@ -198,7 +198,7 @@ const counts2 = {};
 for (let i = 0; i < data.length; i++) {
     const row = data[i];
     const currentYear = new Date().getFullYear();
-    let type = standardizeDate(row['Tugilgan yili']);
+    let type = standardizeDate(row['Tug‘ilgan yili']);
     const age = (currentYear - parseInt(type)).toString();
     if(age){
         counts2[age] = (counts2[age] || 0) + 1;

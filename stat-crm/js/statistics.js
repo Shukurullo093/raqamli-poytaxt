@@ -1,9 +1,13 @@
 const counts = {};
 for (let i = 0; i < data.length; i++) {
     const row = data[i];
-    const youth = standardizeDate(row['Tugilgan yili']);
-    if (youth) {
-        counts[youth] = (counts[youth] || 0) + 1;
+    if (row.hasOwnProperty('Tug‘ilgan yili')) {
+        const youth = standardizeDate(row['Tug‘ilgan yili']);
+        if (youth) {
+            counts[youth] = (counts[youth] || 0) + 1;
+        }
+    } else {
+        counts['aniqlanmagan'] = (counts['aniqlanmagan'] || 0) + 1;
     }
 }
 
