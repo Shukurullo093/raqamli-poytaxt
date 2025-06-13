@@ -9,7 +9,9 @@
     <script src="offline_modules/yandex-map" type="text/javascript"></script>
     <script src="offline_modules/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
     <script src="offline_modules/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="js/data2.js"></script>
+    <script src="js/data3.js"></script>
     <script src="js/other.js"></script>
     <style>
         :root {
@@ -590,7 +592,7 @@
             </button>
             
             <div class="p-3">
-                <div class="nav-item active" data-card="mapCard">
+                <div class="nav-item" data-card="mapCard">
                     <i class="nav-item-icon fas fa-map-marker-alt"></i>
                     <span class="nav-item-text">Рақамли хавфсиз маҳалла</span>
                 </div>
@@ -605,7 +607,7 @@
                     <span class="nav-item-text">Демографик маълумотлар</span>
                 </div>
                 
-                <div class="nav-item" data-card="monitoring">
+                <div class="nav-item active" data-card="monitoring">
                     <i class="nav-item-icon fas fa-chart-line"></i>
                     <span class="nav-item-text">Хавф мониторинги</span>
                 </div>
@@ -640,7 +642,7 @@
         <!-- Content Area -->
         <main class="content-area">
             <!-- Map Card -->
-            <div class="dashboard-card" id="mapCard">
+            <div class="dashboard-card d-none" id="mapCard">
                 <div class="card-header">
                     <h2 class="card-title">Рақамли хавфсиз маҳалла</h2>
                 </div>
@@ -2503,171 +2505,207 @@
                 </div>
             </div>
 
-            <div class="dashboard-card d-none" id="monitoring">
-    <div class="card-header">
-        <h2 class="card-title">Хавф мониторинги</h2>
-    </div>
-    <div class="card-body">
-        <div class="stats-grid mb-4">
-            <div class="stat-card">
-                <div class="stat-value">1,475</div>
-                <div class="stat-label">Жами жиноятлар миқдори</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">17:00-19:00</div>
-                <div class="stat-label">Энг хавфли вақт</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">05:10-06:00</div>
-                <div class="stat-label">Энг хавфсиз вақт</div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <div class="chart-container" style="height: 200px;">
-                    <canvas id="timeChart"></canvas>
+            <div class="dashboard-card" id="monitoring">
+                <div class="card-header">
+                    <h2 class="card-title">Хавф мониторинги</h2>
                 </div>
-                <h6 class="text-center mt-2">Вақт бўйича таҳлил</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="chart-container" style="height: 200px;">
-                    <canvas id="districtChart"></canvas>
-                </div>
-                <h6 class="text-center mt-2">Туманлар бўйича</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="chart-container" style="height: 200px;">
-                    <canvas id="typeChart"></canvas>
-                </div>
-                <h6 class="text-center mt-2">Жиноят турлари</h6>
-            </div>
-        </div>
-        
-        <div class="mt-4">
-            <h5>Охирги 7 кундаги жиноятлар</h5>
-            <div class="table-responsive">
-                <table class="table table-dark table-hover">
-                    <thead>
-                        <tr>
-                            <th>Сана</th>
-                            <th>Туман</th>
-                            <th>Жиноят тури</th>
-                            <th>Ҳолати</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2023-11-20</td>
-                            <td>Шайхонтохур</td>
-                            <td>Уғрилик</td>
-                            <td><span class="badge bg-success">Аникланган</span></td>
-                        </tr>
-                        <tr>
-                            <td>2023-11-19</td>
-                            <td>Мирзо Улуғбек</td>
-                            <td>Қасаллик</td>
-                            <td><span class="badge bg-warning">Терговда</span></td>
-                        </tr>
-                        <tr>
-                            <td>2023-11-18</td>
-                            <td>Юнусобод</td>
-                            <td>Ноқонуний мол олиб қочиш</td>
-                            <td><span class="badge bg-danger">Қидирувда</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Time Analysis Chart
-                const timeCtx = document.getElementById('timeChart').getContext('2d');
-                const timeChart = new Chart(timeCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
-                        datasets: [{
-                            label: 'Жиноятлар',
-                            data: [12, 8, 5, 18, 22, 35, 42, 28],
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                            tension: 0.3,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
+                <div class="card-body">
+                    <div class="col-8 mx-auto d-flex gap-2 px-5">
+                        <select id="yearSelect" class="form-control"></select>
+                        <select id="monthSelect" class="form-control">
+                            <option value="01">Yanvar</option>
+                            <option value="02">Fevral</option>
+                            <option value="03">Mart</option>
+                            <option value="04">Aprel</option>
+                            <option value="05">May</option>
+                            <option value="06">Iyun</option>
+                            <option value="07">Iyul</option>
+                            <option value="08">Avgust</option>
+                            <option value="09">Sentabr</option>
+                            <option value="10">Oktabr</option>
+                            <option value="11">Noyabr</option>
+                            <option value="12">Dekabr</option>
+                        </select>
+                        <button id="resetChartBtn" class="btn btn-outline-primary align-items-center gap-2" style="display: none;"><i class="fa-solid fa-reply mr-2"></i> Ortga</button>
+                    </div>
+
+                    <div id="crime_types_date"></div>
+
+                    <script>
+                        const yearSelect = document.getElementById('yearSelect');
+                        const monthSelect = document.getElementById('monthSelect');
+                        const resetBtn = document.getElementById('resetChartBtn');
+
+                        let chart;
+                        let fullMonthlyData = []; // to‘liq oylik ma’lumotlar
+
+                        const years = [...new Set(data3.map(d => d.date.split('.')[2]))];
+                        years.sort();
+                        years.forEach(year => {
+                            const option = document.createElement('option');
+                            option.value = year;
+                            option.textContent = year;
+                            yearSelect.appendChild(option);
+                        });
+
+                        function renderChart(filteredData) {
+                            fullMonthlyData = filteredData; // reset uchun saqlaymiz
+
+                            const dates = [...new Set(filteredData.map(item => item.date))].sort((a, b) => {
+                                const [dayA, monthA, yearA] = a.split('.').map(Number);
+                                const [dayB, monthB, yearB] = b.split('.').map(Number);
+                                return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+                            });
+
+                            const daysOnly = dates.map(d => d.split('.')[0]); // faqat kunlar
+
+                            const crimeTypes = [...new Set(filteredData.map(item => item.crime_type))];
+
+                            const series = crimeTypes.map(type => {
+                                return {
+                                    name: type,
+                                    data: dates.map(date => {
+                                        return filteredData.filter(item => item.date === date && item.crime_type === type).length;
+                                    })
+                                };
+                            });
+
+                            const totalPerDate = dates.map(date => {
+                                return filteredData.filter(item => item.date === date).length;
+                            });
+
+                            const options = {
+                                chart: {
+                                    type: 'bar',
+                                    stacked: true,
+                                    height: 600,
+                                    toolbar: { show: false },
+                                    events: {
+                                        dataPointSelection: function(event, chartContext, config) {
+                                            const crimeType = chartContext.w.globals.seriesNames[config.seriesIndex];
+                                            const selectedYear = yearSelect.value;
+                                            const selectedMonth = monthSelect.value;
+
+                                            const filtered = data3.filter(item => {
+                                                const [day, month, year] = item.date.split('.');
+                                                return year === selectedYear && month === selectedMonth && item.crime_type === crimeType;
+                                            });
+
+                                            const grouped = {};
+                                            filtered.forEach(item => {
+                                                if (!grouped[item.date]) grouped[item.date] = 0;
+                                                grouped[item.date]++;
+                                            });
+
+                                            const dates = Object.keys(grouped).sort((a, b) => {
+                                                const [dayA, monthA, yearA] = a.split('.').map(Number);
+                                                const [dayB, monthB, yearB] = b.split('.').map(Number);
+                                                return (new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB));
+                                            });
+
+                                            const chartData = [{
+                                                name: crimeType,
+                                                data: dates.map(date => grouped[date])
+                                            }];
+                                            
+                                            chart.updateOptions({
+                                                series: chartData,
+                                                xaxis: { categories: dates.map(item => item.split('.')[0]) }
+                                            });
+
+                                            resetBtn.style.display = 'flex';
+                                        }
+                                    }
+                                },
+                                xaxis: {
+                                    categories: daysOnly,
+                                    labels: { 
+                                        style: { colors: '#fff' },
+                                        rotate: -45
+                                    }
+                                },
+                                yaxis: {
+                                    labels: { style: { colors: '#fff' } }
+                                },
+                                legend: {
+                                    show: false
+                                },
+                                dataLabels: {
+                                    enabled: true,
+                                    style: { colors: ['#fff'] },
+                                    formatter: val => val,
+                                    background: { enabled: false },
+                                    dropShadow: { enabled: false },
+                                    total: {
+                                        enabled: true,
+                                        style: {
+                                            fontSize: '12px',
+                                            fontWeight: 600,
+                                            color: '#fff'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    shared: false,
+                                    intersect: true,
+                                    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                                        const date = dates[dataPointIndex];
+                                        const crimeType = w.globals.seriesNames[seriesIndex];
+                                        const color = w.globals.colors[seriesIndex];
+
+                                        const count = data3.filter(d => d.date === date && d.crime_type === crimeType).length;
+
+                                        return `
+                                            <div style="padding:10px; border-left: 10px solid ${color};">
+                                                <span class='text-dark'><strong>Jinoyat turi:</strong> ${crimeType}</span><br/>
+                                                <span class='text-dark'><strong>Jinoyat soni:</strong> ${count} ta</span><br/>
+                                                <span class='text-dark'><strong>Sana:</strong> ${date}</span>                                                
+                                            </div>`;
+                                    }
+                                },
+                                series: series
+                            };
+
+                            if (chart) {
+                                chart.updateOptions(options);
+                            } else {
+                                chart = new ApexCharts(document.querySelector("#crime_types_date"), options);
+                                chart.render();
                             }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
+
+                            resetBtn.style.display = 'none'; // grafikka qaytganda tugma yashiriladi
+                        }
+
+                        function updateChart() {
+                            const selectedYear = yearSelect.value;
+                            const selectedMonth = monthSelect.value;
+
+                            const filtered = data3
+                                .filter(item => {
+                                    const [day, month, year] = item.date.split('.');
+                                    return year === selectedYear && month === selectedMonth;
+                                })
+                                .map(item => ({
+                                    date: item.date,
+                                    crime_type: item.crime_type
+                                }));
+
+                            if (filtered.length > 0) {
+                                renderChart(filtered);
                             }
                         }
-                    }
-                });
-                
-                // District Chart
-                const districtCtx = document.getElementById('districtChart').getContext('2d');
-                const districtChart = new Chart(districtCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Шайхонтохур', 'Мирзо Улуғбек', 'Юнусобод', 'Олмазор', 'Яшнобод'],
-                        datasets: [{
-                            data: [31, 23, 18, 15, 12],
-                            backgroundColor: [
-                                '#ef4444',
-                                '#f59e0b',
-                                '#10b981',
-                                '#3b82f6',
-                                '#8b5cf6'
-                            ]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        }
-                    }
-                });
-                
-                // Type Chart
-                const typeCtx = document.getElementById('typeChart').getContext('2d');
-                const typeChart = new Chart(typeCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Уғрилик', 'Қасаллик', 'Ноқонуний мол', 'Бошқалар'],
-                        datasets: [{
-                            label: 'Жиноятлар',
-                            data: [45, 32, 28, 15],
-                            backgroundColor: 'rgba(239, 68, 68, 0.7)'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-        </div>
+
+                        resetBtn.addEventListener('click', () => {
+                            renderChart(fullMonthlyData); // reset qilish
+                        });
+
+                        yearSelect.addEventListener('change', updateChart);
+                        monthSelect.addEventListener('change', updateChart);
+
+                        yearSelect.selectedIndex = 0;
+                        updateChart();
+                    </script>
+                </div>
             </div>
 
             <!-- Personal Control Card -->
@@ -3108,12 +3146,11 @@
         </main>
     </div>
 
-    <footer>
+    <!-- <footer>
         <div class="f-group d-flex column-gap-3 px-2">
             <a href="index.html">V1</a>
             <a href="index1.html">V2</a>
-            <!-- <a href="index2.html">V3</a> -->
         </div>        
-    </footer>
+    </footer> -->
 </body>
 </html>
