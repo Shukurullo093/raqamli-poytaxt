@@ -1304,7 +1304,6 @@ function init() {
     function createDistrictPolygon(coordinates, name, area) {
         const krill = lotinToKirill(name.toLowerCase())
         const bg = findColorByText(krill)
-        console.log(krill, bg)
         var polygon = new ymaps.Polygon([coordinates], {
             balloonContent: `
                 <div style="padding: 5px;">
