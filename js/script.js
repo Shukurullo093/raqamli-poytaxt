@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
         'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
     ];
+    const krillMonth = [
+        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентабрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    ]
 
     function parseDate(dateStr) {
         const [day, month, year] = dateStr.split('.');
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         months.forEach((month, index) => {
             const option = document.createElement('option');
             option.value = index + 1;
-            option.textContent = month;
+            option.textContent = krillMonth[index];
             monthSelect.appendChild(option);
         });
 
@@ -300,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     vertical: 5
                 },
                 onItemClick: {
-                    toggleDataSeries: true
+                    toggleDataSeries: false
                 },
                 onItemHover: {
                     highlightDataSeries: true
@@ -498,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!legendModal) {
             legendModal = new bootstrap.Modal(document.getElementById('legendModal'));
         }
-        legendModal.show();
+        // legendModal.show();
     }
 
     function updateModalContent(crimeType) {
@@ -2535,9 +2539,15 @@ function init() {
     // map.container.enterFullscreen();
 }
 
-function closeLegendModal() {
-    const modalEl = document.getElementById('legendModal');
-    const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+// function closeLegendModal() {
+//     const modalEl = document.getElementById('legendModal');
+//     const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+//     modal.hide();
+// }
 
-    modal.hide();
-}
+const modalElement = document.getElementById('legendModal');
+const modal = new bootstrap.Modal(modalElement, {
+    backdrop: 'static',   // tashqi kliklarda yopilmasin
+    keyboard: false       // Escape tugmasi bilan ham yopilmasin
+});
+// modal.show();

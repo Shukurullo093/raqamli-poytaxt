@@ -119,6 +119,7 @@
             overflow-y: auto;
             transition: all 0.3s ease;
             position: relative;
+            padding: 0;
         }
 
         .sidebar.collapsed {
@@ -127,14 +128,14 @@
 
         .sidebar-toggle {
             position: absolute;
-            top: 20px;
-            right: -15px;
+            top: 35px;
+            right: -16px;
             background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             z-index: 10;
             transition: all 0.3s ease;
@@ -146,15 +147,16 @@
         }
 
         .sidebar .nav-item {
-            margin: 0.5rem 1rem;
-            padding: 1rem;
+            margin: 0.5rem;
+            padding: 1rem .5rem;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid transparent;
             position: relative;
             z-index: 100;
-            /* overflow: hidden; */
+            display: flex;
+            align-items: center;
         }
 
         .sidebar .nav-item::before {
@@ -169,7 +171,7 @@
         }
 
         .sidebar .nav-item:hover::before {
-            left: 100%;
+            left: 10%;
         }
 
         .sidebar .nav-item:hover {
@@ -194,6 +196,7 @@
         .nav-item-text {
             font-weight: 500;
             transition: opacity 0.3s ease;
+            /* text-align: center; */
         }
 
         .sidebar.collapsed .nav-item-text {
@@ -1515,7 +1518,7 @@
     <!-- Main Container -->
     <div class="main-container">
         <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+        <aside class="sidebar pt-2" id="sidebar">
             <button class="sidebar-toggle" id="sidebarToggle">
                 <i class="fas fa-chevron-left"></i>
             </button>
@@ -3455,15 +3458,15 @@
                     <div class="col-12">
                         <div class="mx-auto d-flex gap-2 px-5">
                             <select id="yearSelect" class="form-control">
-                                <option value="">Barcha yillar</option>
+                                <option value="">Барча йиллар</option>
                             </select>
                             <select id="monthSelect" class="form-control">
-                                <option value="">Barcha oylar</option>
+                                <option value="">Барча ойлар</option>
                             </select>
                             <select id="neighborhoodSelect" class="form-control">
                                 <option value="">Чилонзор тумани</option>
                             </select>
-                            <button id="resetChartBtn" class="btn btn-outline-danger d-flex align-items-center gap-2" onclick=""><i class="fa-solid fa-reply mr-2"></i> Ortga</button>
+                            <!-- <button id="resetChartBtn" class="btn btn-outline-danger d-flex align-items-center gap-2" onclick=""><i class="fa-solid fa-reply mr-2"></i> Ortga</button> -->
                         </div>                        
                         <!-- <div id="crime_types_date"></div> -->
                         <div id="crime_types_date_neighborhood"></div>
@@ -3919,7 +3922,7 @@
                     <h5 class="modal-title" id="legendModalLabel">
                         <i class="bi bi-graph-up me-2"></i>Жиноят диагностикаси ва башоратлар
                     </h5>
-                    <button type="button" class="btn-close" onclick="closeLegendModal()"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <nav class="modal-navbar">
