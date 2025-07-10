@@ -1,5 +1,5 @@
 // Sample data with more entries for better demonstration
-let crimeData = data3.filter(item => item.crime_type === "Ўғрилик");
+let crimeData = data3.filter(item => item.crime_type === "Безорилик"); //Безорилик, Ўғрилик
 let chart;
 
 // Initialize the application
@@ -350,6 +350,109 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function createDonughtChart(){
+        // Yillar va jinoyat turiga ko'ra hisoblash
+        const selectedCrimeType = "Безорилик"; // ← bu yerda jinoyat turini belgilang
+
+        // Yillar va jinoyat turiga ko'ra hisoblash
+        const crimeCounts = {};
+
+        crimeData.forEach(item => {
+            const year = item.date.split(".")[2]; // 'dd.mm.yyyy' formatdan yil ajratish
+            const crime = item.crime_type;
+
+            if (!crimeCounts[crime]) crimeCounts[crime] = {};
+            if (!crimeCounts[crime][year]) crimeCounts[crime][year] = 0;
+
+            crimeCounts[crime][year]++;
+        });
+
+        // Unikal yillarni olish
+        const allYears = Array.from(
+            new Set(crimeData.map(item => item.date.split(".")[2]))
+        ).sort();
+
+        const series = Object.keys(crimeCounts).map(crime => {
+            return {
+                name: crime,
+                data: allYears.map(year => crimeCounts[crime][year] || 0)
+            };
+        });
+
+        const options = {
+            chart: {
+                type: 'bar',
+                height: 400
+            },
+            toolbar: {
+                tools: {
+                    download: false,
+                    selection: true,
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                    pan: false,
+                    reset: false
+                }
+            },
+            series: series,
+            xaxis: {
+                categories: allYears,
+                title: {
+                    text: 'Йиллар',
+                    style: {
+                        color: '#ffffff'
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: '#ffffff'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: 'Жиноятлар сони',
+                    style: {
+                        color: '#ffffff'
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: '#ffffff'
+                    }
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    dataLabels: {
+                        position: 'top'
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: true
+            },
+            legend: {
+                show: true,
+                showForSingleSeries: true,
+                position: 'bottom'
+            },
+            title: {
+                text: 'Безорилик жиноятлари йиллар бўйича',
+                align: 'center',
+                style: {
+                    color: '#ffffff',                    
+                }
+            }
+        };
+
+        // 4. Grafikni chiqarish
+        chart = new ApexCharts(document.querySelector("#crime_types_date_neighborhood"), options);
+        chart.render();
+    }
+
     function applyFilters() {
         const filteredData = filterData();
         // updateStats(filteredData);
@@ -365,15 +468,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     legendModal = new bootstrap.Modal(document.getElementById('legendModal'));
     
-    // document.addEventListener('click', function(e) {
-    //     if (e.target.closest('.apexcharts-legend-series')) {
-    //         const seriesName = e.target.closest('.apexcharts-legend-series')
-    //                           .querySelector('.apexcharts-legend-text').textContent;
-    //         showCrimeModal(seriesName);
-    //         console.log('showCrimeModal function was called');            
-    //     }
-    // });
-    
     // Add this to your existing event listeners
     document.getElementById('predictions-tab').addEventListener('shown.bs.tab', function() {
         initPredictionTab();
@@ -382,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     addEventListeners();
     // applyFilters(); // Show initial data
+    createDonughtChart();
 
     // AI advice
     function aiAdvice(targetCrimeType) {              
@@ -2538,16 +2633,3 @@ function init() {
     map.geoObjects.add(myPolygon);
     // map.container.enterFullscreen();
 }
-
-// function closeLegendModal() {
-//     const modalEl = document.getElementById('legendModal');
-//     const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-//     modal.hide();
-// }
-
-const modalElement = document.getElementById('legendModal');
-const modal = new bootstrap.Modal(modalElement, {
-    backdrop: 'static',   // tashqi kliklarda yopilmasin
-    keyboard: false       // Escape tugmasi bilan ham yopilmasin
-});
-// modal.show();

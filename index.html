@@ -694,6 +694,7 @@
             transition: all 0.3s ease;
             position: relative;
             margin-right: 0.25rem;
+            text-transform: capitalize;
         }
 
         .modal-navbar .nav-link:hover {
@@ -1524,6 +1525,11 @@
             </button>
             
             <div class="p-3">
+                <div class="nav-item" data-card="demographic">
+                    <i class="nav-item-icon fas fa-users"></i>
+                    <span class="nav-item-text">Демографик маълумотлар</span>
+                </div>
+
                 <div class="nav-item" data-card="mapCard">
                     <i class="nav-item-icon fas fa-map-marker-alt"></i>
                     <span class="nav-item-text">Рақамли хавфсиз маҳалла</span>
@@ -1532,11 +1538,6 @@
                 <div class="nav-item" data-card="crime">
                     <i class="nav-item-icon fas fa-exclamation-triangle"></i>
                     <span class="nav-item-text" data-bs-toggle="dropdown" aria-expanded="false">Жиноятчилик</span>
-                </div>
-                
-                <div class="nav-item" data-card="demographic">
-                    <i class="nav-item-icon fas fa-users"></i>
-                    <span class="nav-item-text">Демографик маълумотлар</span>
                 </div>
                 
                 <div class="nav-item active" data-card="monitoring">
@@ -1632,46 +1633,8 @@
                         });
                        
                         map.geoObjects.add(myPolygon);
-                    }
-                
+                    }                
                 </script>
-
-                    <!-- Map Overlays -->
-                    <!-- <div class="map-overlay">
-                        <div class="overlay-card">
-                            <h6 class="text-gradient mb-2">Камералар</h6>
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <i class="fas fa-video text-primary"></i>
-                                <span>Видеокузатув: <strong>806</strong></span>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <i class="fas fa-user-check text-success"></i>
-                                <span>FaceID: <strong>3509</strong></span>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-camera text-warning"></i>
-                                <span>PTZ: <strong>51</strong></span>
-                            </div>
-                        </div>
-            
-                        <div class="overlay-card">
-                            <h6 class="text-gradient mb-2">Хавфсизлик кўрсатгичи</h6>
-                            <div class="progress-wrapper">
-                                <div class="circle">
-                                    <svg>
-                                        <circle class="circle-bg" cx="30" cy="30" r="25" />
-                                        <circle class="circle-bar" cx="30" cy="30" r="25" 
-                                                style="stroke-dasharray: 157; stroke-dashoffset: 15.7;" />
-                                    </svg>
-                                    <div class="circle-text">95%</div>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Умумий хавфсизлик</div>
-                                    <small class="text-success">+2.5% бугунги кунда</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
 
@@ -1709,196 +1672,7 @@
                             <canvas id="ageGroupChart" class="mt-5"></canvas>
                         </div>
                     </div>
-                  <script>
-                //     function filterByDistrict(other, districtName) {
-                //         return other.filter(item => 
-                //             item["Туман"].toLowerCase().includes(districtName.toLowerCase())
-                //         );
-                //     }
-                //     // 1. Filter for "Олмазор тумани"
-                //     const olmazorResults = filterByDistrict(other, "Миробод");
-                //     // console.log("Миробод туманидаги жиноятлар:", olmazorResults);
-
-                //    // Group data by birth region and count
-                //     const regionCounts = olmazorResults.reduce((acc, item) => {
-                //         const region = item["Тўғилган вилоят"];
-                //         if (region !== undefined){
-                //             acc[region] = (acc[region] || 0) + 1;
-                //         }
-                //         return acc;
-                //     }, {});
-
-                //     // Prepare data for Chart.js
-                //     const regions = Object.keys(regionCounts);
-                //     const counts = Object.values(regionCounts);
-
-                //     // Generate colors dynamically
-                //     const borderColors = regions.map((_, i) => {
-                //         const hue = (i * 360 / regions.length) % 360;
-                //         return `hsl(${hue}, 70%, 50%)`;
-                //     });
-
-                //     // Create line chart
-                //     const ctx = document.getElementById('birthRegionChart').getContext('2d');
-                //     new Chart(ctx, {
-                //         type: 'line',
-                //         data: {
-                //             labels: regions,
-                //             datasets: [{
-                //                 // label: 'Тўғилган вилоят буйича динамика',
-                //                 data: counts,
-                //                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                //                 borderColor: borderColors,
-                //                 borderWidth: 3,
-                //                 pointBackgroundColor: borderColors,
-                //                 pointRadius: 5,
-                //                 pointHoverRadius: 7,
-                //                 tension: 0.3,
-                //                 fill: true
-                //             }]
-                //         },
-                //         options: {
-                //             responsive: true,
-                //             plugins: {
-                //                 legend: {
-                //                     display: false,
-                //                     position: 'top',
-                //                 },
-                //                 title: {
-                //                     display: true,
-                //                     text: 'Вилоят буйича динамика',
-                //                     font: {
-                //                         size: 18
-                //                     },
-                //                     color: 'white'
-                //                 },
-                //                 tooltip: {
-                //                     callbacks: {
-                //                         label: function(context) {
-                //                             return `${context.parsed.y} нафар`;
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             scales: {
-                //                 y: {
-                //                     beginAtZero: true,
-                //                     title: {
-                //                         display: true,
-                //                         // text: 'Сон'
-                //                     },
-                //                     ticks: {
-                //                         color: 'white',
-                //                         stepSize: 1
-                //                     }
-                //                 },
-                //                 x: {
-                //                     ticks: {
-                //                         color: 'white'
-                //                     }
-                //                 }
-                //             },
-                //             animation: {
-                //                 duration: 2000
-                //             }
-                //         }
-                //     });
-                    
-                //     // Group data by age category
-                //     const ageGroups = {};
-                //     olmazorResults.forEach(item => {
-                //         const ageGroup = item[" Ёш тоифаси"];
-                //         if (!ageGroups[ageGroup]) {
-                //             ageGroups[ageGroup] = 0;
-                //         }
-                //         ageGroups[ageGroup]++;
-                //     });
-
-                //     // Sort age groups logically
-                //     const sortedAgeGroups = {
-                //         "15-17 ёш": ageGroups["15-17 ёш"] || 0,
-                //         "18-30 ёш": ageGroups["18-30 ёш"] || 0,
-                //         "31-49 ёш": ageGroups["31-49 ёш"] || 0,
-                //         "50-59 ёш": ageGroups["50-59 ёш"] || 0,
-                //         "60 ёш ва ундан катта": ageGroups["60 ёш ва ундан катта"] || 0
-                //     };
-
-                //     // Prepare chart data
-                //     const labels = Object.keys(sortedAgeGroups);
-                //     const data1 = Object.values(sortedAgeGroups);
-
-                //     // Create bar chart
-                //     const ctx1 = document.getElementById('ageGroupChart').getContext('2d');
-                //     new Chart(ctx1, {
-                    //     type: 'bar',
-                    //     data: {
-                    //         labels: labels,
-                    //         datasets: [{
-                    //             label: 'Сон',
-                    //             data: data1,
-                    //             backgroundColor: [
-                    //                 'rgba(54, 162, 235, 0.7)',
-                    //                 'rgba(255, 99, 132, 0.7)',
-                    //                 'rgba(75, 192, 192, 0.7)',
-                    //                 'rgba(153, 102, 255, 0.7)'
-                    //             ],
-                    //             borderColor: [
-                    //                 'rgba(54, 162, 235, 1)',
-                    //                 'rgba(255, 99, 132, 1)',
-                    //                 'rgba(75, 192, 192, 1)',
-                    //                 'rgba(153, 102, 255, 1)'
-                    //             ],
-                    //             borderWidth: 1
-                    //         }]
-                    //     },
-                    //     options: {
-                    //         responsive: true,
-                    //         plugins: {
-                    //             legend: {
-                    //                 display: false
-                    //             },
-                    //             title: {
-                    //                 display: true,
-                    //                 text: 'Ёш гуруҳлари буйича динамика',
-                    //                 font: {
-                    //                     size: 16
-                    //                 },
-                    //                 color: 'white'
-                    //             },
-                    //             tooltip: {
-                    //                 callbacks: {
-                    //                     label: function(context) {
-                    //                         return `${context.parsed.y} нафар`;
-                    //                     }
-                    //                 }
-                    //             }
-                    //         },
-                    //         scales: {
-                    //             y: {
-                    //                 beginAtZero: true,
-                    //                 title: {
-                    //                     display: true,
-                    //                     // text: 'Сон'
-                    //                 },
-                    //                 ticks: {
-                    //                     precision: 0,
-                    //                     color: 'white'
-                    //                 }
-                    //             },
-                    //             x: {
-                    //                 // title: {
-                    //                 //     display: true,
-                    //                 //     text: 'Ёш тоифаси'
-                    //                 // },
-                    //                 ticks: {
-                    //                     color: 'white'
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // });
-                    // *****************************************************************
-                    
+                  <script>   
                     ymaps.ready(init);
             
                     function init() {
@@ -2956,8 +2730,6 @@
 
                                 mapInstance.setBounds(bounds, { checkZoomRange: true, duration: 300 });
                                 mapInstance.setCenter(center, mapInstance.getZoom(), { duration: 300 });
-
-                                // filterByDistrict(name);
                             });
                             
                             return {
@@ -3456,7 +3228,7 @@
                 </div>
                 <div class="card-body">                
                     <div class="col-12">
-                        <div class="mx-auto d-flex gap-2 px-5">
+                        <div class="mx-auto d-flex gap-2 px-5 mb-3">
                             <select id="yearSelect" class="form-control">
                                 <option value="">Барча йиллар</option>
                             </select>
@@ -3912,7 +3684,7 @@
                 });
             </script>
             <!-- Updated Map Script Section -->
-        </main>
+        </main>         
     </div>
 
     <div class="modal fade" id="legendModal" tabindex="-1" aria-labelledby="legendModalLabel" aria-hidden="true">
@@ -4353,7 +4125,6 @@
     <script src="js/data3.js"></script>
     <script src="js/script.js"></script>
     <script src="js/data2.js"></script>
-    <!-- <script src="js/other.js"></script> -->
     <script src="js/chilonzor-map.js"></script>
 </body>
 </html>
