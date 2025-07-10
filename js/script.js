@@ -382,7 +382,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const options = {
             chart: {
                 type: 'bar',
-                height: 400
+                height: 400,
+                events: {
+                    dataPointSelection: function(event, chartContext, config) {
+                        // const seriesIndex = config.seriesIndex;
+                        const dataPointIndex = config.dataPointIndex;
+                        const category = config.w.config.xaxis.categories[dataPointIndex];
+                        // const value = config.w.config.series[seriesIndex].data[dataPointIndex];
+
+                        document.getElementById('yearSelect').value = category;
+                        applyFilters();
+                    }
+                }
             },
             toolbar: {
                 tools: {
@@ -435,9 +446,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 enabled: true
             },
             legend: {
-                show: true,
-                showForSingleSeries: true,
-                position: 'bottom'
+                show: false,
+                // showForSingleSeries: false,
+                // position: 'bottom'
             },
             title: {
                 text: 'Безорилик жиноятлари йиллар бўйича',
@@ -946,7 +957,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 neighborhood: "Қозиробод",
                 day: "Жума",
                 time: "18:00-22:00",
-                crimeType: "Ўғирлик жиноятлари",
+                // crimeType: "Ўғирлик жиноятлари",
                 probability: 85,
                 expectedCount: "3-5 та",
                 recentCases: "12 та (соңги 4 хафтада)",
@@ -968,7 +979,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 neighborhood: "Бешёғоч",
                 day: "Душанба",
                 time: "06:00-12:00",
-                crimeType: "Безорилик",
+                // crimeType: "Безорилик",
                 probability: 45,
                 expectedCount: "1 та",
                 recentCases: "5 та (соңги 4 хафтада)",
@@ -979,7 +990,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 neighborhood: "Меҳржон",
                 day: "Чоршанба",
                 time: "00:00-06:00",
-                crimeType: "Қотиллик",
+                // crimeType: "Қотиллик",
                 probability: 75,
                 expectedCount: "1 та",
                 recentCases: "3 та (соңги 4 хафтада)",
@@ -1026,10 +1037,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="prediction-title">${pred.neighborhood} маҳалласи, ${pred.day} күни, ${pred.time}</div>
                 </div>
                 <div class="prediction-content">
-                    <div class="prediction-crime">
-                        <i class="bi ${pred.riskLevel === 'high' ? 'bi-exclamation-triangle-fill' : 'bi-exclamation-triangle'}"></i>
-                        <span>${pred.crimeType}</span>
-                    </div>
                     <div class="prediction-stats">
                         <div class="prediction-stat">
                             <span class="stat-label">Эҳтимоллик:</span>
@@ -2509,6 +2516,11 @@ function init() {
         dp.polygon.options.set('strokeColor', '#000');
     });
 
+    // Katta to‘rtburchak (dunyo xaritasi)
+    // const worldCoords = [
+    //     [[-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180]]
+    // ];
+
     var chilonzorBorders = [
         [41.222547, 69.174469],
         [41.225128, 69.171908],
@@ -2632,4 +2644,12 @@ function init() {
 
     map.geoObjects.add(myPolygon);
     // map.container.enterFullscreen();
+
+    // Invers poligon: tashqi kontur - dunyo, ichki kontur - sizning poligon
+    // const maskPolygon = new ymaps.Polygon([worldCoords[0], chilonzorBorders], {}, {
+    //     fillColor: 'rgba(0, 0, 0, 0.8)', // Qoraytirilgan rang
+    //     strokeWidth: 0
+    // });
+
+    // map.geoObjects.add(maskPolygon);
 }
