@@ -2705,6 +2705,11 @@ function startAIAnalysis() {
 
 function showRecommendations() {
     const cards = ['highPriorityCard', 'mediumPriorityCard', 'lowPriorityCard'];
+
+    cards.forEach((cardId, index) => {
+        const card = document.getElementById(cardId);
+        card.classList.remove('show');
+    });
     
     cards.forEach((cardId, index) => {
         setTimeout(() => {
@@ -2767,6 +2772,7 @@ function proveRecommendation() {
     document.getElementById('aiRecommadation').classList.add('col-lg-6');
     document.getElementById('recProve').classList.toggle('d-none');
     document.getElementById('getBackBtn').classList.toggle('d-none');
+    // showRecommendations('recProve')
 }
 
 function reverseRecommendation() {
