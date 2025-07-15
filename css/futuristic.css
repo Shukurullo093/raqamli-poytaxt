@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../offline_modules/Michroma/Michroma/Michroma-Regular.ttf') format('truetype'),;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +10,7 @@
 }
 
 body {
-    font-family: 'Courier New', monospace;
+    font-family: 'Times New Roman', Times, serif;
     background: #003539;
     color: #00ffff;
     overflow-x: hidden;
@@ -90,13 +95,20 @@ body {
     position: relative;
 }
 
-.logo img {
+/* .logo img {
     border-radius: 50%;
     box-shadow: 0 0 10px #00ffff;
     animation: glow 2s ease-in-out infinite alternate;
+} */
+.nav-container p {
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-left: .5rem;
 }
 
 .hero-title {
+    font-family: Orbitron;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -104,13 +116,14 @@ body {
     margin: 0;
     font-size: 44px;
     text-transform: capitalize;
+    letter-spacing: 2px;
 }
 
 /* Main Content */
 .main-content {
     position: relative;
     z-index: 5;
-    max-width: 95%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -351,6 +364,7 @@ body {
     font-size: 24px;
     margin: 0;
     text-shadow: 0 0 10px #00ffff;
+    text-transform: capitalize;
 }
 
 .modal-close {
@@ -375,12 +389,58 @@ body {
     color: #00ffff;
     line-height: 1.6;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 15px;
 }
 
 .modal-content .menu-card{
-    grid-column-end: span 2;
+    grid-column-end: span 1;
     grid-row-end: span 1;
+    position: relative;
+    border: 2px solid white;
+    border-left: 8px solid white;
+    padding: 1rem .8rem;
+    font-size: 1.2rem;
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) 100%, 
+        0 100%, 
+        0 0
+    );
+    z-index: 1;
+    transition: .3s ease all;
+}
+.modal-content .menu-card:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+}
+/* Shine line */
+.shine {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.5) 50%, transparent 55%);
+  transform: translate(-100%, -100%);
+  pointer-events: none;
+  animation: none;
 }
 
+/* Activate animation on hover */
+.modal-content .menu-card:hover .shine {
+  animation: shine-effect 1s linear 1;
+}
+
+/* Shine animation */
+@keyframes shine-effect {
+  0% {
+    transform: translate(-100%, -100%);
+  }
+  100% {
+    transform: translate(100%, 100%);
+  }
+}
