@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="offline_modules/bootstrap-5.3.6-dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="offline_modules/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet" href="css/futuristic.css">
     <title>Futuristic Interface</title>
@@ -43,22 +44,296 @@
     <main class="main-content">
         <section class="features">
             <div class="feature-card">
-                <h3 class="feature-title">raqamli xavfsiz mahalla</h3>
+                <h3 class="feature-title">Демографик маълумотлар</h3>
                 <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
             </div>
-            <!-- <div class="feature-card">
-                <h3 class="feature-title">Quantum Processing</h3>
-                <p class="feature-description">Harness the power of quantum computing for unprecedented processing speeds and complex calculations in real-time.</p>
-            </div> -->
-            <!-- <div class="feature-card">
-                <h3 class="feature-title">Holographic Display</h3>
-                <p class="feature-description">Immersive 3D interfaces that project information directly into your visual field, revolutionizing how we interact with data.</p>
-            </div> -->
+            <div class="feature-card active">
+                <h3 class="feature-title">Хавф мониторинги</h3>
+                <div class="d-flex-row">
+                    <div class="card-group">
+                        <div class="card-wrapper ai-result-btn active">
+                            <div class="card-content">
+                                Умумий кўриниш
+                            </div>
+                        </div>
+                        <div class="card-wrapper ai-result-btn">
+                            <div class="card-content">
+                                Башаротлар
+                            </div>
+                        </div>
+                        <div class="card-wrapper ai-result-btn">
+                            <div class="card-content">
+                                Вақт таҳлили
+                            </div>
+                        </div>
+                        <div class="card-wrapper ai-result-btn">
+                            <div class="card-content">
+                                Жойлашув таҳлили
+                            </div>
+                        </div>
+                        <div class="card-wrapper ai-result-btn">
+                            <div class="card-content">
+                                Олдини олиш чоралари
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="ai-result-card-wrapper">
+                        <div class="card-wrapper ai-result-card active">
+                            <div class="card-content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quos necessitatibus quae excepturi praesentium minus cum natus et impedit sint. 1
+                            </div>
+                        </div> 
+                        <div class="card-wrapper ai-result-card">
+                            <div class="card-content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quos necessitatibus quae excepturi praesentium minus cum natus et impedit sint. 2
+                            </div>
+                        </div> 
+                        <div class="card-wrapper ai-result-card">
+                            <div class="card-content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quos necessitatibus quae excepturi praesentium minus cum natus et impedit sint. 3
+                            </div>
+                        </div> 
+                        <div class="card-wrapper ai-result-card">
+                            <div class="card-content">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quos necessitatibus quae excepturi praesentium minus cum natus et impedit sint. 4
+                            </div>
+                        </div> 
+                        <div class="card-wrapper ai-result-card">
+                            <div class="card-content">
+                                <div class="initial-state" id="initialState">
+                                    <button class="btn get-recommendations-btn" onclick="startAIAnalysis()">
+                                        <i class="bi bi-lightning-fill me-2"></i>
+                                        Тавсия олиш
+                                    </button>
+                                </div>
+                                
+                                <!-- AI Processing State -->
+                                <div class="ai-processing" id="aiProcessing">
+                                    <div class="d-flex-row">
+                                        <!-- AI Visual (40%) -->
+                                        <div class="col-lg-4 col-md-12" id="aianimation">
+                                            <div class="ai-visual h-100">
+                                                <i class="fa-solid fa-arrow-rotate-left d-none" onclick="startAIAnalysis()"></i>
+                                                <div class="orb-container">
+                                                    <div class="outer-ring"></div>
+                                                    <div class="orb"></div>
+                                                    
+                                                    <div class="particles">
+                                                        <div class="particle"></div>
+                                                        <div class="particle"></div>
+                                                        <div class="particle"></div>
+                                                        <div class="particle"></div>
+                                                        <div class="particle"></div>
+                                                        <div class="particle"></div>
+                                                    </div>
+                                                    
+                                                    <div class="energy-waves">
+                                                        <div class="wave"></div>
+                                                        <div class="wave"></div>
+                                                        <div class="wave"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="ai-status">
+                                                    <span id="aiStatusText">Maълумотлар таҳлил қилинмоқда...</span>
+                                                    <!-- <div class="typing-cursor"></div> -->
+                                                    <button class="btn get-recommendations-proof-btn d-none" onclick="proveRecommendation()">
+                                                        <i class="bi bi-lightning-fill me-2"></i>
+                                                        Тавсияларни асослаш
+                                                    </button>
+                                                </div>                                    
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Recommendations (60%) -->
+                                        <div class="col-lg-8 col-md-12" id="aiRecommadation">
+                                            <div class="recommendations-panel h-100">
+                                                <h4 class="text-light mb-4">
+                                                    <i class="bi bi-shield-check me-2"></i>
+                                                    AI Тавсиялар
+                                                </h4>
+                                                
+                                                <!-- High Priority -->
+                                                <div class="priority-card priority-high" id="highPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-exclamation-triangle-fill"></i>
+                                                        <h5>Дарҳол амалга ошириш керак</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="highPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Қозиробод маҳалласида 18:00-22:00 оралиғида қўшимча патруллашни ташкил этиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳалланинг хавфли жойларига қўшимча кузатув камераларини ўрнатиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Нурлантириш тизимини яхшилаш"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <!-- Medium Priority -->
+                                                <div class="priority-card priority-medium" id="mediumPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-clock-fill"></i>
+                                                        <h5>Қисқа муддатли чоралар</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="mediumPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳалла фаоллари билан жиноятларни олдини олиш бўйича йиғилиш ўтказиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Ёшлар орасида профилактик ишларни кучайтириш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Хавфсизлик бўйича эслатмаларни тарқатиш"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <!-- Low Priority -->
+                                                <div class="priority-card priority-low" id="lowPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-calendar-check-fill"></i>
+                                                        <h5>Узоқ муддатли чоралар</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="lowPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳаллада ишсизларни иш билан таъминлаш дастурларини ишга солиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Ёшлар учун спорт майдончалари ва ижтимоий марказларни барпо этиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Оилавий муаммоларни ҳал этиш бўйича консултация марказларини ташкил этиш"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 d-none" id="recProve">
+                                            <div class="recommendations-panel h-100">
+                                                <h4 class="text-light mb-4">
+                                                    <i class="bi bi-shield-check me-2"></i>
+                                                    Тавсия бериш учун асослар
+                                                </h4>
+                                                
+                                                <!-- High Priority -->
+                                                <div class="priority-card priority-high" id="highPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-exclamation-triangle-fill"></i>
+                                                        <h5>Дарҳол амалга ошириш керак</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="highPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Қозиробод маҳалласида 18:00-22:00 оралиғида қўшимча патруллашни ташкил этиш">Қозиробод маҳалласида энг кўп безорилик жинояти содир бўлмоқда</span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳалланинг хавфли жойларига қўшимча кузатув камераларини ўрнатиш">18:00-22:00 оралиғида энг кўп безорилик жинояти содир бўлмоқда</span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Нурлантириш тизимини яхшилаш">Тунда содир бўлган жиноятларни камералар орқали аниқлаш имконсиз</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <!-- Medium Priority -->
+                                                <div class="priority-card priority-medium" id="mediumPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-clock-fill"></i>
+                                                        <h5>Қисқа муддатли чоралар</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="mediumPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳалла фаоллари билан жиноятларни олдини олиш бўйича йиғилиш ўтказиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Ёшлар орасида профилактик ишларни кучайтириш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Хавфсизлик бўйича эслатмаларни тарқатиш"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <!-- Low Priority -->
+                                                <div class="priority-card priority-low" id="lowPriorityCard">
+                                                    <div class="priority-header">
+                                                        <i class="bi bi-calendar-check-fill"></i>
+                                                        <h5>Узоқ муддатли чоралар</h5>
+                                                    </div>
+                                                    <ul class="prevention-list" id="lowPriorityList">
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Маҳаллада ишсизларни иш билан таъминлаш дастурларини ишга солиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Ёшлар учун спорт майдончалари ва ижтимоий марказларни барпо этиш"></span>
+                                                        </li>
+                                                        <li class="prevention-item">
+                                                            <i class="bi bi-check-circle-fill prevention-item-icon"></i>
+                                                            <span class="prevention-item-text" data-text="Оилавий муаммоларни ҳал этиш бўйича консултация марказларини ташкил этиш"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <button type="button" class="btn get-back col-2 offset-5 mt-2 d-none" id="getBackBtn" onclick="reverseRecommendation()">Ортга қайтиш</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>                    
+                </div>                            
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Рақамли хавфсиз маҳалла</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Жиноятчилик</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Шахсий назорат</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Маъмурий ҳуқуқбузарликлар</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">E-материал мониторинги</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Профилактик тадбирлар</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-title">Таркибий платформалар</h3>
+                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+            </div>
         </section>
     </main>
 
     <!-- Modal Trigger Button -->
-    <i class="fa-solid fa-caret-up modal-trigger" onclick="openModal()"></i>
+    <img src="images/chevron-up-solid.svg" class="modal-trigger" width="45" onclick="openModal()">
 
     <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
@@ -68,19 +343,19 @@
             <button class="modal-close" onclick="closeModal()">×</button>
         </div>
         <div class="modal-content">
-            <div class="menu-card">  <div class="shine"></div>Демографик маълумотлар</div>
-            <div class="menu-card">Хавф мониторинги</div>
-            <div class="menu-card">Рақамли хавфсиз маҳалла</div>
-            <div class="menu-card">Жиноятчилик</div>
-            <div class="menu-card">Шахсий назорат</div>
-            <div class="menu-card">Маъмурий ҳуқуқбузарликлар</div>
-            <div class="menu-card">E-материал мониторинги</div>
-            <div class="menu-card">Профилактик тадбирлар</div>
-            <div class="menu-card">Таркибий платформалар</div>
+            <div class="menu-card"><div class="shine"></div>Демографик маълумотлар</div>
+            <div class="menu-card active"><div class="shine"></div>Хавф мониторинги</div>
+            <div class="menu-card"><div class="shine"></div>Рақамли хавфсиз маҳалла</div>
+            <div class="menu-card"><div class="shine"></div>Жиноятчилик</div>
+            <div class="menu-card"><div class="shine"></div>Шахсий назорат</div>
+            <div class="menu-card"><div class="shine"></div>Маъмурий ҳуқуқбузарликлар</div>
+            <div class="menu-card"><div class="shine"></div>E-материал мониторинги</div>
+            <div class="menu-card"><div class="shine"></div>Профилактик тадбирлар</div>
+            <div class="menu-card"><div class="shine"></div>Таркибий платформалар</div>
         </div>
-        <div class="modal-resize-handle"></div>
     </div>
 
+    <!-- <script src="offline_modules/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="js/futuristic.js"></script>
 </body>
 </html>
