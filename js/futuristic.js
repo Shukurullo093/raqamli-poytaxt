@@ -4,6 +4,16 @@ const aiResultBtns = document.querySelectorAll('.ai-result-btn');
 const aiResultCards = document.querySelectorAll('.ai-result-card');
 let isAnalyzing = false;
 let statusInterval = null;
+let crimeData = data3.filter(item => item.crime_type === "Безорилик"); //Безорилик, Ўғрилик
+let chart;
+const months = [
+    'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
+    'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
+];
+const krillMonth = [
+    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентабрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+]
 
 function openModal() {
     document.getElementById('modalOverlay').classList.add('active');
@@ -183,22 +193,7 @@ function reverseRecommendation() {
 // ##################################################
 // crime section charts begin
 // ##################################################
-
-let crimeData = data3.filter(item => item.crime_type === "Безорилик"); //Безорилик, Ўғрилик
-let chart;
-
-// Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    const months = [
-        'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
-        'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
-    ];
-
-    const krillMonth = [
-        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентабрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-    ]
-
     function parseDate(dateStr) {
         const [day, month, year] = dateStr.split('.');
         return new Date(year, month - 1, day);
@@ -666,9 +661,108 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initializeFilters();
     addEventListeners();
-    // applyFilters(); // Show initial data
     createDonughtChart();
 });
 // ##################################################
 // crime section charts end
+// ##################################################
+
+// ##################################################
+// dangerous monitoring section begin
+// ##################################################
+function createGeneralCrimeBarChart(){
+    const crime2025 = crimeData.filter(crime => {
+        const year = crime.date.split('.')[2]
+        return year === new Date().getFullYear().toString()
+    })
+    // console.log(crime2025);
+    const groupedByMonth = {}
+    crime2025.forEach(crime => {
+        const month = crime.date.split('.')[1]
+        if (month in groupedByMonth) {
+            groupedByMonth[month] = groupedByMonth[month] + 1
+        } else {
+            groupedByMonth[month] = 1
+        }
+    })
+    // console.log(groupedByMonth);
+    const categories = Object.keys(groupedByMonth).map(index => {
+        return krillMonth[parseInt(index) - 1];
+    });
+    // console.log(categories);    
+    const options = {
+        chart: {
+            type: 'bar',
+            height: 550
+        },
+        series: [{
+            name: 'Jami',
+            data: Object.values(groupedByMonth)
+        }],
+        xaxis: {
+            categories: categories,
+            title: {
+                text: 'Ойлар номи',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    colors: '#ffffff'
+                }
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Жиноятлар сони',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    colors: '#ffffff'
+                }
+            },
+        },
+        colors: ['#4ECDC4'],
+        tooltip: {
+            enabled: true,
+            enabledOnSeries: undefined,
+            shared: true,
+            followCursor: false,
+            intersect: false,
+            inverseOrder: false,
+            custom: undefined,
+            hideEmptySeries: true,
+            fillSeriesColor: false,
+            theme: false,
+            style: {
+                fontSize: '14px'
+            },
+            onDatasetHover: {
+                highlightDataSeries: false,
+            },
+            y: {
+                formatter:(value) => `${value} ta`,
+            },
+            marker: {
+                show: true,
+            },
+            fixed: {
+                enabled: false,
+                position: 'topRight',
+                offsetX: 0,
+                offsetY: 0,
+            },
+        }
+    };
+
+    const chart = new ApexCharts(document.querySelector("#generalCrimeBarChart"), options);
+    chart.render();
+}
+createGeneralCrimeBarChart()
+// ##################################################
+// dangerous monitoring section end
 // ##################################################

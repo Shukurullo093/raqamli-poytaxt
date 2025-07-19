@@ -9,3 +9,10 @@
 
 -jinoyatni hozirgi yil ma'lumotlariga asoslangan holda prognoz qilish, o'tgan yillardan statistika ma'lumotlarini olish
 -tavsiya berish va uni asoslab berish
+
+# umumiy ko'rinish
+bezorilik bo'yicha 2025 yilgi statistika bar chartda (oylar kesimida)
+
+basharotlar o'chiriladi
+yosh tahlili bo'ladi
+

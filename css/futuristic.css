@@ -253,6 +253,7 @@ body {
 .d-flex-row {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
 }
@@ -286,7 +287,37 @@ body {
 
 .feature-card .card-group .card-wrapper.active{
     padding: 3px;
-    /* font-style: italic; */
+}
+
+.feature-card .card-wrapper.border-left{
+    border-left: 3px solid white;
+}
+
+.feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row .card-content {
+    padding-bottom: 10px;
+    row-gap: 15px;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
+    transition: .3s ease all;
+}
+
+.feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row .card-content:hover{
+    cursor: pointer;
+    transform: translateY(2px);
+}
+
+.feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row .card-content i{
+    font-size: 26px;
+}
+
+.feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row #generalCrimeBarChart {
+    width: 70%;
+}
+
+.apexcharts-tooltip {
+  color: blue;
 }
 
 .feature-card .card-wrapper .card-content {
