@@ -12,7 +12,10 @@
 
 # umumiy ko'rinish
 bezorilik bo'yicha 2025 yilgi statistika bar chartda (oylar kesimida)
+5 ta boshqa jinoyat turlari bilan line graphda taqqoslash
 
 basharotlar o'chiriladi
 yosh tahlili bo'ladi
+
+
 

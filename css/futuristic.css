@@ -3,6 +3,21 @@
   src: url('../offline_modules/Michroma/Michroma/Michroma-Regular.ttf') format('truetype'),;
 }
 
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --dark-bg: #0f172a;
+    --card-bg: #1e293b;
+    --sidebar-bg: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #475569;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +26,8 @@
 
 body {
     font-family: 'Times New Roman', Times, serif;
-    background: #003539;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     color: #00ffff;
     overflow-x: hidden;
     min-height: 100vh;
@@ -84,6 +100,7 @@ body {
     border-bottom: 2px solid #00ffff;
     backdrop-filter: blur(10px);
     background: rgba(0, 53, 57, 0.8);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
 }
 
 .nav-container {
@@ -150,7 +167,7 @@ body {
 
 .cta-button:hover {
     background: #00ffff;
-    color: #003539;
+    color: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
 }
 
@@ -298,8 +315,6 @@ body {
     row-gap: 15px;
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
-    /* justify-content: space-between; */
     transition: .3s ease all;
 }
 
@@ -313,7 +328,7 @@ body {
 }
 
 .feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row #generalCrimeBarChart {
-    width: 70%;
+    width: 50%;
 }
 
 .apexcharts-tooltip {
@@ -323,7 +338,7 @@ body {
 .feature-card .card-wrapper .card-content {
     width: 100%;
     padding: 25px 20px;
-    background: #003539;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     clip-path: polygon(
         0 0,
         100% 0,
@@ -421,6 +436,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     backdrop-filter: blur(5px);
     z-index: 1001;
     opacity: 0;
@@ -442,6 +458,7 @@ body {
     max-width: 80%;
     height: 40vh;
     background: rgba(0, 53, 57, 0.95);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     border: 2px solid #00ffff;
     border-bottom: none;
     backdrop-filter: blur(10px);
@@ -486,7 +503,7 @@ body {
 
 .modal-close:hover {
     background: #00ffff;
-    color: #003539;
+    color: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     transform: rotate(90deg);
 }
 
@@ -594,7 +611,7 @@ body {
     border: none;
     padding: 1rem 2rem;
     border-radius: 50px;
-    color: #003539;
+    color: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
     font-size: 1.2rem;
     font-weight: 600;
     transition: all 0.3s ease;

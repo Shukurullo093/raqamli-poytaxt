@@ -763,6 +763,94 @@ function createGeneralCrimeBarChart(){
     chart.render();
 }
 createGeneralCrimeBarChart()
+
+function groupByTimePeriods(data) {
+    const timePeriods = {
+        "00:00-06:00": 0,
+        "06:00-12:00": 0,
+        "12:00-18:00": 0,
+        "18:00-24:00": 0
+    };
+    
+    data.forEach(item => {
+        const time = item.time;
+        const hour = parseInt(time.split(':')[0]);
+        
+        if (hour >= 0 && hour < 6) {
+            timePeriods["00:00-06:00"]++;
+        } else if (hour >= 6 && hour < 12) {
+            timePeriods["06:00-12:00"]++;
+        } else if (hour >= 12 && hour < 18) {
+            timePeriods["12:00-18:00"]++;
+        } else if (hour >= 18 && hour < 24) {
+            timePeriods["18:00-24:00"]++;
+        }
+    });
+    
+    return timePeriods;
+}
+// console.log(groupByTimePeriods(crimeData));
+
+function renderTimePatternChart(crimeData) {
+    const timeCategories = Object.keys(groupByTimePeriods(crimeData));
+    const timeData = timeCategories.map(key => groupByTimePeriods(crimeData)[key]);
+    
+    const options = {
+        series: [{
+            name: 'Jami',
+            data: timeData
+        }],
+        chart: {
+            type: 'bar',
+            height: 550,
+            toolbar: {
+                show: true
+            }
+        },
+        colors: ['#4ECDC4'],
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: false,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: timeCategories,
+            labels: {
+                style: {
+                    colors: '#fff'
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: '#fff'
+                }
+            },
+            title: {
+                text: 'Жиноятлар сони',
+                style: {
+                    color: '#fff'
+                }
+            }
+        },
+        tooltip: {
+            enabled: true
+        },
+        grid: {
+            borderColor: '#556d8f',
+            strokeDashArray: 4
+        }
+    };
+    
+    const chart = new ApexCharts(document.querySelector("#timePatternChart"), options);
+    chart.render();
+}
+renderTimePatternChart(crimeData)
 // ##################################################
 // dangerous monitoring section end
 // ##################################################
