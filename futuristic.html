@@ -47,7 +47,7 @@
                 <h3 class="feature-title">Демографик маълумотлар</h3>
                 <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
             </div>
-            <div class="feature-card active">
+            <div class="feature-card">
                 <h3 class="feature-title">Хавф мониторинги</h3>
                 <div class="d-flex-row">
                     <div class="card-group">
@@ -305,9 +305,20 @@
                 <h3 class="feature-title">Рақамли хавфсиз маҳалла</h3>
                 <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card active">
                 <h3 class="feature-title">Жиноятчилик</h3>
-                <p class="feature-description">Advanced AI-powered systems that learn and adapt to user behavior, providing personalized experiences across all digital touchpoints.</p>
+                <div class="d-flex mx-auto">
+                    <select id="yearSelect" class="form-control">
+                        <option value="">Барча йиллар</option>
+                    </select>
+                    <select id="monthSelect" class="form-control">
+                        <option value="">Барча ойлар</option>
+                    </select>
+                    <select id="neighborhoodSelect" class="form-control">
+                        <option value="">Чилонзор тумани</option>
+                    </select>
+                </div>                        
+                <div id="crime_types_date_neighborhood" style="margin-top: 1rem;"></div>
             </div>
             <div class="feature-card">
                 <h3 class="feature-title">Шахсий назорат</h3>
@@ -333,7 +344,7 @@
     </main>
 
     <!-- Modal Trigger Button -->
-    <img src="images/chevron-up-solid.svg" class="modal-trigger" width="45" onclick="openModal()">
+    <img src="images/chevron-up-solid.svg" class="modal-trigger" width="40" onclick="openModal()">
 
     <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
@@ -344,9 +355,9 @@
         </div>
         <div class="modal-content">
             <div class="menu-card"><div class="shine"></div>Демографик маълумотлар</div>
-            <div class="menu-card active"><div class="shine"></div>Хавф мониторинги</div>
+            <div class="menu-card"><div class="shine"></div>Хавф мониторинги</div>
             <div class="menu-card"><div class="shine"></div>Рақамли хавфсиз маҳалла</div>
-            <div class="menu-card"><div class="shine"></div>Жиноятчилик</div>
+            <div class="menu-card active"><div class="shine"></div>Жиноятчилик</div>
             <div class="menu-card"><div class="shine"></div>Шахсий назорат</div>
             <div class="menu-card"><div class="shine"></div>Маъмурий ҳуқуқбузарликлар</div>
             <div class="menu-card"><div class="shine"></div>E-материал мониторинги</div>
@@ -356,6 +367,8 @@
     </div>
 
     <!-- <script src="offline_modules/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="offline_modules/apexcharts"></script> 
+    <script src="js/data3.js"></script>
     <script src="js/futuristic.js"></script>
 </body>
 </html>
