@@ -327,7 +327,8 @@ body {
     font-size: 26px;
 }
 
-.feature-card .ai-result-card-wrapper .ai-result-card .d-flex-row #generalCrimeBarChart {
+#generalCrimeBarChart,
+#crimesComparisonLineChart {
     width: 50%;
 }
 
@@ -611,7 +612,7 @@ body {
     border: none;
     padding: 1rem 2rem;
     border-radius: 50px;
-    color: linear-gradient(135deg, var(--dark-bg) 0%, #1a202c 100%);
+    color: black;
     font-size: 1.2rem;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -1123,4 +1124,89 @@ body {
 }
 .d-none{
     display: none;
+}
+
+.apexcharts-tooltip {
+    background: #1e222b !important;
+    border: 1px solid #3498db !important;
+    color: white !important;
+}
+
+.apexcharts-tooltip-title {
+    background: #28396b !important;
+    border-bottom: 1px solid #3498db !important;
+}
+
+.apexcharts-menu {
+    background: #1e222b !important;
+    border: 1px solid #3498db !important;
+}
+
+.apexcharts-menu-item {
+    color: white !important;
+}
+
+.apexcharts-menu-item:hover {
+    background: #28396b !important;
+}
+
+.apexcharts-legend {
+    max-height: 500px !important; /* Oldingi 200px o'rniga 300px */
+    overflow-y: auto !important;
+    padding-right: 10px;
+    /* width: 600px !important; */
+    background: rgba(30, 60, 114, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    /* margin-top: 20px; */
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.apexcharts-legend-series {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 8px !important;
+    padding: 3px 5px !important;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.apexcharts-legend-series:hover {
+    background: rgba(0, 255, 255, 0.1) !important;
+}
+
+.apexcharts-legend-marker {
+    margin-right: 8px !important;
+    /* border: 1px solid rgba(255, 255, 255, 0.5) !important; */
+}
+
+.apexcharts-legend-text {
+    color: #fff !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    max-width: none !important;
+}
+
+/* Scrollbar uchun stil */
+.apexcharts-legend::-webkit-scrollbar {
+    width: 6px;
+}
+
+.apexcharts-legend::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.apexcharts-legend::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.apexcharts-legend::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.5);
 }

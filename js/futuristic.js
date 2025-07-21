@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: 20
                 }
             },
-            colors: ['#3498db', '#e74c3c', '#f1c40f', '#2ecc71', '#9b59b6', 
+            colors: ['#3498db', '#e74c3c', '#f59e0b', '#2ecc71', '#9b59b6', 
                     '#1abc9c', '#d35400', '#34495e', '#e67e22', '#16a085'],
             grid: {
                 borderColor: '#556d8f',
@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     color: '#ffffff',                    
                 }
             },
-            colors: ['#4ECDC4']
+            colors: ['#f59e0b']
         };
 
         // 4. Grafikni chiqarish
@@ -659,9 +659,129 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('neighborhoodSelect').addEventListener('change', applyFilters);
     }
 
+    function crimesComparisonDonutChart() {
+        // 1. Guruhlash: crime_type bo‘yicha nechtaligi hisoblanadi
+        const crimeTypeCounts = data3.reduce((acc, crime) => {
+            acc[crime.crime_type] = (acc[crime.crime_type] || 0) + 1;
+            return acc;
+        }, {});
+
+        // 2. Arrayga aylantirib, soni bo‘yicha kamayish tartibida saralanadi
+        const sortedCrimes = Object.entries(crimeTypeCounts)
+            .map(([crime_type, count]) => ({ crime_type, count }))
+            .sort((a, b) => b.count - a.count);
+
+        // 3. "Безорилик" topiladi, undan boshlab 6 ta olinadi
+        const targetIndex = sortedCrimes.findIndex(crime => crime.crime_type === "Безорилик");
+        const selectedCrimes = targetIndex >= 0
+            ? sortedCrimes.slice(targetIndex, targetIndex + 6)
+            : sortedCrimes.slice(0, 6); // fallback
+
+        // 4. ApexCharts Donut uchun ma’lumot tayyorlanadi
+        const chartData = {
+            series: selectedCrimes.map(c => c.count),
+            labels: selectedCrimes.map(c => c.crime_type),
+        };
+
+        // 5. ApexCharts opsiyalari
+        const chartOptions = {
+            chart: {
+                type: 'donut',
+                height: 550,
+                borderRadius: 20
+            },
+            labels: chartData.labels,
+            // title: {
+            //     text: 'Жиноятлар таркиби (Безорилик ва кейинги 5)',
+            //     align: 'center',
+            //     style: {
+            //         fontSize: '16px'
+            //     }
+            // },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '65%',
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                label: 'Жами',
+                                color: 'white',
+                                formatter: function (w) {
+                                    return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val, opts) {
+                    // const label = opts.w.globals.labels[opts.seriesIndex];
+                    return `${val.toFixed(1)}%`;
+                }
+            },
+            legend: {
+                show: true,
+                position: 'bottom',
+                horizontalAlign: 'left',
+                labels: {
+                    colors: 'white',
+                    useSeriesColors: false
+                },
+            },
+            tooltip: {
+                enabled: true,
+                custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                    const label = w.globals.labels[seriesIndex];
+                    const value = series[seriesIndex];
+
+                    return `
+                        <div style="padding: 10px; width: 300px; white-space: normal; overflow-wrap: break-word; word-break: break-word;">
+                            <strong style="color: #fff; display: block; white-space: normal; overflow-wrap: break-word; word-break: break-word;">
+                            ${label}
+                            </strong>
+                            <span style="color: #ccc;">Jami holatlar:</span> 
+                            <span style="color: #0ff;">${value}</span>
+                        </div>
+                        `;
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 300
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+        // 6. Donut chartni yaratish yoki yangilash
+        if (window.crimesDonutChart) {
+            window.crimesDonutChart.updateOptions(chartOptions);
+            window.crimesDonutChart.updateSeries(chartData.series);
+        } else {
+            window.crimesDonutChart = new ApexCharts(
+                document.querySelector("#crimesComparisonLineChart"),
+                {
+                    ...chartOptions,
+                    series: chartData.series
+                }
+            );
+            window.crimesDonutChart.render();
+        }
+    }
+
     initializeFilters();
     addEventListeners();
     createDonughtChart();
+    crimesComparisonDonutChart();
 });
 // ##################################################
 // crime section charts end
@@ -726,7 +846,7 @@ function createGeneralCrimeBarChart(){
                 }
             },
         },
-        colors: ['#4ECDC4'],
+        colors: ['#f59e0b'],
         tooltip: {
             enabled: true,
             enabledOnSeries: undefined,
@@ -807,7 +927,7 @@ function renderTimePatternChart(crimeData) {
                 show: true
             }
         },
-        colors: ['#4ECDC4'],
+        colors: ['#f59e0b'],
         plotOptions: {
             bar: {
                 borderRadius: 4,
