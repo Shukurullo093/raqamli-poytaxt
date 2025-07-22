@@ -1,6 +1,6 @@
 #   jinoyatning oldini olish u-n jinoyatni tahlil qilish
 -inspektorning kuzatuv lokatsiyasini maxsus gps tracker dasturi orqali aniqlab bazaga saqlash, u asosida hududlardagi kuzatuvdan chetda qolgan nuqtalarni aniqlash
--jinoyatni sodir etayotganlarni yosh jihatdan guruhlarga ajratish
+-jinoyatni sodir etayotganlarni yosh jihatdan guruhlarga ajratish( jinoyatni sodir etganlarni tug'ilgan kunlari aniq emas)
 -jinoyat sodir etilish vaqtlarini aniqlash(max - nega bu vaqtda jinoyat eng ko'p sodir etilmoqda, min - nega bu vaqtda eng kam)
 -jinoyat sodir bo'lgan hududlarni aniqlash(max/min)
 -jinoyat sodir bo'lgan hudud va vaqtlarni bog'lash
